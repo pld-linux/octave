@@ -1,60 +1,1041 @@
---- Makeconf.in	Tue Jul 11 15:34:45 2000
-+++ Makeconf.in.new	Tue Jul 11 15:10:55 2000
-@@ -151,45 +151,45 @@
- # subdirectories of this directory.  The default values for many of
- # the variables below are expressed in terms of this one, so you may
- # not need to change them.  This defaults to /usr/local.
--prefix = @prefix@
-+prefix = $(DESTDIR)@prefix@
+diff -Nru octave-2.1.33/Makeconf.in octave-2.1.33.new/Makeconf.in
+--- octave-2.1.33/Makeconf.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/Makeconf.in	Thu Jan 25 08:44:07 2001
+@@ -314,7 +314,7 @@
+ 	@mv $@.tmp $@
  
- # Like `prefix', but used for architecture-specific files.
--exec_prefix = @exec_prefix@
-+exec_prefix = $(DESTDIR)@exec_prefix@
+ define do-subdir-for-command
+-echo making $@ in $d; cd $d; $(MAKE) $@; cd ..;
++echo making $@ in $d; cd $d; $(MAKE) DESTDIR=$(DESTDIR) $@; cd ..;
+ endef
+ 
+ define subdir-for-command
+@@ -446,12 +446,12 @@
+ # of $includedir.
+ 
+ define mk-includedir-link
+-src=`echo $(octincludedir)/octave | sed 's|^$(includedir)/*||'`; \
++src=`echo $(DESTDIR)$(octincludedir)/octave | sed 's|^$(DESTDIR)$(includedir)/*||'`; \
+ echo $$src; \
+ if [ "$$src" = "octave" ]; then \
+   true; \
+ else \
+-  cd $(includedir); \
++  cd $(DESTDIR)$(includedir); \
+   rm -f octave; \
+   $(LN_S) $$src octave; \
+ fi
+@@ -463,15 +463,15 @@
+ # of $libdir.
+ 
+ define mk-libdir-link
+-src=`echo $(octlibdir) | sed 's|^$(libdir)/*||'` ; \
++src=`echo $(DESTDIR)$(octlibdir) | sed 's|^$(DESTDIR)$(libdir)/*||'` ; \
+ echo $$src ; \
+ if [ "$$src" = "octave" ] ; then \
+   true ; \
+ else \
+-  if [ -d "$(libdir)/octave" ] ; then \
++  if [ -d "$(DESTDIR)$(libdir)/octave" ] ; then \
+     true ; \
+   else \
+-    cd $(libdir) ; \
++    cd $(DESTDIR)$(libdir) ; \
+     rm -f octave ; \
+     $(LN_S) $$src octave ; \
+   fi ; \
+diff -Nru octave-2.1.33/Makefile.in octave-2.1.33.new/Makefile.in
+--- octave-2.1.33/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -17,7 +17,7 @@
+ 	$(MAKE) -f octMakefile all
+ 
+ $(TARGETS): FORCE
+-	$(MAKE) -f octMakefile $@
++	$(MAKE) DESTDIR=$(DESTDIR) -f octMakefile $@
+ 
+ $(NO_DEP_TARGETS): FORCE
+ 	$(MAKE) -f octMakefile omit_deps=true $@
+diff -Nru octave-2.1.33/doc/interpreter/Makefile.in octave-2.1.33.new/doc/interpreter/Makefile.in
+--- octave-2.1.33/doc/interpreter/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/doc/interpreter/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -112,45 +112,13 @@
+ .PHONY: check
+ 
+ install install-strip: all
+-	$(top_srcdir)/mkinstalldirs $(man1dir) $(infodir)
+-	@if test -d $(man1dir); then \
+-	  rm -f $(man1dir)/octave$(man1ext); \
+-	  echo "installing $(srcdir)/octave.1 in $(man1dir)"; \
+-	  $(INSTALL_DATA) $(srcdir)/octave.1 $(man1dir)/octave$(man1ext); \
+-	  rm -f $(man1dir)/octave-bug$(man1ext); \
+-	  echo "installing $(srcdir)/octave-bug.1 in $(man1dir)"; \
+-	  $(INSTALL_DATA) $(srcdir)/octave-bug.1 $(man1dir)/octave-bug$(man1ext); \
+-	fi
+-	@if test -d $(infodir); then \
+-	  rm -f $(infodir)/octave.info*; \
+-	  echo "installing info files in $(infodir)"; \
+-	  if test -f octave.info; then \
+-	    for f in octave.info*; do \
+-	      $(INSTALL_DATA) $$f $(infodir)/$$f; \
+-	    done; \
+-	  else \
+-	    for f in $(srcdir)/octave.info*; do \
+-	      $(INSTALL_DATA) $$f $(infodir)/`basename $$f`; \
+-	    done; \
+-	  fi; \
+-	  if test -f $(infodir)/dir; then \
+-	    if grep "^\* Octave: (octave)." $(infodir)/dir > /dev/null; then \
+-	      true; \
+-	    else \
+-	      echo ""; \
+-	      echo "You should add the following entry"; \
+-	      echo ""; \
+-	      echo "* Octave: (octave)."; \
+-	      echo "	Interactive language for numerical computations."; \
+-	      echo ""; \
+-	      echo "to $(infodir)/dir."; \
+-	      echo ""; \
+-	    fi; \
+-	  else \
+-	    echo "installing $(srcdir)/dir in $(infodir)"; \
+-	    $(INSTALL_DATA) $(srcdir)/dir $(infodir)/dir; \
+-	  fi; \
+-	fi
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(man1dir) $(DESTDIR)$(infodir)
++	echo "installing $(srcdir)/octave.1 in $(DESTDIR)$(man1dir)"
++	$(INSTALL_DATA) $(srcdir)/octave.1 $(DESTDIR)$(man1dir)/octave$(man1ext)
++	echo "installing $(srcdir)/octave-bug.1 in $(DESTDIR)$(man1dir)"
++	$(INSTALL_DATA) $(srcdir)/octave-bug.1 $(DESTDIR)$(man1dir)/octave-bug$(man1ext)
++	$(INSTALL_DATA) octave.info* $(DESTDIR)$(infodir)
++
+ .PHONY: install install-strip
+ 
+ uninstall:
+diff -Nru octave-2.1.33/emacs/Makefile.in octave-2.1.33.new/emacs/Makefile.in
+--- octave-2.1.33/emacs/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/emacs/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -31,7 +31,8 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(INSTALL_SCRIPT) otags $(bindir)/otags
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(bindir)
++	$(INSTALL_SCRIPT) otags $(DESTDIR)$(bindir)/otags
+ .PHONY: install install-strip
+ 
+ uninstall:
+diff -Nru octave-2.1.33/examples/Makefile.in octave-2.1.33.new/examples/Makefile.in
+--- octave-2.1.33/examples/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/examples/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -35,8 +35,9 @@
+ .PHONY: all
+ 
+ install install-strip:
++	$(top_srcdir)/mkinstalldirs  $(DESTDIR)$(archlibdir)
+ 	for f in $(SCRIPTS); do \
+-	  $(INSTALL_SCRIPT) $(srcdir)/$$f $(archlibdir)/$$f; \
++	  $(INSTALL_SCRIPT) $(srcdir)/$$f $(DESTDIR)$(archlibdir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+diff -Nru octave-2.1.33/install-octave.in octave-2.1.33.new/install-octave.in
+--- octave-2.1.33/install-octave.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/install-octave.in	Thu Jan 25 08:32:43 2001
+@@ -89,37 +89,37 @@
  
  # Where to install Octave and other binaries that people will want to
  # run directly.
--bindir = @bindir@
-+bindir = $(DESTDIR)@bindir@
+-bindir="$exec_prefix/bin"
++bindir=@bindir@
  
  # Where to install architecture-independent data files.  ${fcnfiledir}
  # and ${localfcnfiledir} are subdirectories of this.
--datadir = @datadir@
-+datadir = $(DESTDIR)@datadir@
+-datadir="$prefix/share"
++datadir=@datadir@
  
--libdir = @libdir@
-+libdir = $(DESTDIR)@libdir@
+-libdir="$exec_prefix/lib"
++libdir=@libdir@
  
- # Where to install and expect libraries like libcruft.a, liboctave.a,
- # and other architecture-dependent data.
--octlibdir = @octlibdir@
-+octlibdir = $(DESTDIR)@octlibdir@
+ # Where to install and expect libraries like libcruft.a and liboctave.a.
+ octlibdir="$libdir/octave-$version"
  
  # Where to install and expect executable programs to be run by Octave
  # rather than directly by users.
--libexecdir = @libexecdir@
-+libexecdir = $(DESTDIR)@libexecdir@
+-libexecdir="$exec_prefix/libexec"
++libexecdir=@libexecdir@
  
- # The prefix for Octave's include file directory.  The default is
- # ${prefix}/include
--includedir = @includedir@
-+includedir = $(DESTDIR)@includedir@
+-includedir="$prefix/include"
++includedir=@includedir@
  
  # Where to install Octave's include files.  The default is
- # ${includedir}/octave-${version}
--octincludedir = @octincludedir@
-+octincludedir = $(DESTDIR)@octincludedir@
+ # ${prefix}/include/octave-$version
+-octincludedir=$includedir/octave-$version
++octincludedir=$(includedir)/octave-$version
  
  # Where to install Octave's man pages, and what extension they should
  # have.  The default is ${prefix}/man/man1
--mandir = @mandir@
-+mandir = $(DESTDIR)@mandir@
- man1dir = @man1dir@
- man1ext = @man1ext@
+-mandir="$prefix/man/man1"
++mandir=@mandir@/man1
+ manext="1"
  
--# Where to install and expect the info files describing Octave..
--infodir = @infodir@
-+# Where to install and expect the info files describing Octave.
-+infodir = $(DESTDIR)@infodir@
+ # Where to install and expect the info files describing Octave..
+-infodir="$prefix/info"
++infodir=@infodir@
  
  # The fill path to the default info file.
- infofile = @infofile@
+-infofile="$infodir/octave.info"
++infofile=$(infodir)/octave.info
+ 
+ # ==================== Octave-specific directories ====================
+ 
+diff -Nru octave-2.1.33/libcruft/Makefile.in octave-2.1.33.new/libcruft/Makefile.in
+--- octave-2.1.33/libcruft/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/libcruft/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -112,30 +112,28 @@
+ 	@$(subdir-for-command)
+ 
+ install::
+-	$(top_srcdir)/mkinstalldirs $(octlibdir)
++	$(top_srcdir)/mkinstalldirs  $(DESTDIR)$(octlibdir)
+ 	if $(STATIC_LIBS); then \
+-	  rm -f $(octlibdir)/libcruft.$(LIBEXT) ; \
+-	  $(INSTALL_DATA) libcruft.$(LIBEXT) \
+-	    $(octlibdir)/libcruft.$(LIBEXT) ; \
+-	  $(RANLIB) $(octlibdir)/libcruft.$(LIBEXT) ; \
++	  $(INSTALL_DATA) libcruft.$(LIBEXT) \
++	    $(DESTDIR)$(octlibdir)/libcruft.$(LIBEXT) ; \
++	  $(RANLIB) $(DESTDIR)$(octlibdir)/libcruft.$(LIBEXT) ; \
+ 	fi
+ 	if $(SHARED_LIBS); then \
+-	  rm -f $(octlibdir)/libcruft.$(SHLEXT_VER); \
+ 	  $(INSTALL_PROGRAM) \
+-	    libcruft.$(SHLEXT_VER) $(octlibdir)/libcruft.$(SHLEXT_VER); \
+-	  cd $(octlibdir); \
++	    libcruft.$(SHLEXT_VER) $(DESTDIR)$(octlibdir)/libcruft.$(SHLEXT_VER); \
++	  cd $(DESTDIR)$(octlibdir); \
+ 	  rm -f libcruft.$(SHLEXT); \
+ 	  $(LN_S) libcruft.$(SHLEXT_VER) libcruft.$(SHLEXT); \
+ 	fi
+ 	$(mk-libdir-link)
+ 
+ install-strip::
+-	$(MAKE) INSTALL_PROGRAM="$(INSTALL_PROGRAM) -s" install
++	$(MAKE) DESTDIR="$(DESTDIR)" INSTALL_PROGRAM="$(INSTALL_PROGRAM) -s" install
+ 
+ uninstall::
+-	rm -f $(octlibdir)/libcruft.$(LIBEXT)
+-	rm -f $(octlibdir)/libcruft.$(SHLEXT)
+-	rm -f $(octlibdir)/libcruft.$(SHLEXT_VER)
++	rm -f $(DESTDIR)$(octlibdir)/libcruft.$(LIBEXT)
++	rm -f $(DESTDIR)$(octlibdir)/libcruft.$(SHLEXT)
++	rm -f $(DESTDIR)$(octlibdir)/libcruft.$(SHLEXT_VER)
+ 
+ tags TAGS:: $(SOURCES)
+ 	$(SUBDIR_FOR_COMMAND)
+diff -Nru octave-2.1.33/liboctave/Makefile.in octave-2.1.33.new/liboctave/Makefile.in
+--- octave-2.1.33/liboctave/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/liboctave/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -183,22 +183,20 @@
+ .PHONY: install
+ 
+ install-strip:
+-	$(MAKE) INSTALL_PROGRAM="$(INSTALL_PROGRAM) -s" install
++	$(MAKE) DESTDIR="$(DESTDIR)" INSTALL_PROGRAM="$(INSTALL_PROGRAM) -s" install
+ .PHONY: install-strip
+ 
+ install-lib:
+-	$(top_srcdir)/mkinstalldirs $(octlibdir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(octlibdir)
+ 	if $(STATIC_LIBS); then \
+-	  rm -f $(octlibdir)/liboctave.$(LIBEXT); \
+ 	  $(INSTALL_DATA) liboctave.$(LIBEXT) \
+-	    $(octlibdir)/liboctave.$(LIBEXT); \
++	    $(DESTDIR)$(octlibdir)/liboctave.$(LIBEXT); \
+ 	  $(RANLIB) $(octlibdir)/liboctave.$(LIBEXT); \
+ 	fi
+ 	if $(SHARED_LIBS); then \
+-	  rm -f $(octlibdir)/liboctave.$(SHLEXT_VER); \
+ 	  $(INSTALL_PROGRAM) \
+-	    liboctave.$(SHLEXT_VER) $(octlibdir)/liboctave.$(SHLEXT_VER); \
+-	  cd $(octlibdir); \
++	    liboctave.$(SHLEXT_VER) $(DESTDIR)$(octlibdir)/liboctave.$(SHLEXT_VER); \
++	  cd $(DESTDIR)$(octlibdir); \
+ 	  rm -f liboctave.$(SHLEXT); \
+ 	  $(LN_S) liboctave.$(SHLEXT_VER) liboctave.$(SHLEXT); \
+ 	fi
+@@ -206,19 +204,18 @@
+ .PHONY: install-lib
+ 
+ install-inc:
+-	$(top_srcdir)/mkinstalldirs $(octincludedir)/octave
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(octincludedir)/octave
+ 	for f in $(INCLUDES_FOR_INSTALL); do \
+-	  rm -f $(octincludedir)/octave/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(octincludedir)/octave/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(octincludedir)/octave/$$f; \
+ 	done
+ 	$(mk-includedir-link)
+ .PHONY: install-inc
+ 
+ uninstall:
+-	rm -f $(octlibdir)/liboctave.$(LIBEXT)
+-	rm -f $(octlibdir)/liboctave.$(SHLEXT)
+-	rm -f $(octlibdir)/liboctave.$(SHLEXT_VER)
+-	for f in $(INCLUDES); do rm -f $(octincludedir)/octave/$$f; done
++	rm -f $(DESTDIR)$(octlibdir)/liboctave.$(LIBEXT)
++	rm -f $(DESTDIR)$(octlibdir)/liboctave.$(SHLEXT)
++	rm -f $(DESTDIR)$(octlibdir)/liboctave.$(SHLEXT_VER)
++	for f in $(INCLUDES); do rm -f $(DESTDIR)$(octincludedir)/octave/$$f; done
+ .PHONY: uninstall
+ 
+ tags: $(SOURCES)
+diff -Nru octave-2.1.33/octMakefile.in octave-2.1.33.new/octMakefile.in
+--- octave-2.1.33/octMakefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/octMakefile.in	Thu Jan 25 08:32:43 2001
+@@ -62,11 +62,6 @@
+ # Subdirectories in which to run clean targets.
+ CLEANSUBDIRS = $(DISTSUBDIRS) @READLINE_DIR@ @GLOB_DIR@ kpathsea
+ 
+-DIRS_TO_MAKE = $(bindir) $(libdir) $(octincludedir)/octave $(fcnfiledir) \
+-  $(octfiledir) $(archlibdir) $(localarchlibdir) \
+-  `echo $(localfcnfilepath) | awk -F: '{for (i=1; i<=NF; i++) print $$i}'` \
+-  `echo $(localoctfilepath) | awk -F: '{for (i=1; i<=NF; i++) print $$i}'`
+-
+ all: octave-bug mkoctfile src
+ .PHONY: all
+ 
+@@ -103,14 +98,8 @@
+ .PHONY: BUGS INSTALL.OCTAVE
+ 
+ install install-strip ::
+-	$(top_srcdir)/mkinstalldirs $(DIRS_TO_MAKE)
+-	rm -f $(bindir)/octave-bug
+-	$(INSTALL_SCRIPT) octave-bug $(bindir)/octave-bug-$(version)
+-	cd $(bindir); $(LN_S) octave-bug-$(version) octave-bug
+-	rm -f $(bindir)/mkoctfile
+-	$(INSTALL_SCRIPT) mkoctfile $(bindir)/mkoctfile-$(version)
+-	cd $(bindir); $(LN_S) mkoctfile-$(version) mkoctfile
+-	$(INSTALL_DATA) config.h $(octincludedir)/octave/config.h
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(octincludedir)/octave
++	$(INSTALL_DATA) config.h $(DESTDIR)$(octincludedir)/octave/config.h
+ 	$(mk-includedir-link)
+ 
+ maintainer-clean::
+diff -Nru octave-2.1.33/scripts/Makefile.in octave-2.1.33.new/scripts/Makefile.in
+--- octave-2.1.33/scripts/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -57,11 +57,8 @@
+ .PHONY: clean mostlyclean distclean maintainer-clean
+ 
+ install install-strip::
+-	ls -LR $(datadir)/octave > $(datadir)/octave/ls-R
+-	ls -LR $(libexecdir)/octave > $(libexecdir)/octave/ls-R
+ 
+ uninstall::
+-	rm -f $(datadir)/octave/ls-R $(libexecdir)/octave/ls-R
+ 
+ tags TAGS:: $(SOURCES)
+ 	$(SUBDIR_FOR_COMMAND)
+diff -Nru octave-2.1.33/scripts/audio/Makefile.in octave-2.1.33.new/scripts/audio/Makefile.in
+--- octave-2.1.33/scripts/audio/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/audio/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/control/base/Makefile.in octave-2.1.33.new/scripts/control/base/Makefile.in
+--- octave-2.1.33/scripts/control/base/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/control/base/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/control/hinf/Makefile.in octave-2.1.33.new/scripts/control/hinf/Makefile.in
+--- octave-2.1.33/scripts/control/hinf/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/control/hinf/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/control/obsolete/Makefile.in octave-2.1.33.new/scripts/control/obsolete/Makefile.in
+--- octave-2.1.33/scripts/control/obsolete/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/control/obsolete/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/control/util/Makefile.in octave-2.1.33.new/scripts/control/util/Makefile.in
+--- octave-2.1.33/scripts/control/util/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/control/util/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/elfun/Makefile.in octave-2.1.33.new/scripts/elfun/Makefile.in
+--- octave-2.1.33/scripts/elfun/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/elfun/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/finance/Makefile.in octave-2.1.33.new/scripts/finance/Makefile.in
+--- octave-2.1.33/scripts/finance/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/finance/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/general/Makefile.in octave-2.1.33.new/scripts/general/Makefile.in
+--- octave-2.1.33/scripts/general/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/general/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/image/Makefile.in octave-2.1.33.new/scripts/image/Makefile.in
+--- octave-2.1.33/scripts/image/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/image/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -37,25 +37,23 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+-	$(top_srcdir)/mkinstalldirs $(imagedir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(imagedir)
+ 	for f in $(IMAGE_FILES_NO_DIR); do \
+-	  rm -f $(imagedir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(imagedir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(imagedir)/$$f; \
+ 	done
+-	$(top_srcdir)/mkinstalldirs $(archlibdir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(archlibdir)
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ 	for f in $(IMAGE_FILES_NO_DIR); \
+-	  do rm -f $(imagedir)/$$f; \
++	  do rm -f $(DESTDIR)$(imagedir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/io/Makefile.in octave-2.1.33.new/scripts/io/Makefile.in
+--- octave-2.1.33/scripts/io/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/io/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/linear-algebra/Makefile.in octave-2.1.33.new/scripts/linear-algebra/Makefile.in
+--- octave-2.1.33/scripts/linear-algebra/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/linear-algebra/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/miscellaneous/Makefile.in octave-2.1.33.new/scripts/miscellaneous/Makefile.in
+--- octave-2.1.33/scripts/miscellaneous/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/miscellaneous/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/plot/Makefile.in octave-2.1.33.new/scripts/plot/Makefile.in
+--- octave-2.1.33/scripts/plot/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/plot/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,10 +33,9 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+diff -Nru octave-2.1.33/scripts/polynomial/Makefile.in octave-2.1.33.new/scripts/polynomial/Makefile.in
+--- octave-2.1.33/scripts/polynomial/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/polynomial/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/quaternion/Makefile.in octave-2.1.33.new/scripts/quaternion/Makefile.in
+--- octave-2.1.33/scripts/quaternion/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/quaternion/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/set/Makefile.in octave-2.1.33.new/scripts/set/Makefile.in
+--- octave-2.1.33/scripts/set/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/set/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/signal/Makefile.in octave-2.1.33.new/scripts/signal/Makefile.in
+--- octave-2.1.33/scripts/signal/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/signal/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/specfun/Makefile.in octave-2.1.33.new/scripts/specfun/Makefile.in
+--- octave-2.1.33/scripts/specfun/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/specfun/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/special-matrix/Makefile.in octave-2.1.33.new/scripts/special-matrix/Makefile.in
+--- octave-2.1.33/scripts/special-matrix/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/special-matrix/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/startup/Makefile.in octave-2.1.33.new/scripts/startup/Makefile.in
+--- octave-2.1.33/scripts/startup/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/startup/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,23 +33,9 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
+-	if test -f $(fcnfiledir)/$(script_sub_dir)/octaverc; then true; \
+-	else \
+-	  $(INSTALL_DATA) $(srcdir)/octaverc \
+-	    $(fcnfiledir)/$(script_sub_dir)/octaverc; \
+-	fi
+-	$(top_srcdir)/mkinstalldirs $(localfcnfiledir)/$(script_sub_dir)
+-	if test -f $(localfcnfiledir)/$(script_sub_dir)/octaverc; \
+-	then true; \
+-	else \
+-	  $(INSTALL_DATA) $(srcdir)/octaverc \
+-	    $(localfcnfiledir)/$(script_sub_dir)/octaverc; \
+-	fi
+-#	for f in $(FCN_FILES_NO_DIR); do \
+-#	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-#	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-#	done
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
++	$(INSTALL_DATA) $(srcdir)/octaverc \
++		$(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/octaverc; \
+ .PHONY: install install-strip
+ 
+ uninstall:
+diff -Nru octave-2.1.33/scripts/statistics/base/Makefile.in octave-2.1.33.new/scripts/statistics/base/Makefile.in
+--- octave-2.1.33/scripts/statistics/base/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/statistics/base/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/statistics/distributions/Makefile.in octave-2.1.33.new/scripts/statistics/distributions/Makefile.in
+--- octave-2.1.33/scripts/statistics/distributions/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/statistics/distributions/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/statistics/models/Makefile.in octave-2.1.33.new/scripts/statistics/models/Makefile.in
+--- octave-2.1.33/scripts/statistics/models/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/statistics/models/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/statistics/tests/Makefile.in octave-2.1.33.new/scripts/statistics/tests/Makefile.in
+--- octave-2.1.33/scripts/statistics/tests/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/statistics/tests/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/strings/Makefile.in octave-2.1.33.new/scripts/strings/Makefile.in
+--- octave-2.1.33/scripts/strings/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/strings/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/scripts/time/Makefile.in octave-2.1.33.new/scripts/time/Makefile.in
+--- octave-2.1.33/scripts/time/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/scripts/time/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -33,16 +33,15 @@
+ .PHONY: all
+ 
+ install install-strip:
+-	$(top_srcdir)/mkinstalldirs $(fcnfiledir)/$(script_sub_dir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)
+ 	for f in $(FCN_FILES_NO_DIR); do \
+-	  rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: install install-strip
+ 
+ uninstall:
+ 	for f in $(FCN_FILES_NO_DIR); \
+-	  do rm -f $(fcnfiledir)/$(script_sub_dir)/$$f; \
++	  do rm -f $(DESTDIR)$(fcnfiledir)/$(script_sub_dir)/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
+diff -Nru octave-2.1.33/src/Makefile.in octave-2.1.33.new/src/Makefile.in
+--- octave-2.1.33/src/Makefile.in	Thu Jan 25 08:42:57 2001
++++ octave-2.1.33.new/src/Makefile.in	Thu Jan 25 08:32:43 2001
+@@ -324,67 +324,60 @@
+ .PHONY: install-strip
+ 
+ install-bin:
+-	$(top_srcdir)/mkinstalldirs $(bindir)
+-	rm -f $(bindir)/octave$(EXE)
+-	$(INSTALL_PROGRAM) octave$(EXE) $(bindir)/octave-$(version)$(EXE)
+-	cd $(bindir); $(LN_S) octave-$(version)$(EXE) octave$(EXE)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(bindir)
++	$(INSTALL_PROGRAM) octave$(EXE) $(DESTDIR)$(bindir)/octave-$(version)$(EXE)
++	$(LN_S) octave-$(version)$(EXE) $(DESTDIR)$(bindir)/octave$(EXE)
+ .PHONY: install-bin
+ 
+ install-oct:
+ 	if [ -n "$(OCT_FILES)" ]; then \
+-	  $(top_srcdir)/mkinstalldirs $(octfiledir); \
++	  $(top_srcdir)/mkinstalldirs $(DESTDIR)$(octfiledir); \
+ 	  xfiles="$(OCT_FILES)"; \
+ 	  for f in $$xfiles; do \
+-	    $(INSTALL_PROGRAM) $$f $(octfiledir)/$$f; \
++	    $(INSTALL_PROGRAM) $$f $(DESTDIR)$(octfiledir)/$$f; \
+ 	  done; \
+ 	  $(srcdir)/mk-oct-links \
+-	    $(octfiledir) $(addprefix $(srcdir)/, $(DLD_SRC)); \
++	    $(DESTDIR)$(octfiledir) $(addprefix $(srcdir)/, $(DLD_SRC)); \
+ 	fi
+ .PHONY: install-oct
+ 
+ install-lib:
+-	$(top_srcdir)/mkinstalldirs $(octlibdir)
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(octlibdir)
+ 	if $(STATIC_LIBS); then \
+-	  rm -f $(octlibdir)/liboctinterp.$(LIBEXT); \
+ 	  $(INSTALL_DATA) liboctinterp.$(LIBEXT) \
+-	    $(octlibdir)/liboctinterp.$(LIBEXT); \
+-	  $(RANLIB) $(octlibdir)/liboctinterp.$(LIBEXT); \
++	    $(DESTDIR)$(octlibdir)/liboctinterp.$(LIBEXT); \
++	  $(RANLIB) $(DESTDIR)$(octlibdir)/liboctinterp.$(LIBEXT); \
+ 	fi
+ 	if $(SHARED_LIBS); then \
+-	  rm -f $(octlibdir)/liboctinterp.$(SHLEXT_VER); \
+ 	  $(INSTALL_PROGRAM) liboctinterp.$(SHLEXT_VER) \
+-	    $(octlibdir)/liboctinterp.$(SHLEXT_VER); \
+-	  cd $(octlibdir); \
+-	  rm -f liboctinterp.$(SHLEXT); \
+-	  $(LN_S) liboctinterp.$(SHLEXT_VER) liboctinterp.$(SHLEXT); \
++	    $(DESTDIR)$(octlibdir)/liboctinterp.$(SHLEXT_VER); \
++	  $(LN_S) liboctinterp.$(SHLEXT_VER) $(DESTDIR)$(octlibdir)/liboctinterp.$(SHLEXT); \
+ 	fi
+ 	$(mk-libdir-link)
+ .PHONY: install-lib
+ 
+ install-inc:
+-	$(top_srcdir)/mkinstalldirs $(octincludedir)/octave
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(octincludedir)/octave
+ 	for f in $(INCLUDES); do \
+-	  rm -f $(octincludedir)/octave/$$f; \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(octincludedir)/octave/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(octincludedir)/octave/$$f; \
+ 	done
+ 	for f in defaults.h oct-conf.h oct-gperf.h; do \
+-	  rm -f $(octincludedir)/octave/$$f; \
+ 	  if [ -f $$f ]; then \
+-	    $(INSTALL_DATA) $$f $(octincludedir)/octave/$$f ; \
++	    $(INSTALL_DATA) $$f $(DESTDIR)$(octincludedir)/octave/$$f ; \
+ 	  else \
+-	    $(INSTALL_DATA) $(srcdir)/$$f $(octincludedir)/octave/$$f ; \
++	    $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(octincludedir)/octave/$$f ; \
+ 	  fi ; \
+ 	done
+ 	$(mk-includedir-link)
+ .PHONY: install-inc
+ 
+ uninstall:
+-	rm -f $(bindir)/octave$(EXE)
+-	rm -f $(octlibdir)/liboctinterp.$(LIBEXT)
+-	rm -f $(octlibdir)/liboctinterp.$(SHLEXT)
+-	rm -f $(octlibdir)/liboctinterp.$(SHLEXT_VER)
++	rm -f $(DESTDIR)$(bindir)/octave$(EXE)
++	rm -f $(DESTDIR)$(octlibdir)/liboctinterp.$(LIBEXT)
++	rm -f $(DESTDIR)$(octlibdir)/liboctinterp.$(SHLEXT)
++	rm -f $(DESTDIR)$(octlibdir)/liboctinterp.$(SHLEXT_VER)
+ 	for f in $(INCLUDES) defaults.h oct-conf.h; do \
+-	  rm -f $(octincludedir)/octave/$$f; \
++	  rm -f $(DESTDIR)$(octincludedir)/octave/$$f; \
+ 	done
+ .PHONY: uninstall
+ 
