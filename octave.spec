@@ -6,7 +6,7 @@ Release:	3
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.bz2
-Patch0:		%{name}-liboctave.info.patch
+Patch0:		%{name}-lib%{name}.info.patch
 Patch1:		%{name}-Octave-FAQ.info.patch
 Patch2:		%{name}-DESTDIR.patch
 URL:		http://www.che.wisc.edu/octave/
@@ -42,30 +42,30 @@ lub uruchamiaæ programy stworzone za pomoc± zewnêtrznego edytora.
 
 %package devel
 Summary:	Header files and devel docs for Octave
-Summary(pl):	Pliki nag³ówkowe i dodatkowa dokumentacja Octave 
+Summary(pl):	Pliki nag³ówkowe i dodatkowa dokumentacja Octave
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
 %description devel
 Header files and devel docs for Octave.
 
-%description -l pl devel
+%description devel -l pl
 Pliki nag³ówkowe i dodatkowa dokumentacja Octave.
 
 %package -n xemacs-octave-mode-pkg
 Summary:	XEmacs mode for Octave
-Summary(pl):	Tryb edycji plików Octave dla XEmacsa 
+Summary(pl):	Tryb edycji plików Octave dla XEmacsa
 Group:		Applications/Editors/Emacs
 Requires:	xemacs
 
 %description -n xemacs-octave-mode-pkg
 XEmacs mode for Octave.
 
-%description -l pl -n xemacs-octave-mode-pkg
+%description -n xemacs-octave-mode-pkg -l pl
 Tryb edycji plików Octave dla XEmacsa.
 
 %prep
-%setup -q 
+%setup -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p0
@@ -78,7 +78,7 @@ Tryb edycji plików Octave dla XEmacsa.
 	--enable-rpath \
 	--enable-lite-kernel
 
-%{__make} 
+%{__make}
 %{__make} -C doc/faq Octave-FAQ.info
 %{__make} -C doc/liboctave liboctave.info
 
@@ -142,4 +142,3 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xemacs-octave-mode-pkg
 %defattr(644,root,root,755)
 %{_datadir}/xemacs-packages/lisp/*
-    
