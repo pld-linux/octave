@@ -5,8 +5,6 @@ Version:	2.1.33
 Release:	3
 License:	GPL
 Group:		Applications/Math
-Group(de):	Applikationen/Mathematik
-Group(pl):	Aplikacje/Matematyczne
 Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-liboctave.info.patch
 Patch1:		%{name}-Octave-FAQ.info.patch
@@ -46,13 +44,6 @@ lub uruchamiaæ programy stworzone za pomoc± zewnêtrznego edytora.
 Summary:	Header files and devel docs for Octave
 Summary(pl):	Pliki nag³ówkowe i dodatkowa dokumentacja Octave 
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
-Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name} = %{version}
 
 %description devel
@@ -65,8 +56,6 @@ Pliki nag³ówkowe i dodatkowa dokumentacja Octave.
 Summary:	XEmacs mode for Octave
 Summary(pl):	Tryb edycji plików Octave dla XEmacsa 
 Group:		Applications/Editors/Emacs
-Group(de):	Applikationen/Editors/Emacs
-Group(pl):	Aplikacje/Edytory/Emacs
 Requires:	xemacs
 
 %description -n xemacs-octave-mode-pkg
