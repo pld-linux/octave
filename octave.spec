@@ -4,11 +4,12 @@ Summary(pl):	GNU Octave -- jêzyk programowania do obliczeñ numerycznych
 Summary(pt_BR):	GNU Octave - Um programa para cálculo numérico e matricial
 Name:		octave
 Version:	2.1.39
-Release:	3
+Release:	4
 Epoch:		2
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.bz2
+Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-DESTDIR.patch
 URL:		http://www.che.wisc.edu/octave/
@@ -104,6 +105,7 @@ Tryb edycji plików Octave dla XEmacsa.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_infodir}
+install -d $RPM_BUILD_ROOT%{_applnkdir}/Scientific/Numerics
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -114,6 +116,7 @@ ln -sf %{_includedir}/%{name} $RPM_BUILD_ROOT%{_includedir}/%{name}-%{version}
 
 install doc/liboctave/*.info* $RPM_BUILD_ROOT%{_infodir}
 install doc/faq/*.info* $RPM_BUILD_ROOT%{_infodir}
+install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Scientific/Numerics/%{name}.desktop
 
 ## xemacs-octave-mode-pkg
 install -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode
@@ -155,6 +158,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_infodir}/Octave-FAQ.info*
 %{_mandir}/man1/*
 %{_datadir}/octave
+%{_applnkdir}/Scientific/Numerics/*
 
 %files devel
 %defattr(644,root,root,755)
