@@ -7,5 +7,5 @@ Exec=octave
 Terminal=true
 Type=Application
 Encoding=UTF-8
-Categories=Science;X-Numeric
+Categories=Science;X-Numeric;
 # vi: encoding=utf-8
