@@ -2,7 +2,7 @@ Summary:	GNU Octave -- a high-level language for numerical computations
 Summary(pl):	GNU Octave -- jêzyk programowania do obliczeñ numerycznych
 Name:		octave
 Version:	2.0.14
-Release:	1
+Release:	2
 Copyright:	GPL
 Group:		Applications/Math
 Group(pl):	Aplikacje/Matematyczne
@@ -100,15 +100,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/ldconfig
 /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
-%preun
-/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
-
 %postun -p /sbin/ldconfig
+/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %post devel
 /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
-%preun devel
+%postun devel
 /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %files
