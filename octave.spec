@@ -15,7 +15,7 @@ Summary(ru):	GNU Octave - Язык высокого уровня для выполнения математических рас
 Summary(sv):	GNU Octave - ett hЖgninvЕsprЕk fЖr numeriska berДkningar
 Summary(zh_CN):	GNU Octave - сцсзйЩвж╪фкЦ╣д╦ъ╪╤сОят║ё
 Name:		octave
-Version:	2.1.46
+Version:	2.1.48
 Release:	1
 Epoch:		2
 License:	GPL
@@ -24,6 +24,7 @@ Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-DESTDIR.patch
+Patch2:		%{name}-gcc33.patch
 URL:		http://www.che.wisc.edu/octave/
 BuildRequires:	bison
 BuildRequires:	blas-devel
@@ -256,6 +257,7 @@ Tryb edycji plikСw Octave dla XEmacsa.
 %setup -q
 %patch0 -p1
 %patch1 -p0
+%patch2 -p1
 
 %build
 %configure \
