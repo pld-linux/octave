@@ -87,7 +87,7 @@ strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/lib*so
 install doc/liboctave/*.info* $RPM_BUILD_ROOT%{_infodir}
 install doc/faq/*.info* $RPM_BUILD_ROOT%{_infodir}
 
-gzip -9nf $RPM_BUILD_ROOT/usr/share/{info/*.info*,man/man1/*} \
+gzip -9nf $RPM_BUILD_ROOT%{_datadir}/{info/*.info*,man/man1/*} \
 	BUGS NEWS* PROJECTS README README.Linux ChangeLog* ROADMAP \
 	SENDING-PATCHES THANKS
 
@@ -125,7 +125,7 @@ fi
 %{_infodir}/octave.info*
 %{_infodir}/Octave-FAQ.info*
 %{_mandir}/man1/*
-/usr/share/octave
+%{_datadir}/octave
 
 %files devel
 %defattr(644,root,root,755)
