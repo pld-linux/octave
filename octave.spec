@@ -257,6 +257,7 @@ Tryb edycji plików Octave dla XEmacsa.
 %patch0 -p1
 
 %build
+cp -f /usr/share/automake/config.sub .
 %configure \
 	--with-g77 \
 	--enable-dl \
