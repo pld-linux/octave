@@ -108,11 +108,11 @@ gzip -9nf $RPM_BUILD_ROOT%{_datadir}/{info/*.info*,man/man1/*} \
 	SENDING-PATCHES THANKS
 
 ## xemacs-octave-mode-pkg
-install -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/octave-mode
-cp -a emacs/*.el $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/octave-mode
+install -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode
+cp -a emacs/*.el $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode
 # add otags script or not (additional Requires: ctags)???
 #cp -a emacs/otags $RPM_BUILD_ROOT%{_bindir}
-cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/octave-mode/auto-autoloads.el
+cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode/auto-autoloads.el
 (autoload 'run-octave "octave-inf" nil t)
 (autoload 'octave-help "octave-hlp" nil t)
 (autoload 'octave-mode "octave-mod" nil t)
@@ -155,5 +155,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n xemacs-octave-mode-pkg
 %defattr(644,root,root,755)
-%{_datadir}/xemacs-packages/*
+%{_datadir}/xemacs-packages/lisp/*
     
