@@ -2,7 +2,7 @@ Summary:	GNU Octave -- a high-level language for numerical computations
 Summary(pl):	GNU Octave -- jêzyk programowania do obliczeñ numerycznych
 Name:		octave
 Version:	2.1.33
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
@@ -49,6 +49,7 @@ Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
+Requires:	%{name} = %{version}
 
 %description devel
 Header files and devel docs for Octave.
