@@ -1,7 +1,7 @@
 Summary:	GNU Octave -- a high-level language for numerical computations
 Summary(pl):	GNU Octave -- jêzyk programowania do obliczeñ numerycznych
 Name:		octave
-Version:	2.0.14
+Version:	2.0.16
 Release:	3
 Copyright:	GPL
 Group:		Applications/Math
@@ -9,6 +9,7 @@ Group(pl):	Aplikacje/Matematyczne
 Source:		ftp://ftp.che.wisc.edu/pub/octave/%{name}-%{version}.tar.bz2
 Patch0:		octave-liboctave.info.patch
 Patch1:		octave-Octave-FAQ.info.patch
+Patch2:		octave-DESTDIR.patch
 URL:		http://www.che.wisc.edu/octave/
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel >= 5.0
@@ -53,20 +54,25 @@ Pliki nag³ówkowe i dodatkowa dokumentacja Octave
 %setup -q 
 %patch0 -p1
 %patch1 -p1
+%patch2
 
 %build
 autoconf
-CFLAOCGS="$RPM_OPT_FLAGS"
+## what is it?
+##CFLAOGS="$RPM_OPT_FLAGS"
+##export CFLAOCGS 
+CFLAGS="$RPM_OPT_FLAGS"
+export CFLAGS
 LDFLAGS="-s"
 CXXFLAGS="$RPM_OPT_FLAGS"
 FFLAGS="$RPM_OPT_FLAGS"
-export CFLAOCGS LDFLAGS CXXFLAGS FFLAGS
+export LDFLAGS CXXFLAGS FFLAGS
 %configure \
 	--with-g77 \
 	--enable-dl \
 	--enable-shared \
 	--enable-rpath \
-	--enable-lite-kernel
+	--enable-lite-kernel \
 
 %{__make} octlibdir=%{_libdir} octincludedir=%{_includedir}/octave
 %{__make} -C doc/faq Octave-FAQ.info
@@ -74,10 +80,10 @@ export CFLAOCGS LDFLAGS CXXFLAGS FFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install \
-	prefix=$RPM_BUILD_ROOT/usr \
-	octlibdir=$RPM_BUILD_ROOT%{_libdir}
-	octincludedir=$RPM_BUILD_ROOT%{_includedir}/octave
+%{__make} install DESTDIR=$RPM_BUILD_ROOT \
+	octlibdir=$RPM_BUILD_ROOT%{_libdir} \
+	octincludedir=$RPM_BUILD_ROOT%{_includedir}/octave \
+	#prefix=$RPM_BUILD_ROOT/usr \
 
 mv -f $RPM_BUILD_ROOT%{_bindir}/octave-%{version} $RPM_BUILD_ROOT/usr/bin/octave
 
@@ -120,6 +126,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %doc doc/refcard/refcard{-a4,}.* doc/liboctave/*.html
-%{_includedir}/%{name}-%{version}
+%{_includedir}/%{name}
 %{_infodir}/liboctave.info*
     
