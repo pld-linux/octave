@@ -16,7 +16,7 @@ Summary(sv):	GNU Octave - ett h鰃ninv錽pr錵 f鰎 numeriska ber鋕ningar
 Summary(zh_CN):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
 Version:	2.1.50
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL
 Group:		Applications/Math
@@ -30,7 +30,7 @@ BuildRequires:	blas-devel
 BuildRequires:	fftw-devel
 BuildRequires:	flex
 BuildRequires:	gcc-g77
-BuildRequires:	hdf5-devel
+BuildRequires:	hdf5-devel >= 1.6.0
 BuildRequires:	lapack-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel >= 5.0
