@@ -69,7 +69,7 @@ FFLAGS="$RPM_OPT_FLAGS" \
 	--enable-rpath \
 	--enable-lite-kernel
 
-make octlibdir=/usr/lib octincludedir=/usr/include/octave
+make octlibdir=%{_libdir} octincludedir=/usr/include/octave
 make -C doc/faq Octave-FAQ.info
 make -C doc/liboctave liboctave.info
 
@@ -77,12 +77,12 @@ make -C doc/liboctave liboctave.info
 rm -rf $RPM_BUILD_ROOT
 make install \
 	prefix=$RPM_BUILD_ROOT/usr \
-	octlibdir=$RPM_BUILD_ROOT/usr/lib
+	octlibdir=$RPM_BUILD_ROOT%{_libdir}
 	octincludedir=$RPM_BUILD_ROOT/usr/include/octave
 
 mv -f $RPM_BUILD_ROOT/usr/bin/octave-%{version} $RPM_BUILD_ROOT/usr/bin/octave
 
-strip --strip-unneeded $RPM_BUILD_ROOT/usr/lib/lib*so
+strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/lib*so
 
 install doc/liboctave/*.info* $RPM_BUILD_ROOT%{_infodir}
 install doc/faq/*.info* $RPM_BUILD_ROOT%{_infodir}
@@ -120,7 +120,7 @@ fi
 %defattr(644,root,root,755)
 %doc *.gz emacs examples doc/{interpreter,faq}/*.html
 %attr(755,root,root) /usr/bin/*
-%attr(755,root,root) /usr/lib/lib*so
+%attr(755,root,root) %{_libdir}/lib*so
 %attr(755,root,root) /usr/libexec/octave
 %{_infodir}/octave.info*
 %{_infodir}/Octave-FAQ.info*
