@@ -117,7 +117,7 @@ cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/octave-mode/auto-autoloads
 (autoload 'octave-help "octave-hlp" nil t)
 (autoload 'octave-mode "octave-mod" nil t)
 (setq auto-mode-alist
-      (cons '("\\.m$" . octave-mode) auto-mode-alist))
+      (cons '("\\\\.m$" . octave-mode) auto-mode-alist))
 EOF
 
 %clean
