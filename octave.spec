@@ -4,7 +4,7 @@ Summary(pl):	GNU Octave -- jêzyk programowania do obliczeñ numerycznych
 Summary(pt_BR):	GNU Octave - Um programa para cálculo numérico e matricial
 Name:		octave
 Version:	2.1.36
-Release:	8
+Release:	9
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.bz2
@@ -105,6 +105,8 @@ install -d $RPM_BUILD_ROOT%{_infodir}
 	DESTDIR=$RPM_BUILD_ROOT \
 	octincludedir=$RPM_BUILD_ROOT%{_includedir}
 
+ln -sf %{_includedir}/%{name} $RPM_BUILD_ROOT%{_includedir}/%{name}-%{version}
+
 install doc/liboctave/*.info* $RPM_BUILD_ROOT%{_infodir}
 install doc/faq/*.info* $RPM_BUILD_ROOT%{_infodir}
 
@@ -152,7 +154,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %doc doc/refcard/refcard{-a4,}.* doc/liboctave/*.html
-%{_includedir}/%{name}
+%{_includedir}/%{name}*
 %{_infodir}/liboctave.info*
 
 %files -n xemacs-octave-mode-pkg
