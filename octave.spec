@@ -236,6 +236,7 @@ Summary:	Header files and devel docs for Octave
 Summary(pl):	Pliki nag³ówkowe i dodatkowa dokumentacja Octave
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	hdf5-devel >= 1.6.0
 
 %description devel
 Header files and devel docs for Octave.
