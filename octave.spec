@@ -2,7 +2,7 @@ Summary:	GNU Octave -- a high-level language for numerical computations
 Summary(pl):	GNU Octave -- jêzyk programowania do obliczeñ numerycznych
 Name:		octave
 Version:	2.1.33
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
@@ -110,6 +110,8 @@ cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode/auto-auto
 (setq auto-mode-alist
       (cons '("\\\\.m$" . octave-mode) auto-mode-alist))
 EOF
+
+gzip -9nf ChangeLog NEWS THANKS PROJECTS
 
 %clean
 rm -rf $RPM_BUILD_ROOT
