@@ -4,7 +4,7 @@ Summary(pl):	GNU Octave -- jêzyk programowania do obliczeñ numerycznych
 Summary(pt_BR):	GNU Octave - Um programa para cálculo numérico e matricial
 Name:		octave
 Version:	2.1.36
-Release:	2
+Release:	8
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.bz2
