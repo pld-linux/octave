@@ -234,7 +234,7 @@ C, Fortran, eller andra språk.
 Summary:	Header files and devel docs for Octave
 Summary(pl):	Pliki nag³ówkowe i dodatkowa dokumentacja Octave
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 
 %description devel
 Header files and devel docs for Octave.
