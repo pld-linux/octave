@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Octave
+Comment=A high-level language for numerical computations (console)
+Comment[pl]=Język wysokiego poziomu do obliczeń numerycznych (konsola)
+Icon=
+Exec=octave
+Terminal=1
+Type=Application
+# vi: encoding=utf-8
