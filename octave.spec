@@ -3,13 +3,14 @@ Summary(pl):	GNU Octave -- jêzyk programowania do obliczeñ numerycznych
 Name:		octave
 Version:	2.0.16
 Release:	4
-Copyright:	GPL
+License:	GPL
 Group:		Applications/Math
+Group(de):	Applikationen/Mathematik
 Group(pl):	Aplikacje/Matematyczne
 Source0:	ftp://ftp.che.wisc.edu/pub/octave/%{name}-%{version}.tar.bz2
-Patch0:		octave-liboctave.info.patch
-Patch1:		octave-Octave-FAQ.info.patch
-Patch2:		octave-DESTDIR.patch
+Patch0:		%{name}-liboctave.info.patch
+Patch1:		%{name}-Octave-FAQ.info.patch
+Patch2:		%{name}-DESTDIR.patch
 URL:		http://www.che.wisc.edu/octave/
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel >= 5.0
@@ -45,21 +46,29 @@ lub uruchamiaæ programy stworzone za pomoc± zewnêtrznego edytora.
 Summary:	Header files and devel docs for Octave
 Summary(pl):	Pliki nag³ówkowe i dodatkowa dokumentacja Octave 
 Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
 
+%description devel
+Header files and devel docs for Octave.
+
 %description -l pl devel
-Pliki nag³ówkowe i dodatkowa dokumentacja Octave
+Pliki nag³ówkowe i dodatkowa dokumentacja Octave.
 
 %package -n xemacs-octave-mode-pkg
 Summary:	XEmacs mode for Octave
 Summary(pl):	Tryb edycji plików Octave dla XEmacsa 
 Group:		Applications/Editors/Emacs
+Group(de):	Applikationen/Editors/Emacs
 Group(pl):	Aplikacje/Edytory/Emacs
 Requires:	xemacs
 
+%description -n xemacs-octave-mode-pkg
+XEmacs mode for Octave.
+
 %description -l pl -n xemacs-octave-mode-pkg
-Tryb edycji plików Octave dla XEmacsa 
+Tryb edycji plików Octave dla XEmacsa.
 
 %prep
 %setup -q 
@@ -70,14 +79,8 @@ Tryb edycji plików Octave dla XEmacsa
 %build
 autoconf
 ## what is it?
-##CFLAOGS="$RPM_OPT_FLAGS"
+##CFLAOGS="%{rpmcflags}"
 ##export CFLAOCGS 
-CFLAGS="$RPM_OPT_FLAGS"
-export CFLAGS
-LDFLAGS="-s"
-CXXFLAGS="$RPM_OPT_FLAGS"
-FFLAGS="$RPM_OPT_FLAGS"
-export LDFLAGS CXXFLAGS FFLAGS
 %configure \
 	--with-g77 \
 	--enable-dl \
@@ -98,13 +101,10 @@ rm -rf $RPM_BUILD_ROOT
 
 mv -f $RPM_BUILD_ROOT%{_bindir}/octave-%{version} $RPM_BUILD_ROOT%{_bindir}/octave
 
-strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/lib*so
-
 install doc/liboctave/*.info* $RPM_BUILD_ROOT%{_infodir}
 install doc/faq/*.info* $RPM_BUILD_ROOT%{_infodir}
 
-gzip -9nf $RPM_BUILD_ROOT%{_datadir}/{info/*.info*,man/man1/*} \
-	BUGS NEWS* PROJECTS README README.Linux ChangeLog* ROADMAP \
+gzip -9nf BUGS NEWS* PROJECTS README README.Linux ChangeLog* ROADMAP \
 	SENDING-PATCHES THANKS
 
 ## xemacs-octave-mode-pkg
