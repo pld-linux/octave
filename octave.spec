@@ -61,7 +61,7 @@ autoconf
 CFLAOCGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
 CXXFLAGS="$RPM_OPT_FLAGS" \
 FFLAGS="$RPM_OPT_FLAGS" \
-./configure %{_target} \
+./configure %{_target_platform} \
 	--prefix=/usr \
 	--with-g77 \
 	--enable-dl \
@@ -150,7 +150,7 @@ fi
 - added passing $RPM_OPT_FLAGS to fortran compile options (FFLAGS),
 - link with system readline instead static included with octave,
 - added gzipping %doc and man pages,
-- added using %%{_target} macro in ./configure parameters,
+- added using %%{_target_platform} macro in ./configure parameters,
 - added LDFLAGS="-s" to ./configure enviroment,
 - install libraries in proper path (/usr/lib),
 - changed permission to 755 on shared libraries,
