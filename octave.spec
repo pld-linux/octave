@@ -15,13 +15,13 @@ Summary(ru):	GNU Octave - Язык высокого уровня для выполнения математических рас
 Summary(sv):	GNU Octave - ett hЖgninvЕsprЕk fЖr numeriska berДkningar
 Summary(zh_CN):	GNU Octave - сцсзйЩвж╪фкЦ╣д╦ъ╪╤сОят║ё
 Name:		octave
-Version:	2.1.52
+Version:	2.1.53
 Release:	1
 Epoch:		2
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.bz2
-# Source0-md5:	3347ffad19d4377fe3e3cb538ca7b2ce
+# Source0-md5:	c752a2ef39575f44c6ee858ea152407d
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 URL:		http://www.che.wisc.edu/octave/
@@ -272,8 +272,7 @@ cp -f /usr/share/automake/config.sub .
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_infodir}
-install -d $RPM_BUILD_ROOT%{_applnkdir}/Scientific/Numerics
+install -d $RPM_BUILD_ROOT{%{_infodir},%{_desktopdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -284,7 +283,7 @@ ln -sf %{_includedir}/%{name} $RPM_BUILD_ROOT%{_includedir}/%{name}-%{version}
 
 install doc/liboctave/*.info* $RPM_BUILD_ROOT%{_infodir}
 install doc/faq/*.info* $RPM_BUILD_ROOT%{_infodir}
-install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Scientific/Numerics/%{name}.desktop
+install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
 ## xemacs-octave-mode-pkg
 install -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode
@@ -327,7 +326,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_infodir}/Octave-FAQ.info*
 %{_mandir}/man1/*
 %{_datadir}/octave
-%{_applnkdir}/Scientific/Numerics/*
+%{_desktopdir}/*.desktop
 
 %files devel
 %defattr(644,root,root,755)
