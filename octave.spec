@@ -1,8 +1,8 @@
 Summary:	GNU Octave -- a high-level language for numerical computations
 Summary(pl):	GNU Octave -- jêzyk programowania do obliczeñ numerycznych
 Name:		octave
-Version:	2.0.16
-Release:	4
+Version:	2.1.33
+Release:	1
 License:	GPL
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
@@ -74,38 +74,38 @@ Tryb edycji plików Octave dla XEmacsa.
 %setup -q 
 %patch0 -p1
 %patch1 -p1
-%patch2
+%patch2 -p0
 
 %build
-autoconf
 ## what is it?
 ##CFLAOGS="%{rpmcflags}"
 ##export CFLAOCGS 
-%configure \
+%configure2_13 \
 	--with-g77 \
 	--enable-dl \
 	--enable-shared \
 	--enable-rpath \
 	--enable-lite-kernel \
+	--prefix=%{_prefix} \
+	--bindir=%{_bindir} \
+	--mandir=%{_mandir} \
+	--exec_prefix=%{_exec_prefix} \
+	--libdir=%{_libdir} \
+	--infodir=%{_infodir}
 
-%{__make} octlibdir=%{_libdir} octincludedir=%{_includedir}/octave
+%{__make} 
 %{__make} -C doc/faq Octave-FAQ.info
 %{__make} -C doc/liboctave liboctave.info
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install DESTDIR=$RPM_BUILD_ROOT \
-	octlibdir=$RPM_BUILD_ROOT%{_libdir} \
-	octincludedir=$RPM_BUILD_ROOT%{_includedir}/octave \
-#prefix=$RPM_BUILD_ROOT%{_prefix} \
+%{__make} DESTDIR=$RPM_BUILD_ROOT install
 
-mv -f $RPM_BUILD_ROOT%{_bindir}/octave-%{version} $RPM_BUILD_ROOT%{_bindir}/octave
-
+install -d $RPM_BUILD_ROOT%{_infodir}
+install -d $RPM_BUILD_ROOT%{_infodir}
 install doc/liboctave/*.info* $RPM_BUILD_ROOT%{_infodir}
 install doc/faq/*.info* $RPM_BUILD_ROOT%{_infodir}
 
-gzip -9nf BUGS NEWS* PROJECTS README README.Linux ChangeLog* ROADMAP \
-	SENDING-PATCHES THANKS
 
 ## xemacs-octave-mode-pkg
 install -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode
@@ -140,8 +140,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc *.gz emacs examples doc/{interpreter,faq}/*.html
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/lib*so
-%attr(755,root,root) %{_libdir}exec/octave
+%attr(755,root,root) %{_libdir}/*
 %{_infodir}/octave.info*
 %{_infodir}/Octave-FAQ.info*
 %{_mandir}/man1/*
