@@ -7,6 +7,8 @@ Copyright:	GPL
 Group:		Applications/Math
 Group(pl):	Aplikacje/Matematyczne
 Source:		ftp://ftp.che.wisc.edu/pub/octave/%{name}-%{version}.tar.bz2
+Patch0:		octave-liboctave.info.patch
+Patch1:		octave-Octave-FAQ.info.patch
 URL:		http://www.che.wisc.edu/octave/
 BuildPrereq:	libstdc++-devel
 BuildPrereq:	ncurses-devel
@@ -35,19 +37,30 @@ languages.
 %description -l pl
 GNU Octave jest jêzykiem programowania wysokiego poziomu przeznaczonym
 g³ównie do obliczeñ numerycznych. Octave jest w du¿ym stopniu kompatybilny z
-jezykiem Matlab. Pracowaæ mo¿na wprost z linii poleceñ lub uruchamiaæ
+jêzykiem Matlab. Pracowaæ mo¿na wprost z linii poleceñ lub uruchamiaæ
 programy stworzone za pomoc± zewnêtrznego edytora.
 
-Ze wzglêdu na objêto¶æ dokumentacji w pakiecie binarnym znajduje siê tylko
-jej czê¶æ (info, faq i manual(.html)) Ca³o¶æ mo¿na znale¼æ w pakiecie
-src.rpm
+
+
+%package devel
+Summary:	Header files and devel docs for Octave
+Summary(pl):    Pliki nag³ówkowe i dodatkowa dokumentacja Octave 
+Group:          Development/Libraries
+Group(pl):      Programowanie/Biblioteki                                                                        
+
+
+%description -l pl devel
+Pliki nag³ówkowe i dodatkowa dokumentacja Octave
+
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
 
 %build
 autoconf
-CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
+CFLAOCGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
 CXXFLAGS="$RPM_OPT_FLAGS" \
 FFLAGS="$RPM_OPT_FLAGS" \
 ./configure %{_target} \
@@ -67,6 +80,8 @@ make install \
 
 strip --strip-unneeded $RPM_BUILD_ROOT/usr/lib/lib*so
 
+install doc/liboctave/*.info* $RPM_BUILD_ROOT/usr/share/info
+install doc/faq/*.info* $RPM_BUILD_ROOT/usr/share/info
 gzip -9nf $RPM_BUILD_ROOT/usr/share/{info/*.info*,man/man1/*} \
 	BUGS NEWS* PROJECTS README README.Linux ChangeLog* ROADMAP \
 	SENDING-PATCHES THANKS
@@ -77,26 +92,51 @@ rm -rf $RPM_BUILD_ROOT
 %post
 /sbin/ldconfig
 /sbin/install-info /usr/share/info/%{name}.info.gz /etc/info-dir
+/sbin/install-info /usr/share/info/Octave-FAQ.info.gz /etc/info-dir
 
 %preun
 if [ "$1" = "0" ]; then
 	/sbin/install-info --delete /usr/share/info/%{name}.info.gz /etc/info-dir
+	/sbin/install-info --delete /usr/share/info/Octave-FAQ.info.gz /etc/info-dir
 fi
 
 %postun -p /sbin/ldconfig
 
+
+%post devel
+/sbin/install-info /usr/share/info/lib%{name}.info.gz /etc/info-dir
+
+%preun devel
+if [ "$1" = "0" ]; then
+	/sbin/install-info --delete /usr/share/info/lib%{name}.info.gz /etc/info-dir
+fi
+
+
 %files
 %defattr(644,root,root,755)
-%doc *.gz doc/faq emacs examples doc/interpreter/*.html
+%doc *.gz emacs examples doc/{interpreter,faq}/*.html
 %attr(755,root,root) /usr/bin/*
 %attr(755,root,root) /usr/lib/lib*so
 %attr(755,root,root) /usr/libexec/octave
-/usr/include/%{name}-%{version}
-/usr/share/info/*.info*
+/usr/share/info/octave.info*
+/usr/share/info/Octave-FAQ.info*
 /usr/share/man/man1/*
 /usr/share/octave
+
+%files devel
+%defattr(644,root,root,755)
+%doc doc/refcard/refcard{-a4,}.* doc/liboctave/*.html
+/usr/include/%{name}-%{version}
+/usr/share/info/liboctave.info*
     
 %changelog
+* Tue May 11 1999 Rafa³ Kleger-Rudomin <klakier@pg.gda.pl>
+- added more html doc (I like it... :) )
+- added a4 refcard to devel doc
+- Octave-FAQ.info entry
+- liboctave.info entry 
+- divided into octave, octave-devel
+
 * Sun May  9 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
 - now package is FHS 2.0 compiliat,
 - added passing $RPM_OPT_FLAGS to fortran compile options (FFLAGS),
