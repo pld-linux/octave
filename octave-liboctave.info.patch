@@ -6,10 +6,10 @@
  
 +@ifinfo
 +@format
-+INFO-DIR-SECTION Libraries
-+START-INFO-DIR-ENTRY
-+* Liboctave: (liboctave).	Octave C++ Class Library.
-+END-INFO-DIR-ENTRY
++@dircategory Libraries:
++@direntry
++* Liboctave: (liboctave).		Octave C++ Class Library
++@end direntry
 +@end format
 +@end ifinfo
 +
