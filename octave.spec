@@ -78,21 +78,12 @@ Tryb edycji plików Octave dla XEmacsa.
 %patch2 -p0
 
 %build
-## what is it?
-##CFLAOGS="%{rpmcflags}"
-##export CFLAOCGS 
 %configure2_13 \
 	--with-g77 \
 	--enable-dl \
 	--enable-shared \
 	--enable-rpath \
-	--enable-lite-kernel \
-	--prefix=%{_prefix} \
-	--bindir=%{_bindir} \
-	--mandir=%{_mandir} \
-	--exec_prefix=%{_exec_prefix} \
-	--libdir=%{_libdir} \
-	--infodir=%{_infodir}
+	--enable-lite-kernel
 
 %{__make} 
 %{__make} -C doc/faq Octave-FAQ.info
@@ -100,13 +91,12 @@ Tryb edycji plików Octave dla XEmacsa.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_infodir}
+
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
 
-install -d $RPM_BUILD_ROOT%{_infodir}
-install -d $RPM_BUILD_ROOT%{_infodir}
 install doc/liboctave/*.info* $RPM_BUILD_ROOT%{_infodir}
 install doc/faq/*.info* $RPM_BUILD_ROOT%{_infodir}
-
 
 ## xemacs-octave-mode-pkg
 install -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode
@@ -128,7 +118,8 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/ldconfig
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
-%postun -p /sbin/ldconfig
+%postun
+/sbin/ldconfig
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %post devel
