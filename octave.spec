@@ -6,7 +6,7 @@ Summary(es):	GNU Octave - lenguaje de alto nivel para cálculos numéricos
 Summary(fr):	GNU Octave - langage haut niveau pour les calculs numériques
 Summary(it):	GNU Octave - linguaggio di alto livello per calcoli numerici
 Summary(ja):	GNU Octave ¿ôÃÍ·×»»ÍÑ¤Î¹âµé¸À¸ì
-Summary(ko):	GNU Octave »ê¼ú °è»êÀ» À§ÇÑ °íÂ÷¿ø ¾ğ¾î 
+Summary(ko):	GNU Octave »ê¼ú °è»êÀ» À§ÇÑ °íÂ÷¿ø ¾ğ¾î
 Summary(no):	GNU Octave - et høynivåspråk for numeriske beregninger
 Summary(pl):	GNU Octave - jêzyk programowania do obliczeñ numerycznych
 Summary(pt):	GNU Octave - uma linguagem de alto nível para cálculos numéricos
@@ -158,13 +158,13 @@ dinamico scritti in C, C++, Fortran o altri linguaggi.
 
 %description -l ja
 GNU Octave ¤Ï¡¢¼ç¤È¤·¤Æ¿ôÃÍ·×»»¤òÌÜÅª¤È¤·¤¿¹â¥ì¥Ù¥ë¸À¸ì¤Ç¤¹¡£
-GNU Octave ¤Ï¡¢Àş·¿/ÈóÀş·¿ÌäÂê¤ò¿ôÃÍÅª¤Ë²ò¤¤¤¿¤ê¡¢Matlab 
+GNU Octave ¤Ï¡¢Àş·¿/ÈóÀş·¿ÌäÂê¤ò¿ôÃÍÅª¤Ë²ò¤¤¤¿¤ê¡¢Matlab
 ¤È¤ÎÂçÉôÊ¬¤Î¸ß´¹À­¤ò»ı¤Ã¤¿¸À¸ì¤ò»ÈÍÑ¤·¤Æ¤½¤ÎÂ¾¤Î¿ôÃÍÅª¼Â¸³¤ò¹Ô
 ¤Ã¤¿¤ê¤¹¤ë¤¿¤á¤ÎÊØÍø¤Ê¥³¥Ş¥ó¥É¥é¥¤¥ó¥¤¥ó¥¿¡¼¥Õ¥§¥¤¥¹¤òÄó¶¡¤·¤Ş¤¹¡£
 ¥Ğ¥Ã¥Á»Ø¸ş¤Î¸À¸ì¤È¤·¤Æ»ÈÍÑ¤¹¤ë¤³¤È¤â¤Ç¤­¤Ş¤¹¡£Octave ¤Ï¡¢
 ¶¦ÄÌ¤Î¿ôÃÍÀş·¿Âå¿ôÌäÂê¤ò²ò¤¤¤¿¤ê¡¢ÈóÀş·¿ÊıÄø¼°¤Îº¬¤ò¸«¤Ä¤±¤¿¤ê¡¢
 ÄÌ¾ï¤Î´Ø¿ô¤òÀÑÊ¬¤·¤¿¤ê¡¢Â¿¹à¼°¤òÁàºî¤·¤¿¤ê¡¢¾ïÈùÊ¬ÊıÄø¼°¤äÂå¿ô
-ÈùÊ¬ÊıÄø¼°¤òÀÑÊ¬¤·¤¿¤ê¤¹¤ë¤¿¤á¤Î¹­ÈÏ¤Ê¥Ä¡¼¥ë¤òÈ÷¤¨¤Æ¤¤¤Ş¤¹¡£Octave 
+ÈùÊ¬ÊıÄø¼°¤òÀÑÊ¬¤·¤¿¤ê¤¹¤ë¤¿¤á¤Î¹­ÈÏ¤Ê¥Ä¡¼¥ë¤òÈ÷¤¨¤Æ¤¤¤Ş¤¹¡£Octave
 ÆÈ¼«¤Î¸À¸ì¤Ç½ñ¤«¤ì¤¿¥æ¡¼¥¶¡¼ÄêµÁ¤Î´Ø¿ô¤ä¡¢C++¡¢C¡¢Fortlan¡¢¤½¤ÎÂ¾¤Î
 ¸À¸ì¤Ç½ñ¤«¤ì¤¿Æ°Åª¤Ë¥í¡¼¥É¤µ¤ì¤ë¥â¥¸¥å¡¼¥ë¤ò»ÈÍÑ¤¹¤ì¤Ğ¡¢ÍÆ°×¤Ë³ÈÄ¥
 ¤ª¤è¤Ó¥«¥¹¥¿¥Ş¥¤¥º¤¹¤ë¤³¤È¤¬¤Ç¤­¤Ş¤¹¡£
