@@ -7,7 +7,7 @@ License:	GPL
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
 Group(pl):	Aplikacje/Matematyczne
-Source0:	ftp://ftp.che.wisc.edu/pub/octave/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-liboctave.info.patch
 Patch1:		%{name}-Octave-FAQ.info.patch
 Patch2:		%{name}-DESTDIR.patch
