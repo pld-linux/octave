@@ -1,0 +1,60 @@
+--- Makeconf.in	Tue Jul 11 15:34:45 2000
++++ Makeconf.in.new	Tue Jul 11 15:10:55 2000
+@@ -151,45 +151,45 @@
+ # subdirectories of this directory.  The default values for many of
+ # the variables below are expressed in terms of this one, so you may
+ # not need to change them.  This defaults to /usr/local.
+-prefix = @prefix@
++prefix = $(DESTDIR)@prefix@
+ 
+ # Like `prefix', but used for architecture-specific files.
+-exec_prefix = @exec_prefix@
++exec_prefix = $(DESTDIR)@exec_prefix@
+ 
+ # Where to install Octave and other binaries that people will want to
+ # run directly.
+-bindir = @bindir@
++bindir = $(DESTDIR)@bindir@
+ 
+ # Where to install architecture-independent data files.  ${fcnfiledir}
+ # and ${localfcnfiledir} are subdirectories of this.
+-datadir = @datadir@
++datadir = $(DESTDIR)@datadir@
+ 
+-libdir = @libdir@
++libdir = $(DESTDIR)@libdir@
+ 
+ # Where to install and expect libraries like libcruft.a, liboctave.a,
+ # and other architecture-dependent data.
+-octlibdir = @octlibdir@
++octlibdir = $(DESTDIR)@octlibdir@
+ 
+ # Where to install and expect executable programs to be run by Octave
+ # rather than directly by users.
+-libexecdir = @libexecdir@
++libexecdir = $(DESTDIR)@libexecdir@
+ 
+ # The prefix for Octave's include file directory.  The default is
+ # ${prefix}/include
+-includedir = @includedir@
++includedir = $(DESTDIR)@includedir@
+ 
+ # Where to install Octave's include files.  The default is
+ # ${includedir}/octave-${version}
+-octincludedir = @octincludedir@
++octincludedir = $(DESTDIR)@octincludedir@
+ 
+ # Where to install Octave's man pages, and what extension they should
+ # have.  The default is ${prefix}/man/man1
+-mandir = @mandir@
++mandir = $(DESTDIR)@mandir@
+ man1dir = @man1dir@
+ man1ext = @man1ext@
+ 
+-# Where to install and expect the info files describing Octave..
+-infodir = @infodir@
++# Where to install and expect the info files describing Octave.
++infodir = $(DESTDIR)@infodir@
+ 
+ # The fill path to the default info file.
+ infofile = @infofile@
