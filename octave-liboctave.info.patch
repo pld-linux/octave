@@ -1,0 +1,18 @@
+--- octave-2.0.14/doc/liboctave/liboctave.texi	Tue Aug 18 21:49:42 1998
++++ liboctave.texi	Mon May 10 22:59:01 1999
+@@ -5,6 +5,15 @@
+ \input texinfo  @c -*-texinfo-*-
+ @setfilename liboctave.info
+ 
++@ifinfo
++@format
++INFO-DIR-SECTION Libraries
++START-INFO-DIR-ENTRY
++* Liboctave: (liboctave).     Octave C++ Class Library.
++END-INFO-DIR-ENTRY
++@end format
++@end ifinfo
++
+ @c @smallbook
+ @c @setchapternewpage odd
+ @c @cropmarks
