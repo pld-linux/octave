@@ -16,7 +16,7 @@ Summary(sv):	GNU Octave - ett h鰃ninv錽pr錵 f鰎 numeriska ber鋕ningar
 Summary(zh_CN):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
 Version:	2.1.53
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL
 Group:		Applications/Math
@@ -24,6 +24,7 @@ Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.
 # Source0-md5:	c752a2ef39575f44c6ee858ea152407d
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
+Patch1:		%{name}-types.patch
 URL:		http://www.che.wisc.edu/octave/
 BuildRequires:	bison
 BuildRequires:	blas-devel
@@ -255,6 +256,7 @@ Tryb edycji plik體 Octave dla XEmacsa.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
