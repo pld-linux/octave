@@ -2,7 +2,7 @@ Summary:	GNU Octave -- a high-level language for numerical computations
 Summary(pl):	GNU Octave -- jêzyk programowania do obliczeñ numerycznych
 Name:		octave
 Version:	2.0.14
-Release:	2
+Release:	3
 Copyright:	GPL
 Group:		Applications/Math
 Group(pl):	Aplikacje/Matematyczne
@@ -11,11 +11,11 @@ Patch0:		octave-liboctave.info.patch
 Patch1:		octave-Octave-FAQ.info.patch
 URL:		http://www.che.wisc.edu/octave/
 BuildRequires:	libstdc++-devel
-BuildRequires:	ncurses-devel
+BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	readline-devel
 BuildRequires:	flex
 BuildRequires:	bison
-BuildRequires:	egcs-g77
+BuildRequires:	gcc-g77
 Requires:	gnuplot
 Prereq:		/usr/sbin/fix-info-dir
 BuildRoot:	/tmp/%{name}-%{version}-root
@@ -41,7 +41,6 @@ g³ównie do obliczeñ numerycznych. Octave jest w du¿ym stopniu kompatybilny z
 jêzykiem Matlab. Pracowaæ mo¿na wprost z linii poleceñ lub uruchamiaæ
 programy stworzone za pomoc± zewnêtrznego edytora.
 
-
 %package devel
 Summary:	Header files and devel docs for Octave
 Summary(pl):    Pliki nag³ówkowe i dodatkowa dokumentacja Octave 
@@ -52,7 +51,6 @@ Prereq:		/usr/sbin/fix-info-dir
 %description -l pl devel
 Pliki nag³ówkowe i dodatkowa dokumentacja Octave
 
-
 %prep
 %setup -q 
 %patch0 -p1
@@ -60,11 +58,12 @@ Pliki nag³ówkowe i dodatkowa dokumentacja Octave
 
 %build
 autoconf
-CFLAOCGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
-CXXFLAGS="$RPM_OPT_FLAGS" \
-FFLAGS="$RPM_OPT_FLAGS" \
-./configure %{_target_platform} \
-	--prefix=/usr \
+CFLAOCGS="$RPM_OPT_FLAGS"
+LDFLAGS="-s"
+CXXFLAGS="$RPM_OPT_FLAGS"
+FFLAGS="$RPM_OPT_FLAGS"
+export CFLAOCGS LDFLAGS CXXFLAGS FFLAGS
+%configure \
 	--with-g77 \
 	--enable-dl \
 	--enable-shared \
