@@ -68,13 +68,13 @@ export CFLAOCGS LDFLAGS CXXFLAGS FFLAGS
 	--enable-rpath \
 	--enable-lite-kernel
 
-make octlibdir=%{_libdir} octincludedir=%{_includedir}/octave
-make -C doc/faq Octave-FAQ.info
-make -C doc/liboctave liboctave.info
+%{__make} octlibdir=%{_libdir} octincludedir=%{_includedir}/octave
+%{__make} -C doc/faq Octave-FAQ.info
+%{__make} -C doc/liboctave liboctave.info
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install \
+%{__make} install \
 	prefix=$RPM_BUILD_ROOT/usr \
 	octlibdir=$RPM_BUILD_ROOT%{_libdir}
 	octincludedir=$RPM_BUILD_ROOT%{_includedir}/octave
