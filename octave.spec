@@ -11,13 +11,20 @@ Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.
 Patch0:		%{name}-lib%{name}.info.patch
 Patch1:		%{name}-Octave-FAQ.info.patch
 Patch2:		%{name}-DESTDIR.patch
+Patch3:		%{name}-gcc31.patch
 URL:		http://www.che.wisc.edu/octave/
 BuildRequires:	bison
+BuildRequires:	blas-devel
+BuildRequires:	fftw-devel
 BuildRequires:	flex
 BuildRequires:	gcc-g77
+BuildRequires:	hdf5-devel
+BuildRequires:	lapack-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	readline-devel
+BuildRequires:	zlib-devel
+Requires(post,postun):	/sbin/ldconfig
 Requires:	gnuplot
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -81,12 +88,10 @@ Tryb edycji plików Octave dla XEmacsa.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p0
+%patch3 -p1
 
 %build
-#aclocal
-#autoconf
-cp -f %{_datadir}/automake/config.* .
-%configure2_13 \
+%configure \
 	--with-g77 \
 	--enable-dl \
 	--enable-shared \
