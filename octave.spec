@@ -18,7 +18,7 @@ BuildRequires:	bison
 BuildRequires:	gcc-g77
 Requires:	gnuplot
 Prereq:		/usr/sbin/fix-info-dir
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 GNU Octave is a high-level language, primarily intended for numerical
