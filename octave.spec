@@ -15,17 +15,15 @@ Summary(ru):	GNU Octave - Язык высокого уровня для выполнения математических рас
 Summary(sv):	GNU Octave - ett hЖgninvЕsprЕk fЖr numeriska berДkningar
 Summary(zh_CN):	GNU Octave - сцсзйЩвж╪фкЦ╣д╦ъ╪╤сОят║ё
 Name:		octave
-Version:	2.1.48
+Version:	2.1.50
 Release:	1
 Epoch:		2
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.bz2
-# Source0-md5:	9e5234e9f00216b087f1e2fb465ed0cd
+# Source0-md5:	480d48cd99828fb403ceee53dd1cad2f
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
-Patch1:		%{name}-DESTDIR.patch
-Patch2:		%{name}-gcc33.patch
 URL:		http://www.che.wisc.edu/octave/
 BuildRequires:	bison
 BuildRequires:	blas-devel
@@ -257,8 +255,6 @@ Tryb edycji plikСw Octave dla XEmacsa.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p0
-%patch2 -p1
 
 %build
 %configure \
@@ -280,8 +276,8 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/Scientific/Numerics
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	octincludedir=$RPM_BUILD_ROOT%{_includedir} \
-	octlibdir=$RPM_BUILD_ROOT%{_libdir}
+	octincludedir=%{_includedir} \
+	octlibdir=%{_libdir}
 
 ln -sf %{_includedir}/%{name} $RPM_BUILD_ROOT%{_includedir}/%{name}-%{version}
 
