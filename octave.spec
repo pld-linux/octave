@@ -41,13 +41,11 @@ jêzykiem Matlab. Pracowaæ mo¿na wprost z linii poleceñ lub uruchamiaæ
 programy stworzone za pomoc± zewnêtrznego edytora.
 
 
-
 %package devel
 Summary:	Header files and devel docs for Octave
 Summary(pl):    Pliki nag³ówkowe i dodatkowa dokumentacja Octave 
 Group:          Development/Libraries
 Group(pl):      Programowanie/Biblioteki                                                                        
-
 
 %description -l pl devel
 Pliki nag³ówkowe i dodatkowa dokumentacja Octave
@@ -70,20 +68,25 @@ FFLAGS="$RPM_OPT_FLAGS" \
 	--enable-shared \
 	--enable-rpath \
 	--enable-lite-kernel
-make octlibdir=/usr/lib
-(cd doc/faq       ; make Octave-FAQ.info)
-(cd doc/liboctave ; make liboctave.info )
+
+make octlibdir=/usr/lib octincludedir=/usr/include/octave
+make -C doc/faq Octave-FAQ.info
+make -C doc/liboctave liboctave.info
 
 %install
 rm -rf $RPM_BUILD_ROOT
 make install \
 	prefix=$RPM_BUILD_ROOT/usr \
 	octlibdir=$RPM_BUILD_ROOT/usr/lib
+	octincludedir=$RPM_BUILD_ROOT/usr/include/octave
+
+mv -f $RPM_BUILD_ROOT/usr/bin/octave-%{version} $RPM_BUILD_ROOT/usr/bin/octave
 
 strip --strip-unneeded $RPM_BUILD_ROOT/usr/lib/lib*so
 
 install doc/liboctave/*.info* $RPM_BUILD_ROOT/usr/share/info
 install doc/faq/*.info* $RPM_BUILD_ROOT/usr/share/info
+
 gzip -9nf $RPM_BUILD_ROOT/usr/share/{info/*.info*,man/man1/*} \
 	BUGS NEWS* PROJECTS README README.Linux ChangeLog* ROADMAP \
 	SENDING-PATCHES THANKS
@@ -103,7 +106,6 @@ if [ "$1" = "0" ]; then
 fi
 
 %postun -p /sbin/ldconfig
-
 
 %post devel
 /sbin/install-info /usr/share/info/lib%{name}.info.gz /etc/info-dir
