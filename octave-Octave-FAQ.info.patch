@@ -1,0 +1,19 @@
+--- octave-2.0.14/doc/faq/Octave-FAQ.texi	Sat Feb 14 07:54:44 1998
++++ Octave-FAQ.texi	Tue May 11 15:37:00 1999
+@@ -1,6 +1,16 @@
+ \input texinfo.tex      @c -*-texinfo-*-
+ 
+ @setfilename Octave-FAQ.info
++@ifinfo
++@format
++START-INFO-DIR-ENTRY
++* Octave-FAQ: (Octave-FAQ).	Frequently asked questions about Octave (with answers)     
++END-INFO-DIR-ENTRY
++@end format
++@end ifinfo
++
++
++
+ @settitle Frequently asked questions about Octave (with answers)
+ 
+ @setchapternewpage off
