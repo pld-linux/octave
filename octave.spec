@@ -1,8 +1,11 @@
+
 Summary:	GNU Octave -- a high-level language for numerical computations
+Summary(es):	GNU Octave - Un programa para cálculo numérico y matricial
 Summary(pl):	GNU Octave -- jêzyk programowania do obliczeñ numerycznych
+Summary(pt_BR):	GNU Octave - Um programa para cálculo numérico e matricial
 Name:		octave
-Version:	2.1.33
-Release:	3
+Version:	2.1.36
+Release:	2
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.bz2
@@ -34,11 +37,21 @@ extensible and customizable via user-defined functions written in
 Octave's own language, or using dynamically loaded modules written in
 C++, C, Fortran, or other languages.
 
+%description -l es
+GNU Octave - Un programa de cálculo numérico y matricial. Posee
+lenguaje de altonivel y ambiente interactivo para computación
+numérica, semejantes a los del Matlab.
+
 %description -l pl
 GNU Octave jest jêzykiem programowania wysokiego poziomu przeznaczonym
 g³ównie do obliczeñ numerycznych. Octave jest w du¿ym stopniu
 kompatybilny z jêzykiem Matlab. Pracowaæ mo¿na wprost z linii poleceñ
 lub uruchamiaæ programy stworzone za pomoc± zewnêtrznego edytora.
+
+%description -l pt_BR
+GNU Octave - Um programa de cálculo numérico e matricial. Possui
+linguagem de alto nível e ambiente interativo para computação numérica
+semelhantes ao do Matlab.
 
 %package devel
 Summary:	Header files and devel docs for Octave
@@ -71,6 +84,9 @@ Tryb edycji plików Octave dla XEmacsa.
 %patch2 -p0
 
 %build
+#aclocal
+#autoconf
+cp -f %{_datadir}/automake/config.* .
 %configure2_13 \
 	--with-g77 \
 	--enable-dl \
@@ -86,7 +102,9 @@ Tryb edycji plików Octave dla XEmacsa.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_infodir}
 
-%{__make} DESTDIR=$RPM_BUILD_ROOT install
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	octincludedir=$RPM_BUILD_ROOT%{_includedir}
 
 install doc/liboctave/*.info* $RPM_BUILD_ROOT%{_infodir}
 install doc/faq/*.info* $RPM_BUILD_ROOT%{_infodir}
