@@ -4,14 +4,13 @@ Summary(pl):	GNU Octave -- jêzyk programowania do obliczeñ numerycznych
 Summary(pt_BR):	GNU Octave - Um programa para cálculo numérico e matricial
 Name:		octave
 Version:	2.1.36
-Release:	9
+Release:	10
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.bz2
-Patch0:		%{name}-lib%{name}.info.patch
-Patch1:		%{name}-Octave-FAQ.info.patch
-Patch2:		%{name}-DESTDIR.patch
-Patch3:		%{name}-gcc31.patch
+Patch0:		%{name}-info.patch
+Patch1:		%{name}-DESTDIR.patch
+Patch2:		%{name}-gcc31.patch
 URL:		http://www.che.wisc.edu/octave/
 BuildRequires:	bison
 BuildRequires:	blas-devel
@@ -23,6 +22,7 @@ BuildRequires:	lapack-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	readline-devel
+BuildRequires:	texinfo
 BuildRequires:	zlib-devel
 Requires(post,postun):	/sbin/ldconfig
 Requires:	gnuplot
@@ -86,9 +86,8 @@ Tryb edycji plików Octave dla XEmacsa.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p0
-%patch3 -p1
+%patch1 -p0
+%patch2 -p1
 
 %build
 %configure \
