@@ -12,12 +12,12 @@ Patch0:		%{name}-lib%{name}.info.patch
 Patch1:		%{name}-Octave-FAQ.info.patch
 Patch2:		%{name}-DESTDIR.patch
 URL:		http://www.che.wisc.edu/octave/
+BuildRequires:	bison
+BuildRequires:	flex
+BuildRequires:	gcc-g77
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	readline-devel
-BuildRequires:	flex
-BuildRequires:	bison
-BuildRequires:	gcc-g77
 Requires:	gnuplot
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -121,8 +121,6 @@ cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode/auto-auto
       (cons '("\\\\.m$" . octave-mode) auto-mode-alist))
 EOF
 
-gzip -9nf ChangeLog NEWS THANKS PROJECTS
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -142,7 +140,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz emacs examples doc/{interpreter,faq}/*.html
+%doc ChangeLog NEWS THANKS PROJECTS
+%doc emacs examples doc/{interpreter,faq}/*.html
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/*
 %{_infodir}/octave.info*
