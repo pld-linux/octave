@@ -1,4 +1,3 @@
-
 Summary:	GNU Octave -- a high-level language for numerical computations
 Summary(es):	GNU Octave - Un programa para cálculo numérico y matricial
 Summary(pl):	GNU Octave -- jêzyk programowania do obliczeñ numerycznych
