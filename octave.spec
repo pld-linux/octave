@@ -133,39 +133,3 @@ fi
 %{_includedir}/%{name}-%{version}
 %{_infodir}/liboctave.info*
     
-%changelog
-* Wed May 12 1999 Rafa³ Kleger-Rudomin <klakier@pg.gda.pl>
-- added rebuilding additional info files from patched .texi
-- removed READLINE_DIR="" LIBREADLINE="-lreadline" from make.
- 
-* Tue May 11 1999 Rafa³ Kleger-Rudomin <klakier@pg.gda.pl>
-- added more html doc (I like it... :) )
-- added a4 refcard to devel doc
-- Octave-FAQ.info entry
-- liboctave.info entry 
-- divided into octave, octave-devel
-
-* Sun May  9 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-- now package is FHS 2.0 compliant,
-- added passing $RPM_OPT_FLAGS to fortran compile options (FFLAGS),
-- link with system readline instead static included with octave,
-- added gzipping %doc and man pages,
-- added using %%{_target_platform} macro in ./configure parameters,
-- added LDFLAGS="-s" to ./configure enviroment,
-- install libraries in proper path (/usr/lib),
-- changed permission to 755 on shared libraries,
-- added stripping shared libs,
-- added BuildPrereq: readline-devel, ncurses-devel, egcs-g77.
-
-* Fri Apr 30 1999 Rafa³ Kleger-Rudomin <klakier@pg.gda.pl>
-  [2.0.14-1]
-- Adapt for PLD.
-
-* Thu Jun 11 1998 Andrew Veliath <andrewtv@usa.net>
-- Add %attr, build as user.
-
-* Mon Jun 1 1998 Andrew Veliath <andrewtv@usa.net>
-- Add BuildRoot, installinfo, require gnuplot, description from
-  Octave's web page, update to Octave 2.0.13.
-
-- Adapt from existing spec file.
