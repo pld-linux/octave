@@ -84,8 +84,8 @@ mv -f $RPM_BUILD_ROOT/usr/bin/octave-%{version} $RPM_BUILD_ROOT/usr/bin/octave
 
 strip --strip-unneeded $RPM_BUILD_ROOT/usr/lib/lib*so
 
-install doc/liboctave/*.info* $RPM_BUILD_ROOT/usr/share/info
-install doc/faq/*.info* $RPM_BUILD_ROOT/usr/share/info
+install doc/liboctave/*.info* $RPM_BUILD_ROOT%{_infodir}
+install doc/faq/*.info* $RPM_BUILD_ROOT%{_infodir}
 
 gzip -9nf $RPM_BUILD_ROOT/usr/share/{info/*.info*,man/man1/*} \
 	BUGS NEWS* PROJECTS README README.Linux ChangeLog* ROADMAP \
@@ -96,23 +96,23 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/ldconfig
-/sbin/install-info /usr/share/info/%{name}.info.gz /etc/info-dir
-/sbin/install-info /usr/share/info/Octave-FAQ.info.gz /etc/info-dir
+/sbin/install-info %{_infodir}/%{name}.info.gz /etc/info-dir
+/sbin/install-info %{_infodir}/Octave-FAQ.info.gz /etc/info-dir
 
 %preun
 if [ "$1" = "0" ]; then
-	/sbin/install-info --delete /usr/share/info/%{name}.info.gz /etc/info-dir
-	/sbin/install-info --delete /usr/share/info/Octave-FAQ.info.gz /etc/info-dir
+	/sbin/install-info --delete %{_infodir}/%{name}.info.gz /etc/info-dir
+	/sbin/install-info --delete %{_infodir}/Octave-FAQ.info.gz /etc/info-dir
 fi
 
 %postun -p /sbin/ldconfig
 
 %post devel
-/sbin/install-info /usr/share/info/lib%{name}.info.gz /etc/info-dir
+/sbin/install-info %{_infodir}/lib%{name}.info.gz /etc/info-dir
 
 %preun devel
 if [ "$1" = "0" ]; then
-	/sbin/install-info --delete /usr/share/info/lib%{name}.info.gz /etc/info-dir
+	/sbin/install-info --delete %{_infodir}/lib%{name}.info.gz /etc/info-dir
 fi
 
 
@@ -122,16 +122,16 @@ fi
 %attr(755,root,root) /usr/bin/*
 %attr(755,root,root) /usr/lib/lib*so
 %attr(755,root,root) /usr/libexec/octave
-/usr/share/info/octave.info*
-/usr/share/info/Octave-FAQ.info*
-/usr/share/man/man1/*
+%{_infodir}/octave.info*
+%{_infodir}/Octave-FAQ.info*
+%{_mandir}/man1/*
 /usr/share/octave
 
 %files devel
 %defattr(644,root,root,755)
 %doc doc/refcard/refcard{-a4,}.* doc/liboctave/*.html
 /usr/include/%{name}-%{version}
-/usr/share/info/liboctave.info*
+%{_infodir}/liboctave.info*
     
 %changelog
 * Wed May 12 1999 Rafa³ Kleger-Rudomin <klakier@pg.gda.pl>
