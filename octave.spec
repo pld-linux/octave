@@ -80,7 +80,7 @@ make install \
 	octlibdir=$RPM_BUILD_ROOT%{_libdir}
 	octincludedir=$RPM_BUILD_ROOT/usr/include/octave
 
-mv -f $RPM_BUILD_ROOT/usr/bin/octave-%{version} $RPM_BUILD_ROOT/usr/bin/octave
+mv -f $RPM_BUILD_ROOT%{_bindir}/octave-%{version} $RPM_BUILD_ROOT/usr/bin/octave
 
 strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/lib*so
 
@@ -119,7 +119,7 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc *.gz emacs examples doc/{interpreter,faq}/*.html
-%attr(755,root,root) /usr/bin/*
+%attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/lib*so
 %attr(755,root,root) /usr/libexec/octave
 %{_infodir}/octave.info*
