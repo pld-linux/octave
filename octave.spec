@@ -69,7 +69,7 @@ FFLAGS="$RPM_OPT_FLAGS" \
 	--enable-rpath \
 	--enable-lite-kernel
 
-make octlibdir=%{_libdir} octincludedir=/usr/include/octave
+make octlibdir=%{_libdir} octincludedir=%{_includedir}/octave
 make -C doc/faq Octave-FAQ.info
 make -C doc/liboctave liboctave.info
 
@@ -78,7 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 make install \
 	prefix=$RPM_BUILD_ROOT/usr \
 	octlibdir=$RPM_BUILD_ROOT%{_libdir}
-	octincludedir=$RPM_BUILD_ROOT/usr/include/octave
+	octincludedir=$RPM_BUILD_ROOT%{_includedir}/octave
 
 mv -f $RPM_BUILD_ROOT%{_bindir}/octave-%{version} $RPM_BUILD_ROOT/usr/bin/octave
 
@@ -130,7 +130,7 @@ fi
 %files devel
 %defattr(644,root,root,755)
 %doc doc/refcard/refcard{-a4,}.* doc/liboctave/*.html
-/usr/include/%{name}-%{version}
+%{_includedir}/%{name}-%{version}
 %{_infodir}/liboctave.info*
     
 %changelog
