@@ -1,0 +1,3 @@
+- add link /usr/include/octave-%{version} to /usr/include/octave (changing
+  only path will be not enough)
+- release 9
