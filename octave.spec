@@ -3,14 +3,14 @@ Summary(es):	GNU Octave - Un programa para cálculo numérico y matricial
 Summary(pl):	GNU Octave -- jêzyk programowania do obliczeñ numerycznych
 Summary(pt_BR):	GNU Octave - Um programa para cálculo numérico e matricial
 Name:		octave
-Version:	2.1.36
-Release:	10
+Version:	2.1.39
+Release:	3
+Epoch:		2
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-DESTDIR.patch
-Patch2:		%{name}-gcc31.patch
 URL:		http://www.che.wisc.edu/octave/
 BuildRequires:	bison
 BuildRequires:	blas-devel
@@ -87,13 +87,13 @@ Tryb edycji plików Octave dla XEmacsa.
 %setup -q
 %patch0 -p1
 %patch1 -p0
-%patch2 -p1
 
 %build
 %configure \
 	--with-g77 \
 	--enable-dl \
 	--enable-shared \
+	--enable-static=no \
 	--enable-rpath \
 	--enable-lite-kernel
 
@@ -107,7 +107,8 @@ install -d $RPM_BUILD_ROOT%{_infodir}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	octincludedir=$RPM_BUILD_ROOT%{_includedir}
+	octincludedir=$RPM_BUILD_ROOT%{_includedir} \
+	octlibdir=$RPM_BUILD_ROOT%{_libdir}
 
 ln -sf %{_includedir}/%{name} $RPM_BUILD_ROOT%{_includedir}/%{name}-%{version}
 
@@ -149,7 +150,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog NEWS THANKS PROJECTS
 %doc emacs examples doc/{interpreter,faq}/*.html
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/*
+%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 %{_infodir}/octave.info*
 %{_infodir}/Octave-FAQ.info*
 %{_mandir}/man1/*
@@ -158,6 +159,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %doc doc/refcard/refcard{-a4,}.* doc/liboctave/*.html
+%attr(755,root,root) %{_libdir}/lib*.so
 %{_includedir}/%{name}*
 %{_infodir}/liboctave.info*
 
