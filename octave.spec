@@ -21,6 +21,7 @@ Epoch:		2
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.bz2
+# Source0-md5:	9e5234e9f00216b087f1e2fb465ed0cd
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-DESTDIR.patch
