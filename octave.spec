@@ -54,7 +54,7 @@ Pliki nag³ówkowe i dodatkowa dokumentacja Octave
 
 
 %prep
-%setup -q
+%setup -q 
 %patch0 -p1
 %patch1 -p1
 
@@ -70,12 +70,14 @@ FFLAGS="$RPM_OPT_FLAGS" \
 	--enable-shared \
 	--enable-rpath \
 	--enable-lite-kernel
-make READLINE_DIR="" LIBREADLINE="-lreadline" octlibdir=/usr/lib
+make octlibdir=/usr/lib
+(cd doc/faq       ; make Octave-FAQ.info)
+(cd doc/liboctave ; make liboctave.info )
 
 %install
 rm -rf $RPM_BUILD_ROOT
 make install \
-	prefix=$RPM_BUILD_ROOT/usr
+	prefix=$RPM_BUILD_ROOT/usr \
 	octlibdir=$RPM_BUILD_ROOT/usr/lib
 
 strip --strip-unneeded $RPM_BUILD_ROOT/usr/lib/lib*so
@@ -130,6 +132,10 @@ fi
 /usr/share/info/liboctave.info*
     
 %changelog
+* Wed May 12 1999 Rafa³ Kleger-Rudomin <klakier@pg.gda.pl>
+- added rebuilding additional info files from patched .texi
+- removed READLINE_DIR="" LIBREADLINE="-lreadline" from make.
+ 
 * Tue May 11 1999 Rafa³ Kleger-Rudomin <klakier@pg.gda.pl>
 - added more html doc (I like it... :) )
 - added a4 refcard to devel doc
