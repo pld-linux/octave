@@ -10,12 +10,12 @@ Source:		ftp://ftp.che.wisc.edu/pub/octave/%{name}-%{version}.tar.bz2
 Patch0:		octave-liboctave.info.patch
 Patch1:		octave-Octave-FAQ.info.patch
 URL:		http://www.che.wisc.edu/octave/
-BuildPrereq:	libstdc++-devel
-BuildPrereq:	ncurses-devel
-BuildPrereq:	readline-devel
-BuildPrereq:	flex
-BuildPrereq:	bison
-BuildPrereq:	egcs-g77
+BuildRequires:	libstdc++-devel
+BuildRequires:	ncurses-devel
+BuildRequires:	readline-devel
+BuildRequires:	flex
+BuildRequires:	bison
+BuildRequires:	egcs-g77
 Requires:	gnuplot
 BuildRoot:	/tmp/%{name}-%{version}-root
 
