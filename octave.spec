@@ -1,3 +1,6 @@
+# TODO:
+# - check ATLAS and MPI support
+#
 Summary:	GNU Octave - a high-level language for numerical computations
 Summary(cs):	GNU Octave - vy¹¹í programovací jazyk pro numerické výpoèty
 Summary(da):	GNU Octave - et højniveausprog for numeriske beregninger
@@ -15,20 +18,19 @@ Summary(ru):	GNU Octave - ñÚÙË ×ÙÓÏËÏÇÏ ÕÒÏ×ÎÑ ÄÌÑ ×ÙÐÏÌÎÅÎÉÑ ÍÁÔÅÍÁÔÉÞÅÓËÉÈ ÒÁÓ
 Summary(sv):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN):	GNU Octave - ÓÃÓÚÊý×Ö¼ÆËãµÄ¸ß¼¶ÓïÑÔ¡£
 Name:		octave
-Version:	2.1.53
-Release:	2
+Version:	2.1.54
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.bz2
-# Source0-md5:	c752a2ef39575f44c6ee858ea152407d
+# Source0-md5:	f714c9ab681e423f681b17e685a3d912
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
-Patch1:		%{name}-types.patch
 URL:		http://www.che.wisc.edu/octave/
-BuildRequires:	bison
+BuildRequires:	bison >= 1.31
 BuildRequires:	blas-devel
-BuildRequires:	fftw-devel
+BuildRequires:	fftw3-devel
 BuildRequires:	flex
 BuildRequires:	gcc-g77
 BuildRequires:	hdf5-devel >= 1.6.0
@@ -256,7 +258,6 @@ Tryb edycji plików Octave dla XEmacsa.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
