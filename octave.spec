@@ -17,7 +17,6 @@ BuildRequires:	flex
 BuildRequires:	bison
 BuildRequires:	gcc-g77
 Requires:	gnuplot
-Prereq:		/usr/sbin/fix-info-dir
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -46,7 +45,6 @@ Summary:	Header files and devel docs for Octave
 Summary(pl):    Pliki nag³ówkowe i dodatkowa dokumentacja Octave 
 Group:          Development/Libraries
 Group(pl):      Programowanie/Biblioteki
-Prereq:		/usr/sbin/fix-info-dir
 
 %description -l pl devel
 Pliki nag³ówkowe i dodatkowa dokumentacja Octave
@@ -97,16 +95,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/ldconfig
-/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+[ -x /usr/sbin/fix-info-dir ] && /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %postun -p /sbin/ldconfig
-/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+[ -x /usr/sbin/fix-info-dir ] && /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %post devel
-/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+[ -x /usr/sbin/fix-info-dir ] && /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %postun devel
-/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+[ -x /usr/sbin/fix-info-dir ] && /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %files
 %defattr(644,root,root,755)
