@@ -138,7 +138,7 @@ fi
 - divided into octave, octave-devel
 
 * Sun May  9 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-- now package is FHS 2.0 compiliat,
+- now package is FHS 2.0 compliat,
 - added passing $RPM_OPT_FLAGS to fortran compile options (FFLAGS),
 - link with system readline instead static included with octave,
 - added gzipping %doc and man pages,
