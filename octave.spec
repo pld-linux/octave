@@ -18,16 +18,16 @@ Summary(ru):	GNU Octave - ñÚÙË ×ÙÓÏËÏÇÏ ÕÒÏ×ÎÑ ÄÌÑ ×ÙÐÏÌÎÅÎÉÑ ÍÁÔÅÍÁÔÉÞÅÓËÉÈ ÒÁÓ
 Summary(sv):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN):	GNU Octave - ÓÃÓÚÊý×Ö¼ÆËãµÄ¸ß¼¶ÓïÑÔ¡£
 Name:		octave
-Version:	2.1.64
+Version:	2.1.69
 Release:	1
 Epoch:		2
 License:	GPL
 Group:		Applications/Math
-Source0:	ftp://ftp.che.wisc.edu/pub/octave/bleeding-edge/%{name}-%{version}.tar.bz2
-# Source0-md5:	01ec8b13bd850123b190129be93adc1f
+Source0:	ftp://ftp.octave.org/pub/octave/%{name}-%{version}.tar.bz2
+# Source0-md5:	32d598e5c148d2319e3ba66834ea096d
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
-URL:		http://www.che.wisc.edu/octave/
+URL:		http://www.octave.org/
 BuildRequires:	bison >= 1.31
 BuildRequires:	blas-devel
 BuildRequires:	fftw3-devel
