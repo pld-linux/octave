@@ -18,15 +18,16 @@ Summary(ru):	GNU Octave - ñÚÙË ×ÙÓÏËÏÇÏ ÕÒÏ×ÎÑ ÄÌÑ ×ÙÐÏÌÎÅÎÉÑ ÍÁÔÅÍÁÔÉÞÅÓËÉÈ ÒÁÓ
 Summary(sv):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN):	GNU Octave - ÓÃÓÚÊý×Ö¼ÆËãµÄ¸ß¼¶ÓïÑÔ¡£
 Name:		octave
-Version:	2.1.69
+Version:	2.1.70
 Release:	1
 Epoch:		2
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.octave.org/pub/octave/%{name}-%{version}.tar.bz2
-# Source0-md5:	32d598e5c148d2319e3ba66834ea096d
+# Source0-md5:	dc990918d464e17ff7806b1053a40c12
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
+Patch1:		%{name}-no_glob.patch
 URL:		http://www.octave.org/
 BuildRequires:	bison >= 1.31
 BuildRequires:	blas-devel
@@ -259,6 +260,7 @@ Tryb edycji plików Octave dla XEmacsa.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
