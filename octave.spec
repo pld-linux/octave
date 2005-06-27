@@ -18,13 +18,13 @@ Summary(ru):	GNU Octave - ñÚÙË ×ÙÓÏËÏÇÏ ÕÒÏ×ÎÑ ÄÌÑ ×ÙÐÏÌÎÅÎÉÑ ÍÁÔÅÍÁÔÉÞÅÓËÉÈ ÒÁÓ
 Summary(sv):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN):	GNU Octave - ÓÃÓÚÊý×Ö¼ÆËãµÄ¸ß¼¶ÓïÑÔ¡£
 Name:		octave
-Version:	2.1.70
+Version:	2.1.71
 Release:	1
 Epoch:		2
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.octave.org/pub/octave/%{name}-%{version}.tar.bz2
-# Source0-md5:	dc990918d464e17ff7806b1053a40c12
+# Source0-md5:	2ab06912017c833549035111f0ab592f
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-no_glob.patch
@@ -40,6 +40,7 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	readline-devel
 BuildRequires:	texinfo
+BuildRequires:	texinfo-texi2dvi
 BuildRequires:	zlib-devel
 Requires(post,postun):	/sbin/ldconfig
 Requires:	gnuplot
@@ -260,7 +261,7 @@ Tryb edycji plików Octave dla XEmacsa.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
+#%patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
