@@ -27,7 +27,6 @@ Source0:	ftp://ftp.octave.org/pub/octave/%{name}-%{version}.tar.bz2
 # Source0-md5:	2ab06912017c833549035111f0ab592f
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
-Patch1:		%{name}-no_glob.patch
 URL:		http://www.octave.org/
 BuildRequires:	bison >= 1.31
 BuildRequires:	blas-devel
@@ -39,7 +38,6 @@ BuildRequires:	lapack-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	readline-devel
-BuildRequires:	texinfo
 BuildRequires:	texinfo-texi2dvi
 BuildRequires:	zlib-devel
 Requires(post,postun):	/sbin/ldconfig
@@ -261,7 +259,6 @@ Tryb edycji plików Octave dla XEmacsa.
 %prep
 %setup -q
 %patch0 -p1
-#%patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
