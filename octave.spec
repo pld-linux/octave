@@ -18,13 +18,13 @@ Summary(ru):	GNU Octave - Язык высокого уровня для выполнения математических рас
 Summary(sv):	GNU Octave - ett hЖgninvЕsprЕk fЖr numeriska berДkningar
 Summary(zh_CN):	GNU Octave - сцсзйЩвж╪фкЦ╣д╦ъ╪╤сОят║ё
 Name:		octave
-Version:	2.1.72
+Version:	2.1.73
 Release:	1
 Epoch:		2
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.octave.org/pub/octave/%{name}-%{version}.tar.bz2
-# Source0-md5:	47012ee5efee3a36d04fea3341748862
+# Source0-md5:	c356475aa06d81a10f8bf27f1a1d27a0
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 URL:		http://www.octave.org/
