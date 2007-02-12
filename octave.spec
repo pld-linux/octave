@@ -2,21 +2,21 @@
 # - check ATLAS and MPI support
 #
 Summary:	GNU Octave - a high-level language for numerical computations
-Summary(cs):	GNU Octave - vyππÌ programovacÌ jazyk pro numerickÈ v˝poËty
-Summary(da):	GNU Octave - et h¯jniveausprog for numeriske beregninger
-Summary(de):	GNU Octave - eine hˆhere Programmiersprache f¸r nummerische Berechnungen
-Summary(es):	GNU Octave - lenguaje de alto nivel para c·lculos numÈricos
-Summary(fr):	GNU Octave - langage haut niveau pour les calculs numÈriques
-Summary(it):	GNU Octave - linguaggio di alto livello per calcoli numerici
-Summary(ja):	GNU Octave øÙ√Õ∑◊ªªÕ—§Œπ‚µÈ∏¿∏Ï
-Summary(ko):	GNU Octave ªÍº˙ ∞ËªÍ¿ª ¿ß«— ∞Ì¬˜ø¯ ææÓ
-Summary(nb):	GNU Octave - et h¯ynivÂsprÂk for numeriske beregninger
-Summary(pl):	GNU Octave - jÍzyk programowania do obliczeÒ numerycznych
-Summary(pt):	GNU Octave - uma linguagem de alto nÌvel para c·lculos numÈricos
-Summary(pt_BR):	GNU Octave - um programa para c·lculo numÈrico e matricial
-Summary(ru):	GNU Octave - Ò⁄ŸÀ ◊Ÿ”œÀœ«œ ’“œ◊Œ— ƒÃ— ◊Ÿ–œÃŒ≈Œ…— Õ¡‘≈Õ¡‘…ﬁ≈”À…» “¡”ﬁ≈‘œ◊
-Summary(sv):	GNU Octave - ett hˆgninvÂsprÂk fˆr numeriska ber‰kningar
-Summary(zh_CN):	GNU Octave - ”√”⁄ ˝◊÷º∆À„µƒ∏ﬂº∂”Ô—‘°£
+Summary(cs.UTF-8):   GNU Octave - vy≈°≈°√≠ programovac√≠ jazyk pro numerick√© v√Ωpoƒçty
+Summary(da.UTF-8):   GNU Octave - et h√∏jniveausprog for numeriske beregninger
+Summary(de.UTF-8):   GNU Octave - eine h√∂here Programmiersprache f√ºr nummerische Berechnungen
+Summary(es.UTF-8):   GNU Octave - lenguaje de alto nivel para c√°lculos num√©ricos
+Summary(fr.UTF-8):   GNU Octave - langage haut niveau pour les calculs num√©riques
+Summary(it.UTF-8):   GNU Octave - linguaggio di alto livello per calcoli numerici
+Summary(ja.UTF-8):   GNU Octave Êï∞ÂÄ§Ë®àÁÆóÁî®„ÅÆÈ´òÁ¥öË®ÄË™û
+Summary(ko.UTF-8):   GNU Octave ÏÇ∞Ïà† Í≥ÑÏÇ∞ÏùÑ ÏúÑÌïú Í≥†Ï∞®Ïõê Ïñ∏Ïñ¥
+Summary(nb.UTF-8):   GNU Octave - et h√∏yniv√•spr√•k for numeriske beregninger
+Summary(pl.UTF-8):   GNU Octave - jƒôzyk programowania do oblicze≈Ñ numerycznych
+Summary(pt.UTF-8):   GNU Octave - uma linguagem de alto n√≠vel para c√°lculos num√©ricos
+Summary(pt_BR.UTF-8):   GNU Octave - um programa para c√°lculo num√©rico e matricial
+Summary(ru.UTF-8):   GNU Octave - –Ø–∑—ã–∫ –≤—ã—Å–æ–∫–æ–≥–æ —É—Ä–æ–≤–Ω—è –¥–ª—è –≤—ã–ø–æ–ª–Ω–µ–Ω–∏—è –º–∞—Ç–µ–º–∞—Ç–∏—á–µ—Å–∫–∏—Ö —Ä–∞—Å—á–µ—Ç–æ–≤
+Summary(sv.UTF-8):   GNU Octave - ett h√∂gninv√•spr√•k f√∂r numeriska ber√§kningar
+Summary(zh_CN.UTF-8):   GNU Octave - Áî®‰∫éÊï∞Â≠óËÆ°ÁÆóÁöÑÈ´òÁ∫ßËØ≠Ë®Ä„ÄÇ
 Name:		octave
 Version:	2.1.73
 Release:	2
@@ -60,181 +60,181 @@ extensible and customizable via user-defined functions written in
 Octave's own language, or using dynamically loaded modules written in
 C++, C, Fortran, or other languages.
 
-%description -l cs
-GNU Octave je vyππÌ programovacÌ jazyk, prim·rnÏ urËen˝ pro numerickÈ
-v˝poËty. Poskytuje pohodlnÈ rozhranÌ p¯ÌkazovÈho ¯·dku pro numerickÈ
-¯eπenÌ line·rnÌch a neline·rnÌch problÈm˘ a pro prov·dÏnÌ jin˝ch
-numerick˝ch experiment˘ za pouæÌv·nÌ jazyku, kter˝ je tÈmÏ¯ plnÏ
-kompatibilnÌ s programem Matlab. M˘æe b˝t pouæÌv·n i jako d·vkov˝
+%description -l cs.UTF-8
+GNU Octave je vy≈°≈°√≠ programovac√≠ jazyk, prim√°rnƒõ urƒçen√Ω pro numerick√©
+v√Ωpoƒçty. Poskytuje pohodln√© rozhran√≠ p≈ô√≠kazov√©ho ≈ô√°dku pro numerick√©
+≈ôe≈°en√≠ line√°rn√≠ch a neline√°rn√≠ch probl√©m≈Ø a pro prov√°dƒõn√≠ jin√Ωch
+numerick√Ωch experiment≈Ø za pou≈æ√≠v√°n√≠ jazyku, kter√Ω je t√©mƒõ≈ô plnƒõ
+kompatibiln√≠ s programem Matlab. M≈Ø≈æe b√Ωt pou≈æ√≠v√°n i jako d√°vkov√Ω
 jazyk.
 
-Octave m· rozs·hlÈ n·stroje pro ¯eπenÌ obvykl˝ch numerick˝ch ˙loh v
-line·rnÌ algeb¯e, nalezenÌ ko¯en˘ neline·rnÌch rovnic, integrov·nÌ
-bÏæn˝ch funkcÌ, polynomi·lnÌ manipulace, integrov·nÌ z·kladnÌch
-diferenci·lnÌch a algebraicko-diferenci·lnÌch rovnic. Je jednoduπe
-rozπi¯iteln˝ a p¯izp˘sobiteln˝ pomocÌ uæivatelsky definovan˝ch funkcÌ
-napsan˝ch v jeho vlastnÌm jazyku. M˘æe pouæÌvat dynamicky zav·dÏnÈ
-moduly napsanÈ v jazycÌch C++, C, Fortran a jin˝ch.
+Octave m√° rozs√°hl√© n√°stroje pro ≈ôe≈°en√≠ obvykl√Ωch numerick√Ωch √∫loh v
+line√°rn√≠ algeb≈ôe, nalezen√≠ ko≈ôen≈Ø neline√°rn√≠ch rovnic, integrov√°n√≠
+bƒõ≈æn√Ωch funkc√≠, polynomi√°ln√≠ manipulace, integrov√°n√≠ z√°kladn√≠ch
+diferenci√°ln√≠ch a algebraicko-diferenci√°ln√≠ch rovnic. Je jednodu≈°e
+roz≈°i≈ôiteln√Ω a p≈ôizp≈Øsobiteln√Ω pomoc√≠ u≈æivatelsky definovan√Ωch funkc√≠
+napsan√Ωch v jeho vlastn√≠m jazyku. M≈Ø≈æe pou≈æ√≠vat dynamicky zav√°dƒõn√©
+moduly napsan√© v jazyc√≠ch C++, C, Fortran a jin√Ωch.
 
-%description -l da
-GNU Octave er et h¯gniveausprog, hovedsakligen beregnet til for
-numeriska beregningar. Det har et bekvÊmt kommandoradsgrÊnseflade for
-at l¯sa linjÊra og ickelinjÊra problem numeriskt, og for at utf¯ra
+%description -l da.UTF-8
+GNU Octave er et h√∏gniveausprog, hovedsakligen beregnet til for
+numeriska beregningar. Det har et bekv√¶mt kommandoradsgr√¶nseflade for
+at l√∏sa linj√¶ra og ickelinj√¶ra problem numeriskt, og for at utf√∏ra
 andra numeriske experiment med et sprog som i stora dele er
-kompatibelt med Matlab. Det kan ogsÂ bruges som et sprog for satsvis
+kompatibelt med Matlab. Det kan ogs√• bruges som et sprog for satsvis
 bearbejdning.
 
-Octave har omfattende vÊrkt¯j for at l¯sa almindelige problem inom
-numerisk linjÊr algebra, finde r¯tter for ickelinjÊra ekvationer,
-integrere normala funktioner, behandle polynom, og integrere ordinÊre
+Octave har omfattende v√¶rkt√∏j for at l√∏sa almindelige problem inom
+numerisk linj√¶r algebra, finde r√∏tter for ickelinj√¶ra ekvationer,
+integrere normala funktioner, behandle polynom, og integrere ordin√¶re
 differential og differentialalgebraiska ekvationer. Det er let at
 utvidga og anpassa via brugerdefinierede funktioner skrivna i Octaves
 eget sprog, og via dynamisk laddade moduler skriven i C++, C, Fortran,
 eller andra sprog.
 
-%description -l de
-GNU Octave ist eine High-Level-Programmiersprache, die haupts‰chlich
-f¸r nummerische Berechnungen vorgesehen ist. Sie verf¸gt ¸ber eine
-benutzerfreundliche Befehlszeilenoberfl‰che zur nummerischen Lˆsung
-von linearen und nichtlinearen Aufgaben und zum Ausf¸hren weiterer
+%description -l de.UTF-8
+GNU Octave ist eine High-Level-Programmiersprache, die haupts√§chlich
+f√ºr nummerische Berechnungen vorgesehen ist. Sie verf√ºgt √ºber eine
+benutzerfreundliche Befehlszeilenoberfl√§che zur nummerischen L√∂sung
+von linearen und nichtlinearen Aufgaben und zum Ausf√ºhren weiterer
 nummerischer Experimente unter Verwendung einer Programmiersprache,
-die grˆﬂtenteils mit Matlab kompatibel ist. Die Programmiersprache
+die gr√∂√ütenteils mit Matlab kompatibel ist. Die Programmiersprache
 kann auch als Batch-orientierte Sprache verwendet werden.
 
-Octave verf¸gt ¸ber umfangreiche Tools zum Lˆsen allgemeiner
+Octave verf√ºgt √ºber umfangreiche Tools zum L√∂sen allgemeiner
 nummerischer linearer algebraischer Aufgaben, zum Ermitteln der
-Lˆsungen von nichtlinearen Gleichungen, zum Integrieren gewˆhnlicher
+L√∂sungen von nichtlinearen Gleichungen, zum Integrieren gew√∂hnlicher
 Funktionen, zum Bearbeiten von Polynomen und zum Integrieren
-gewˆhnlicher Differential- und Differential-algebraischer Gleichungen.
+gew√∂hnlicher Differential- und Differential-algebraischer Gleichungen.
 Octave kann mit benutzerdefinierten Funktionen, die in der speziellen
 Programmiersprache von Octave geschrieben sind, oder mit dynamisch
 geladenen, in C++, C, Fortran oder einer anderen Programmiersprache
 geschriebenen Modulen erweitert und angepasst werden.
 
-%description -l es
-GNU Octave lenguaje de alto nivel, pensado para c·lculos numÈricos.
-Provee un interfaz de lÌnea de comando para resolver problemas
-lineales y no lineales numÈricamente, y para realizar otros
-experimentos numÈricos usando un lenguaje casi compatible con Matlab.
-Puede utilizarse tambiÈn fuera de la lÌnea de comandos.
+%description -l es.UTF-8
+GNU Octave lenguaje de alto nivel, pensado para c√°lculos num√©ricos.
+Provee un interfaz de l√≠nea de comando para resolver problemas
+lineales y no lineales num√©ricamente, y para realizar otros
+experimentos num√©ricos usando un lenguaje casi compatible con Matlab.
+Puede utilizarse tambi√©n fuera de la l√≠nea de comandos.
 
-Octave tiene herramientas para resolver problemas numÈricos de algebra
-lineal com˙n, encontrar raices de ecuaciones no-lineales, integraciÛn
-de funciones ordinarias, manipulaciÛn de polinomios, e integrar
-ecuaciones diferenciales ordinarias y algebraÌcas diferenciales. Es
+Octave tiene herramientas para resolver problemas num√©ricos de algebra
+lineal com√∫n, encontrar raices de ecuaciones no-lineales, integraci√≥n
+de funciones ordinarias, manipulaci√≥n de polinomios, e integrar
+ecuaciones diferenciales ordinarias y algebra√≠cas diferenciales. Es
 facilmente extensible y configurable via funciones de usuario escritas
-en el lenguaje Octave, o usando mÛdulos din·micos cargables escritos
+en el lenguaje Octave, o usando m√≥dulos din√°micos cargables escritos
 en C++, C, Fortran u otros lenguajes.
 
-%description -l fr
-GNU Octave est un langage haut niveau conÁu pour le calcul numÈrique.
+%description -l fr.UTF-8
+GNU Octave est un langage haut niveau con√ßu pour le calcul num√©rique.
 Il offre une interface de ligne de commande pratique permettant de
-rÈsoudre numÈriquement des problËmes linÈaires et non linÈaires et
-d'effectuer d'autres expÈriences numÈriques ‡ l'aide d'un langage
-presque totalement compatible avec Matlab. Il peut Ègalement Ítre
-utilisÈ comme langage ‡ orientation par lots.
+r√©soudre num√©riquement des probl√®mes lin√©aires et non lin√©aires et
+d'effectuer d'autres exp√©riences num√©riques √† l'aide d'un langage
+presque totalement compatible avec Matlab. Il peut √©galement √™tre
+utilis√© comme langage √† orientation par lots.
 
-Octave comporte des outils Ètendus permettant de rÈsoudre des
-problËmes communs d'algËbre linÈaire numÈrique, en trouvant les
-racines d'Èquations non linÈaires, en intÈgrant des fonctions
-ordinaires, en manipulant des polynÙmes et en intÈgrant des Èquations
-diffÈrentielles ordinaires et diffÈrentielles algÈbriques. Il est
+Octave comporte des outils √©tendus permettant de r√©soudre des
+probl√®mes communs d'alg√®bre lin√©aire num√©rique, en trouvant les
+racines d'√©quations non lin√©aires, en int√©grant des fonctions
+ordinaires, en manipulant des polyn√¥mes et en int√©grant des √©quations
+diff√©rentielles ordinaires et diff√©rentielles alg√©briques. Il est
 facilement extensible et personnalisable au moyen de fonctions
-dÈfinies par l'utilisateur, Ècrites dans le langage d'Octave, ou ‡
-l'aide de modules chargÈs dynamiquement, Ècrits en C++, C, Fortran ou
+d√©finies par l'utilisateur, √©crites dans le langage d'Octave, ou √†
+l'aide de modules charg√©s dynamiquement, √©crits en C++, C, Fortran ou
 autres langages.
 
-%description -l it
-GNU Octave Ë un linguaggio di alto livello per il calcolo numerico.
+%description -l it.UTF-8
+GNU Octave √® un linguaggio di alto livello per il calcolo numerico.
 Fornisce una interfaccia basata sulla linea di comando per la
 risoluzione numerica di problemi lineari e non lineari e per eseguire
-altri esperimenti numerici usando un linguaggio per lo pi˘ compatibile
-con Matlab. PuÚ inoltre essere utilizzato come linguaggio orientato al
+altri esperimenti numerici usando un linguaggio per lo pi√π compatibile
+con Matlab. Pu√≤ inoltre essere utilizzato come linguaggio orientato al
 batch.
 
 Octave possiede vari tool per risolvere problemi di algebra lineare,
 per la ricerca di radici di equazioni non lineari, per il calcolo di
 integrali di funzioni, per l'elaborazione di polinomi, per le
-equazioni differenziali ordinarie e algebriche. PuÚ essere facilmente
+equazioni differenziali ordinarie e algebriche. Pu√≤ essere facilmente
 esteso e personalizzato tramite nuove funzioni definite dall'utente e
 scritte nel linguaggio di Octave o tramite moduli caricati in modo
 dinamico scritti in C, C++, Fortran o altri linguaggi.
 
-%description -l ja
-GNU Octave §œ°¢ºÁ§»§∑§∆øÙ√Õ∑◊ªª§ÚÃ‹≈™§»§∑§øπ‚•Ï•Ÿ•Î∏¿∏Ï§«§π°£
-GNU Octave §œ°¢¿˛∑ø/»Û¿˛∑øÃ‰¬Í§ÚøÙ√Õ≈™§À≤Ú§§§ø§Í°¢Matlab
-§»§Œ¬Á…Ù ¨§Œ∏ﬂ¥π¿≠§Úª˝§√§ø∏¿∏Ï§Úª»Õ—§∑§∆§Ω§Œ¬æ§ŒøÙ√Õ≈™º¬∏≥§Úπ‘
-§√§ø§Í§π§Î§ø§·§Œ ÿÕ¯§ •≥•ﬁ•Û•…•È•§•Û•§•Û•ø°º•’•ß•§•π§ÚƒÛ∂°§∑§ﬁ§π°£
-•–•√•¡ªÿ∏˛§Œ∏¿∏Ï§»§∑§∆ª»Õ—§π§Î§≥§»§‚§«§≠§ﬁ§π°£Octave §œ°¢
-∂¶ƒÃ§ŒøÙ√Õ¿˛∑ø¬ÂøÙÃ‰¬Í§Ú≤Ú§§§ø§Í°¢»Û¿˛∑ø ˝ƒ¯º∞§Œ∫¨§Ú∏´§ƒ§±§ø§Í°¢
-ƒÃæÔ§Œ¥ÿøÙ§Ú¿— ¨§∑§ø§Í°¢¬øπ‡º∞§Ú¡‡∫Ó§∑§ø§Í°¢æÔ»˘ ¨ ˝ƒ¯º∞§‰¬ÂøÙ
-»˘ ¨ ˝ƒ¯º∞§Ú¿— ¨§∑§ø§Í§π§Î§ø§·§Œπ≠»œ§ •ƒ°º•Î§Ú»˜§®§∆§§§ﬁ§π°£Octave
-∆»º´§Œ∏¿∏Ï§«ΩÒ§´§Ï§ø•Ê°º•∂°ºƒÍµ¡§Œ¥ÿøÙ§‰°¢C++°¢C°¢Fortlan°¢§Ω§Œ¬æ§Œ
-∏¿∏Ï§«ΩÒ§´§Ï§ø∆∞≈™§À•Ì°º•…§µ§Ï§Î•‚•∏•Â°º•Î§Úª»Õ—§π§Ï§–°¢Õ∆∞◊§À≥»ƒ•
-§™§Ë§”•´•π•ø•ﬁ•§•∫§π§Î§≥§»§¨§«§≠§ﬁ§π°£
+%description -l ja.UTF-8
+GNU Octave „ÅØ„ÄÅ‰∏ª„Å®„Åó„Å¶Êï∞ÂÄ§Ë®àÁÆó„ÇíÁõÆÁöÑ„Å®„Åó„ÅüÈ´ò„É¨„Éô„É´Ë®ÄË™û„Åß„Åô„ÄÇ
+GNU Octave „ÅØ„ÄÅÁ∑öÂûã/ÈùûÁ∑öÂûãÂïèÈ°å„ÇíÊï∞ÂÄ§ÁöÑ„Å´Ëß£„ÅÑ„Åü„Çä„ÄÅMatlab
+„Å®„ÅÆÂ§ßÈÉ®ÂàÜ„ÅÆ‰∫íÊèõÊÄß„ÇíÊåÅ„Å£„ÅüË®ÄË™û„Çí‰ΩøÁî®„Åó„Å¶„Åù„ÅÆ‰ªñ„ÅÆÊï∞ÂÄ§ÁöÑÂÆüÈ®ì„ÇíË°å
+„Å£„Åü„Çä„Åô„Çã„Åü„ÇÅ„ÅÆ‰æøÂà©„Å™„Ç≥„Éû„É≥„Éâ„É©„Ç§„É≥„Ç§„É≥„Çø„Éº„Éï„Çß„Ç§„Çπ„ÇíÊèê‰æõ„Åó„Åæ„Åô„ÄÇ
+„Éê„ÉÉ„ÉÅÊåáÂêë„ÅÆË®ÄË™û„Å®„Åó„Å¶‰ΩøÁî®„Åô„Çã„Åì„Å®„ÇÇ„Åß„Åç„Åæ„Åô„ÄÇOctave „ÅØ„ÄÅ
+ÂÖ±ÈÄö„ÅÆÊï∞ÂÄ§Á∑öÂûã‰ª£Êï∞ÂïèÈ°å„ÇíËß£„ÅÑ„Åü„Çä„ÄÅÈùûÁ∑öÂûãÊñπÁ®ãÂºè„ÅÆÊ†π„ÇíË¶ã„Å§„Åë„Åü„Çä„ÄÅ
+ÈÄöÂ∏∏„ÅÆÈñ¢Êï∞„ÇíÁ©çÂàÜ„Åó„Åü„Çä„ÄÅÂ§öÈ†ÖÂºè„ÇíÊìç‰Ωú„Åó„Åü„Çä„ÄÅÂ∏∏ÂæÆÂàÜÊñπÁ®ãÂºè„ÇÑ‰ª£Êï∞
+ÂæÆÂàÜÊñπÁ®ãÂºè„ÇíÁ©çÂàÜ„Åó„Åü„Çä„Åô„Çã„Åü„ÇÅ„ÅÆÂ∫ÉÁØÑ„Å™„ÉÑ„Éº„É´„ÇíÂÇô„Åà„Å¶„ÅÑ„Åæ„Åô„ÄÇOctave
+Áã¨Ëá™„ÅÆË®ÄË™û„ÅßÊõ∏„Åã„Çå„Åü„É¶„Éº„Ç∂„ÉºÂÆöÁæ©„ÅÆÈñ¢Êï∞„ÇÑ„ÄÅC++„ÄÅC„ÄÅFortlan„ÄÅ„Åù„ÅÆ‰ªñ„ÅÆ
+Ë®ÄË™û„ÅßÊõ∏„Åã„Çå„ÅüÂãïÁöÑ„Å´„É≠„Éº„Éâ„Åï„Çå„Çã„É¢„Ç∏„É•„Éº„É´„Çí‰ΩøÁî®„Åô„Çå„Å∞„ÄÅÂÆπÊòì„Å´Êã°Âºµ
+„Åä„Çà„Å≥„Ç´„Çπ„Çø„Éû„Ç§„Ç∫„Åô„Çã„Åì„Å®„Åå„Åß„Åç„Åæ„Åô„ÄÇ
 
-%description -l pl
-GNU Octave jest jÍzykiem programowania wysokiego poziomu przeznaczonym
-g≥Ûwnie do obliczeÒ numerycznych. Octave jest w duøym stopniu
-kompatybilny z jÍzykiem Matlab. PracowaÊ moøna wprost z linii poleceÒ
-lub uruchamiaÊ programy stworzone za pomoc± zewnÍtrznego edytora.
+%description -l pl.UTF-8
+GNU Octave jest jƒôzykiem programowania wysokiego poziomu przeznaczonym
+g≈Ç√≥wnie do oblicze≈Ñ numerycznych. Octave jest w du≈ºym stopniu
+kompatybilny z jƒôzykiem Matlab. Pracowaƒá mo≈ºna wprost z linii polece≈Ñ
+lub uruchamiaƒá programy stworzone za pomocƒÖ zewnƒôtrznego edytora.
 
-%description -l pt
-O Octave da GNU È uma linguagem de alto nÌvel, vocacionada
-principalmente para o c·lculo numÈrico. Oferece uma interface de linha
-de comandos para resolver problemas lineares e n„o-lineares
-numericamente, e para realizar outras experiÍncias numÈricas usando
-uma linguagem que È relativamente compatÌvel com o Matlab. Pode tambÈm
+%description -l pt.UTF-8
+O Octave da GNU √© uma linguagem de alto n√≠vel, vocacionada
+principalmente para o c√°lculo num√©rico. Oferece uma interface de linha
+de comandos para resolver problemas lineares e n√£o-lineares
+numericamente, e para realizar outras experi√™ncias num√©ricas usando
+uma linguagem que √© relativamente compat√≠vel com o Matlab. Pode tamb√©m
 ser usado como uma linguagem orientada por lotes.
 
 O Octave tem ferramentas extensivas para resolver problemas comuns de
-·lgebra linear, descobrir as raizes de equaÁıes n„o-lineares, integrar
-funÁıes ordin·rias, manipular polinÛmios e integrar equaÁıes
-diferenciais ordin·rias e diferenciais algÈbricas. … facilmente
-extensÌvel e personaliz·vel atravÈs de funÁıes definidas pelo
-utilizador, escritas na prÛpria linguagem do Octave, ou usando mÛdulos
+√°lgebra linear, descobrir as raizes de equa√ß√µes n√£o-lineares, integrar
+fun√ß√µes ordin√°rias, manipular polin√≥mios e integrar equa√ß√µes
+diferenciais ordin√°rias e diferenciais alg√©bricas. √â facilmente
+extens√≠vel e personaliz√°vel atrav√©s de fun√ß√µes definidas pelo
+utilizador, escritas na pr√≥pria linguagem do Octave, ou usando m√≥dulos
 carregados dinamicamente e feitos em C, C++, Fortran ou outras
 linguagens."
 
-%description -l pt_BR
-GNU Octave - Um programa de c·lculo numÈrico e matricial. Possui
-linguagem de alto nÌvel e ambiente interativo para computaÁ„o numÈrica
+%description -l pt_BR.UTF-8
+GNU Octave - Um programa de c√°lculo num√©rico e matricial. Possui
+linguagem de alto n√≠vel e ambiente interativo para computa√ß√£o num√©rica
 semelhantes ao do Matlab.
 
-%description -l ru
-GNU Octave - ‹‘œ —⁄ŸÀ ◊Ÿ”œÀœ«œ ’“œ◊Œ—, –“≈ƒŒ¡⁄Œ¡ﬁ≈ŒŒŸ  ƒÃ— ◊Ÿ–œÃŒ≈Œ…—
-Õ¡‘≈Õ¡‘…ﬁ≈”À…» ◊Ÿﬁ…”Ã≈Œ… . ÔŒ –“≈ƒœ”‘¡◊Ã—≈‘ ’ƒœ¬ŒŸ  ÀœÕÕ¡ŒƒŒŸ 
-…Œ‘≈“∆≈ ” ƒÃ— “≈€≈Œ…— Ã…Œ≈ ŒŸ» … Œ≈Ã…Œ≈ ŒŸ» Õ¡‘≈Õ¡‘…ﬁ≈”À…» ⁄¡ƒ¡ﬁ … ƒÃ—
-–“œ◊≈ƒ≈Œ…— ƒ“’«…» ¡“…∆Õ≈‘…ﬁ≈”À…» ‹À”–≈“…Õ≈Œ‘œ◊, …”–œÃÿ⁄’— —⁄ŸÀ, ◊
-¬œÃÿ€≈Œ”‘◊≈ ”Ã’ﬁ¡≈◊ ”œ◊Õ≈”‘…ÕŸ  ” Mathlab.
+%description -l ru.UTF-8
+GNU Octave - —ç—Ç–æ —è–∑—ã–∫ –≤—ã—Å–æ–∫–æ–≥–æ —É—Ä–æ–≤–Ω—è, –ø—Ä–µ–¥–Ω–∞–∑–Ω–∞—á–µ–Ω–Ω—ã–π –¥–ª—è –≤—ã–ø–æ–ª–Ω–µ–Ω–∏—è
+–º–∞—Ç–µ–º–∞—Ç–∏—á–µ—Å–∫–∏—Ö –≤—ã—á–∏—Å–ª–µ–Ω–∏–π. –û–Ω –ø—Ä–µ–¥–æ—Å—Ç–∞–≤–ª—è–µ—Ç —É–¥–æ–±–Ω—ã–π –∫–æ–º–º–∞–Ω–¥–Ω—ã–π
+–∏–Ω—Ç–µ—Ä—Ñ–µ–π—Å –¥–ª—è —Ä–µ—à–µ–Ω–∏—è –ª–∏–Ω–µ–π–Ω—ã—Ö –∏ –Ω–µ–ª–∏–Ω–µ–π–Ω—ã—Ö –º–∞—Ç–µ–º–∞—Ç–∏—á–µ—Å–∫–∏—Ö –∑–∞–¥–∞—á –∏ –¥–ª—è
+–ø—Ä–æ–≤–µ–¥–µ–Ω–∏—è –¥—Ä—É–≥–∏—Ö –∞—Ä–∏—Ñ–º–µ—Ç–∏—á–µ—Å–∫–∏—Ö —ç–∫—Å–ø–µ—Ä–∏–º–µ–Ω—Ç–æ–≤, –∏—Å–ø–æ–ª—å–∑—É—è —è–∑—ã–∫, –≤
+–±–æ–ª—å—à–µ–Ω—Å—Ç–≤–µ —Å–ª—É—á–∞–µ–≤ —Å–æ–≤–º–µ—Å—Ç–∏–º—ã–π —Å Mathlab.
 
-Î“œÕ≈ ‘œ«œ, Octave Õœ÷≈‘ …”–œÃÿ⁄œ◊¡‘ÿ”— ƒÃ— –¡À≈‘Œœ  œ¬“¡¬œ‘À… … …Õ≈≈‘
-”“≈ƒ”‘◊¡ “¡”€…“≈Œ…— ƒÃ— “≈€≈Œ…— Ã…Œ≈ ŒŸ» ¡Ã«≈¬“¡…ﬁ≈”À…» ⁄¡ƒ¡ﬁ,
-Œ¡»œ÷ƒ≈Œ…— Àœ“Œ≈  Œ≈Ã…Œ≈ ŒŸ» ’“¡◊Œ≈Œ… , …Œ‘≈«“…“œ◊¡Œ…≈ ∆’ŒÀ√… , “¡¬œ‘’
-” –œÃ…ŒœÕ¡Õ… … “≈€≈Œ…≈ “¡⁄Ã…ﬁŒŸ» ƒ…∆∆≈“≈Œ√…¡ÃÿŒŸ» ’“¡◊Œ≈Œ… . Ò⁄ŸÀ
-Õœ÷Œœ Ã≈«Àœ “¡”€…“…‘ÿ –“… –œÕœ›… ”œ¬”‘◊≈ŒŒœ —⁄ŸÀ¡ Octave …Ã… …”–œÃÿ⁄’—
-ƒ…Œ¡Õ…ﬁ≈”À… ⁄¡«“’÷¡≈ÕŸ≈ Õœƒ’Ã…, Œ¡–…”¡ŒŒŸ≈ Œ¡ —⁄ŸÀ¡» C, C++, Êœ“‘“¡Œ …
-ƒ“.
+–ö—Ä–æ–º–µ —Ç–æ–≥–æ, Octave –º–æ–∂–µ—Ç –∏—Å–ø–æ–ª—å–∑–æ–≤–∞—Ç—å—Å—è –¥–ª—è –ø–∞–∫–µ—Ç–Ω–æ–π –æ–±—Ä–∞–±–æ—Ç–∫–∏ –∏ –∏–º–µ–µ—Ç
+—Å—Ä–µ–¥—Å—Ç–≤–∞ —Ä–∞—Å—à–∏—Ä–µ–Ω–∏—è –¥–ª—è —Ä–µ—à–µ–Ω–∏—è –ª–∏–Ω–µ–π–Ω—ã—Ö –∞–ª–≥–µ–±—Ä–∞–∏—á–µ—Å–∫–∏—Ö –∑–∞–¥–∞—á,
+–Ω–∞—Ö–æ–∂–¥–µ–Ω–∏—è –∫–æ—Ä–Ω–µ–π –Ω–µ–ª–∏–Ω–µ–π–Ω—ã—Ö —É—Ä–∞–≤–Ω–µ–Ω–∏–π, –∏–Ω—Ç–µ–≥—Ä–∏—Ä–æ–≤–∞–Ω–∏–µ —Ñ—É–Ω–∫—Ü–∏–π, —Ä–∞–±–æ—Ç—É
+—Å –ø–æ–ª–∏–Ω–æ–º–∞–º–∏ –∏ —Ä–µ—à–µ–Ω–∏–µ —Ä–∞–∑–ª–∏—á–Ω—ã—Ö –¥–∏—Ñ—Ñ–µ—Ä–µ–Ω—Ü–∏–∞–ª—å–Ω—ã—Ö —É—Ä–∞–≤–Ω–µ–Ω–∏–π. –Ø–∑—ã–∫
+–º–æ–∂–Ω–æ –ª–µ–≥–∫–æ —Ä–∞—Å—à–∏—Ä–∏—Ç—å –ø—Ä–∏ –ø–æ–º–æ—â–∏ —Å–æ–±—Å—Ç–≤–µ–Ω–Ω–æ —è–∑—ã–∫–∞ Octave –∏–ª–∏ –∏—Å–ø–æ–ª—å–∑—É—è
+–¥–∏–Ω–∞–º–∏—á–µ—Å–∫–∏ –∑–∞–≥—Ä—É–∂–∞–µ–º—ã–µ –º–æ–¥—É–ª–∏, –Ω–∞–ø–∏—Å–∞–Ω–Ω—ã–µ –Ω–∞ —è–∑—ã–∫–∞—Ö C, C++, –§–æ—Ä—Ç—Ä–∞–Ω –∏
+–¥—Ä.
 
-%description -l sv
-GNU Octave ‰r ett hˆgnivÂsprÂk, huvudsakligen avsett fˆr numeriska
-ber‰kningar. Det har ett bekv‰mt kommandoradsgr‰nssnitt fˆr att lˆsa
-linj‰ra och ickelinj‰ra problem numeriskt, och fˆr att utfˆra andra
-numeriska experiment med ett sprÂk som i stora delar ‰r kompatibelt
-med Matlab. Det kan ocksÂ anv‰ndas som ett sprÂk fˆr satsvis
+%description -l sv.UTF-8
+GNU Octave √§r ett h√∂gniv√•spr√•k, huvudsakligen avsett f√∂r numeriska
+ber√§kningar. Det har ett bekv√§mt kommandoradsgr√§nssnitt f√∂r att l√∂sa
+linj√§ra och ickelinj√§ra problem numeriskt, och f√∂r att utf√∂ra andra
+numeriska experiment med ett spr√•k som i stora delar √§r kompatibelt
+med Matlab. Det kan ocks√• anv√§ndas som ett spr√•k f√∂r satsvis
 bearbetning.
 
-Octave har omfattande verktyg fˆr att lˆsa vanliga problem inom
-numerisk linj‰r algebra, hitta rˆtter fˆr ickelinj‰ra ekvationer,
-integrera normala funktioner, hantera polynom, och integrera ordin‰ra
-differential och differentialalgebraiska ekvationer. Det ‰r l‰tt att
-utvidga och anpassa via anv‰ndardefinierade funktioner skrivna i
-Octaves eget sprÂk, och via dynamiskt laddade moduler skrivan i C++,
-C, Fortran, eller andra sprÂk.
+Octave har omfattande verktyg f√∂r att l√∂sa vanliga problem inom
+numerisk linj√§r algebra, hitta r√∂tter f√∂r ickelinj√§ra ekvationer,
+integrera normala funktioner, hantera polynom, och integrera ordin√§ra
+differential och differentialalgebraiska ekvationer. Det √§r l√§tt att
+utvidga och anpassa via anv√§ndardefinierade funktioner skrivna i
+Octaves eget spr√•k, och via dynamiskt laddade moduler skrivan i C++,
+C, Fortran, eller andra spr√•k.
 
 %package devel
 Summary:	Header files and devel docs for Octave
-Summary(pl):	Pliki nag≥Ûwkowe i dodatkowa dokumentacja Octave
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe i dodatkowa dokumentacja Octave
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	hdf5-devel >= 1.6.0
@@ -242,20 +242,20 @@ Requires:	hdf5-devel >= 1.6.0
 %description devel
 Header files and devel docs for Octave.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe i dodatkowa dokumentacja Octave.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe i dodatkowa dokumentacja Octave.
 
 %package -n xemacs-octave-mode-pkg
 Summary:	XEmacs mode for Octave
-Summary(pl):	Tryb edycji plikÛw Octave dla XEmacsa
+Summary(pl.UTF-8):   Tryb edycji plik√≥w Octave dla XEmacsa
 Group:		Applications/Editors/Emacs
 Requires:	xemacs
 
 %description -n xemacs-octave-mode-pkg
 XEmacs mode for Octave.
 
-%description -n xemacs-octave-mode-pkg -l pl
-Tryb edycji plikÛw Octave dla XEmacsa.
+%description -n xemacs-octave-mode-pkg -l pl.UTF-8
+Tryb edycji plik√≥w Octave dla XEmacsa.
 
 %prep
 %setup -q
