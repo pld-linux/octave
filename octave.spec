@@ -2,21 +2,21 @@
 # - check ATLAS and MPI support
 #
 Summary:	GNU Octave - a high-level language for numerical computations
-Summary(cs.UTF-8):   GNU Octave - vyšší programovací jazyk pro numerické výpočty
-Summary(da.UTF-8):   GNU Octave - et højniveausprog for numeriske beregninger
-Summary(de.UTF-8):   GNU Octave - eine höhere Programmiersprache für nummerische Berechnungen
-Summary(es.UTF-8):   GNU Octave - lenguaje de alto nivel para cálculos numéricos
-Summary(fr.UTF-8):   GNU Octave - langage haut niveau pour les calculs numériques
-Summary(it.UTF-8):   GNU Octave - linguaggio di alto livello per calcoli numerici
-Summary(ja.UTF-8):   GNU Octave 数値計算用の高級言語
-Summary(ko.UTF-8):   GNU Octave 산술 계산을 위한 고차원 언어
-Summary(nb.UTF-8):   GNU Octave - et høynivåspråk for numeriske beregninger
-Summary(pl.UTF-8):   GNU Octave - język programowania do obliczeń numerycznych
-Summary(pt.UTF-8):   GNU Octave - uma linguagem de alto nível para cálculos numéricos
-Summary(pt_BR.UTF-8):   GNU Octave - um programa para cálculo numérico e matricial
-Summary(ru.UTF-8):   GNU Octave - Язык высокого уровня для выполнения математических расчетов
-Summary(sv.UTF-8):   GNU Octave - ett högninvåspråk för numeriska beräkningar
-Summary(zh_CN.UTF-8):   GNU Octave - 用于数字计算的高级语言。
+Summary(cs.UTF-8):	GNU Octave - vyšší programovací jazyk pro numerické výpočty
+Summary(da.UTF-8):	GNU Octave - et højniveausprog for numeriske beregninger
+Summary(de.UTF-8):	GNU Octave - eine höhere Programmiersprache für nummerische Berechnungen
+Summary(es.UTF-8):	GNU Octave - lenguaje de alto nivel para cálculos numéricos
+Summary(fr.UTF-8):	GNU Octave - langage haut niveau pour les calculs numériques
+Summary(it.UTF-8):	GNU Octave - linguaggio di alto livello per calcoli numerici
+Summary(ja.UTF-8):	GNU Octave 数値計算用の高級言語
+Summary(ko.UTF-8):	GNU Octave 산술 계산을 위한 고차원 언어
+Summary(nb.UTF-8):	GNU Octave - et høynivåspråk for numeriske beregninger
+Summary(pl.UTF-8):	GNU Octave - język programowania do obliczeń numerycznych
+Summary(pt.UTF-8):	GNU Octave - uma linguagem de alto nível para cálculos numéricos
+Summary(pt_BR.UTF-8):	GNU Octave - um programa para cálculo numérico e matricial
+Summary(ru.UTF-8):	GNU Octave - Язык высокого уровня для выполнения математических расчетов
+Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
+Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
 Version:	2.1.73
 Release:	2
@@ -234,7 +234,7 @@ C, Fortran, eller andra språk.
 
 %package devel
 Summary:	Header files and devel docs for Octave
-Summary(pl.UTF-8):   Pliki nagłówkowe i dodatkowa dokumentacja Octave
+Summary(pl.UTF-8):	Pliki nagłówkowe i dodatkowa dokumentacja Octave
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	hdf5-devel >= 1.6.0
@@ -247,7 +247,7 @@ Pliki nagłówkowe i dodatkowa dokumentacja Octave.
 
 %package -n xemacs-octave-mode-pkg
 Summary:	XEmacs mode for Octave
-Summary(pl.UTF-8):   Tryb edycji plików Octave dla XEmacsa
+Summary(pl.UTF-8):	Tryb edycji plików Octave dla XEmacsa
 Group:		Applications/Editors/Emacs
 Requires:	xemacs
 
