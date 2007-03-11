@@ -1,0 +1,6 @@
+- updated to 2.1.39,
+- move libraries directly to %{_libdir} (now isn't neccessary RPATH on octave
+  to %{_libdir}/octave-%{version} and linker can correctly handle linking
+  with liboctave (neccessary external programs which uses octave libraries),
+- remove outdated gcc31 patch,
+- added Epoch: 2 for allow upgrade from RH.
