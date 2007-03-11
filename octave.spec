@@ -296,12 +296,12 @@ install -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode
 cp -a emacs/*.el $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode
 # add otags script or not (additional Requires: ctags)???
 #cp -a emacs/otags $RPM_BUILD_ROOT%{_bindir}
-cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode/auto-autoloads.el
+cat <<'EOF' >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode/auto-autoloads.el
 (autoload 'run-octave "octave-inf" nil t)
 (autoload 'octave-help "octave-hlp" nil t)
 (autoload 'octave-mode "octave-mod" nil t)
 (setq auto-mode-alist
-      (cons '("\\\\.m$" . octave-mode) auto-mode-alist))
+      (cons '("\\.m$" . octave-mode) auto-mode-alist))
 EOF
 
 %clean
