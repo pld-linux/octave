@@ -1,6 +1,3 @@
-# TODO:
-# - check ATLAS and MPI support
-#
 Summary:	GNU Octave - a high-level language for numerical computations
 Summary(cs.UTF-8):	GNU Octave - vyšší programovací jazyk pro numerické výpočty
 Summary(da.UTF-8):	GNU Octave - et højniveausprog for numeriske beregninger
@@ -28,17 +25,30 @@ Source0:	ftp://ftp.octave.org/pub/octave/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-as_needed.patch
+Patch2:		%{name}-ncurses.patch
 URL:		http://www.octave.org/
+BuildRequires:	AMD-devel
 BuildRequires:	bison >= 1.31
+BuildRequires:	blas-devel
+BuildRequires:	CAMD-devel
+BuildRequires:	CCOLAMD-devel
+BuildRequires:	CHOLMOD-devel
+BuildRequires:	COLAMD-devel
+BuildRequires:	curl-devel
+BuildRequires:	CXSparse-devel
 BuildRequires:	fftw3-devel
 BuildRequires:	flex
-BuildRequires:	gcc-g77
+BuildRequires:	gcc-fortran
+BuildRequires:	glpk-devel
+BuildRequires:	gperf
 BuildRequires:	hdf5-devel >= 1.6.0
 BuildRequires:	lapack-devel >= 3.1.1-3
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel >= 5.0
+BuildRequires:	qhull-devel
 BuildRequires:	readline-devel
 BuildRequires:	texinfo-texi2dvi
+BuildRequires:	UMFPACK-devel
 BuildRequires:	zlib-devel
 Requires(post,postun):	/sbin/ldconfig
 Requires:	gnuplot
@@ -260,11 +270,15 @@ Tryb edycji plików Octave dla XEmacsa.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
+CFLAGS="%{rpmcflags} -I/usr/include/ncurses" ; export CFLAGS
+CPPFLAGS="%{rpmcflags} -I/usr/include/ncurses" ; export CPPFLAGS
+%{__autoconf}
 %configure \
-	--with-g77 \
+	--with-f77=gfortran \
 	--enable-dl \
 	--enable-shared \
 	--enable-static=no \
