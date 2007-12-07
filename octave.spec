@@ -15,13 +15,13 @@ Summary(ru.UTF-8):	GNU Octave - Язык высокого уровня для в
 Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
-Version:	2.9.17
+Version:	2.9.18
 Release:	0.1
 Epoch:		2
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://ftp.octave.org/pub/octave/%{name}-%{version}.tar.bz2
-# Source0-md5:	9db2845674c000427e55fdb3c1872820
+# Source0-md5:	e96dd3116606c07a9628db08199e996a
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-as_needed.patch
@@ -337,7 +337,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog NEWS THANKS PROJECTS
-%doc emacs examples doc/{interpreter,faq}/*.html
+%doc emacs examples doc/faq/*.html doc/interpreter/HTML
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 %{_libdir}/octave
@@ -349,7 +349,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc doc/refcard/refcard{-a4,}.* doc/liboctave/*.html
+%doc doc/refcard/refcard{-a4,}.* doc/liboctave/HTML
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_includedir}/%{name}*
 %{_infodir}/liboctave.info*
