@@ -37,10 +37,10 @@ BuildRequires:	COLAMD-devel
 BuildRequires:	curl-devel
 BuildRequires:	CXSparse-devel
 BuildRequires:	fftw3-devel
-BuildRequires:	flex
+BuildRequires:	flex >= 2.5.4
 BuildRequires:	gcc-fortran
 BuildRequires:	glpk-devel
-BuildRequires:	gperf
+BuildRequires:	gperf >= 3.0.1
 BuildRequires:	hdf5-devel >= 1.6.0
 BuildRequires:	lapack-devel >= 3.1.1-3
 BuildRequires:	libstdc++-devel
