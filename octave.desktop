@@ -6,6 +6,5 @@ Icon=
 Exec=octave
 Terminal=true
 Type=Application
-Encoding=UTF-8
 Categories=ConsoleOnly;Education;Science;Math;
 # vi: encoding=utf-8
