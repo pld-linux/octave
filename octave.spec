@@ -28,14 +28,15 @@ Patch1:		%{name}-as_needed.patch
 Patch2:		%{name}-ncurses.patch
 URL:		http://www.octave.org/
 BuildRequires:	AMD-devel
-BuildRequires:	bison >= 1.31
-BuildRequires:	blas-devel
 BuildRequires:	CAMD-devel
 BuildRequires:	CCOLAMD-devel
 BuildRequires:	CHOLMOD-devel
 BuildRequires:	COLAMD-devel
-BuildRequires:	curl-devel
 BuildRequires:	CXSparse-devel
+BuildRequires:	UMFPACK-devel
+BuildRequires:	bison >= 1.31
+BuildRequires:	blas-devel
+BuildRequires:	curl-devel
 BuildRequires:	fftw3-devel
 BuildRequires:	flex >= 2.5.4
 BuildRequires:	gcc-fortran
@@ -48,7 +49,6 @@ BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	qhull-devel
 BuildRequires:	readline-devel
 BuildRequires:	texinfo-texi2dvi
-BuildRequires:	UMFPACK-devel
 BuildRequires:	zlib-devel
 Requires(post,postun):	/sbin/ldconfig
 Requires:	gnuplot
