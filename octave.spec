@@ -15,13 +15,13 @@ Summary(ru.UTF-8):	GNU Octave - Язык высокого уровня для в
 Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
-Version:	2.9.19
+Version:	3.0.0
 Release:	1
 Epoch:		2
-License:	GPL
+License:	GPL v3+
 Group:		Applications/Math
 Source0:	ftp://ftp.octave.org/pub/octave/%{name}-%{version}.tar.bz2
-# Source0-md5:	6a1b30a329b13209266ba4f7faefc4af
+# Source0-md5:	d5512acdf60ac04398ff258cbc37f3c4
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-as_needed.patch
@@ -339,7 +339,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog NEWS THANKS PROJECTS
 %doc emacs examples doc/faq/*.html doc/interpreter/HTML
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libcruft.so.*.*.*
+%attr(755,root,root) %{_libdir}/liboctave.so.*.*.*
+%attr(755,root,root) %{_libdir}/liboctinterp.so.*.*.*
 %{_libdir}/octave
 %{_infodir}/octave.info*
 %{_infodir}/Octave-FAQ.info*
@@ -350,7 +352,9 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %doc doc/refcard/refcard{-a4,}.* doc/liboctave/HTML
-%attr(755,root,root) %{_libdir}/lib*.so
+%attr(755,root,root) %{_libdir}/libcruft.so
+%attr(755,root,root) %{_libdir}/liboctave.so
+%attr(755,root,root) %{_libdir}/liboctinterp.so
 %{_includedir}/%{name}*
 %{_infodir}/liboctave.info*
 
