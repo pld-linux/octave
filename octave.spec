@@ -19,7 +19,7 @@ Summary(sv):	GNU Octave - ett h鰃ninv錽pr錵 f鰎 numeriska ber鋕ningar
 Summary(zh_CN):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
 Version:	2.1.71
-Release:	2
+Release:	3
 Epoch:		2
 License:	GPL
 Group:		Applications/Math
