@@ -324,13 +324,13 @@ EOF
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
+%post	-p /sbin/postshell
 /sbin/ldconfig
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun
+%postun	-p /sbin/postshell
 /sbin/ldconfig
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
 %post	devel -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
