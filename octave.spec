@@ -275,7 +275,7 @@ Tryb edycji plików Octave dla XEmacsa.
 %build
 cp -f /usr/share/automake/config.sub .
 CFLAGS="%{rpmcflags} -I/usr/include/ncurses" ; export CFLAGS
-CPPFLAGS="%{rpmcflags} -I/usr/include/ncurses" ; export CPPFLAGS
+CPPFLAGS="%{rpmcflags} -I/usr/include/ncurses -DH5_USE_16_API" ; export CPPFLAGS
 %{__autoconf}
 %configure \
 	--with-f77=gfortran \
