@@ -305,8 +305,8 @@ install doc/faq/*.info* $RPM_BUILD_ROOT%{_infodir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
 # site dirs
-install -d $(./octave-config --oct-site-dir)
-install -d $(./octave-config --m-site-dir)
+install -d $RPM_BUILD_ROOT$(./octave-config --oct-site-dir)
+install -d $RPM_BUILD_ROOT$(./octave-config --m-site-dir)
 
 ## xemacs-octave-mode-pkg
 install -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode
