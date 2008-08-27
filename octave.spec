@@ -15,13 +15,13 @@ Summary(ru.UTF-8):	GNU Octave - Язык высокого уровня для в
 Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
-Version:	3.0.1
-Release:	3
+Version:	3.0.2
+Release:	1
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
 Source0:	ftp://ftp.octave.org/pub/octave/%{name}-%{version}.tar.bz2
-# Source0-md5:	230f3895a42386ec625bf2593a44c441
+# Source0-md5:	931e28ab1181018c8079fb8138971ab0
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-as_needed.patch
