@@ -16,7 +16,7 @@ Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
 Version:	3.0.3
-Release:	2.1
+Release:	3
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
