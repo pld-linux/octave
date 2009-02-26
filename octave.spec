@@ -16,7 +16,7 @@ Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
 Version:	3.0.3
-Release:	3
+Release:	4
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
@@ -309,6 +309,11 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 # site dirs
 install -d $RPM_BUILD_ROOT$(./octave-config --oct-site-dir)
 install -d $RPM_BUILD_ROOT$(./octave-config --m-site-dir)
+
+# Create directory for add-on packages
+install -d $RPM_BUILD_ROOT%{_libdir}/%{name}/packages
+install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/packages
+touch $RPM_BUILD_ROOT%{_datadir}/%{name}/octave_packages
 
 ## xemacs-octave-mode-pkg
 install -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode
