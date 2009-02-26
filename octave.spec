@@ -38,6 +38,7 @@ BuildRequires:	UMFPACK-devel
 BuildRequires:	bison >= 1.31
 BuildRequires:	blas-devel
 BuildRequires:	curl-devel
+BuildRequires:	sed >= 4.0
 BuildRequires:	fftw3-devel
 BuildRequires:	flex >= 2.5.4
 BuildRequires:	gcc-fortran
@@ -305,6 +306,10 @@ ln -sf %{_includedir}/%{name} $RPM_BUILD_ROOT%{_includedir}/%{name}-%{version}
 install doc/liboctave/*.info* $RPM_BUILD_ROOT%{_infodir}
 install doc/faq/*.info* $RPM_BUILD_ROOT%{_infodir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
+
+# Remove RPM_BUILD_ROOT from ls-R files
+%{__sed} -i -e "s,$RPM_BUILD_ROOT,," $RPM_BUILD_ROOT%{_libdir}/%{name}/ls-R
+%{__sed} -i -e "s,$RPM_BUILD_ROOT,," $RPM_BUILD_ROOT%{_datadir}/%{name}/ls-R
 
 # site dirs
 install -d $RPM_BUILD_ROOT$(./octave-config --oct-site-dir)
