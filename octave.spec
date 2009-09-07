@@ -15,18 +15,17 @@ Summary(ru.UTF-8):	GNU Octave - Язык высокого уровня для в
 Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
-Version:	3.0.3
-Release:	4
+Version:	3.2.2
+Release:	1
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
 Source0:	ftp://ftp.octave.org/pub/octave/%{name}-%{version}.tar.bz2
-# Source0-md5:	38d258d60242cf4844e3c4350691ccff
+# Source0-md5:	656d0d11bf9cfea7a4cee226ee63fea7
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-as_needed.patch
 Patch2:		%{name}-ncurses.patch
-Patch3:		%{name}-gcc.patch
 URL:		http://www.octave.org/
 BuildRequires:	AMD-devel
 BuildRequires:	CAMD-devel
@@ -273,7 +272,6 @@ Tryb edycji plików Octave dla XEmacsa.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
@@ -306,10 +304,6 @@ ln -sf %{_includedir}/%{name} $RPM_BUILD_ROOT%{_includedir}/%{name}-%{version}
 install doc/liboctave/*.info* $RPM_BUILD_ROOT%{_infodir}
 install doc/faq/*.info* $RPM_BUILD_ROOT%{_infodir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
-
-# Remove RPM_BUILD_ROOT from ls-R files
-%{__sed} -i -e "s,$RPM_BUILD_ROOT,," $RPM_BUILD_ROOT%{_libdir}/%{name}/ls-R
-%{__sed} -i -e "s,$RPM_BUILD_ROOT,," $RPM_BUILD_ROOT%{_datadir}/%{name}/ls-R
 
 # site dirs
 install -d $RPM_BUILD_ROOT$(./octave-config --oct-site-dir)
@@ -352,7 +346,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog NEWS THANKS PROJECTS
+%doc ChangeLog NEWS PROJECTS
 %doc emacs examples doc/faq/*.html doc/interpreter/HTML
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/libcruft.so.*.*.*
