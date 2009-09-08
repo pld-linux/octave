@@ -33,6 +33,7 @@ BuildRequires:	CCOLAMD-devel
 BuildRequires:	CHOLMOD-devel
 BuildRequires:	COLAMD-devel
 BuildRequires:	CXSparse-devel
+BuildRequires:	GraphicsMagick-c++-devel
 BuildRequires:	UMFPACK-devel
 BuildRequires:	bison >= 1.31
 BuildRequires:	blas-devel
