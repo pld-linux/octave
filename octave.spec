@@ -27,6 +27,7 @@ Patch0:		%{name}-info.patch
 Patch1:		%{name}-as_needed.patch
 Patch2:		%{name}-ncurses.patch
 Patch3:		%{name}-no-ftgl.patch
+Patch4:		%{name}-parallel-make.patch
 URL:		http://www.octave.org/
 BuildRequires:	AMD-devel
 BuildRequires:	CAMD-devel
@@ -275,6 +276,7 @@ Tryb edycji plików Octave dla XEmacsa.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .

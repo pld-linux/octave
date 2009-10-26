@@ -1,0 +1,13 @@
+Only in octave-3.2.3.orig/doc/liboctave: .Makefile.swp
+diff -ur octave-3.2.3.orig/doc/Makefile.in octave-3.2.3/doc/Makefile.in
+--- octave-3.2.3.orig/doc/Makefile.in	2009-06-25 05:36:29.000000000 +0100
++++ octave-3.2.3/doc/Makefile.in	2009-10-26 18:05:30.152146720 +0000
+@@ -35,7 +35,7 @@
+ 	$(MAKE) -C interpreter ../$@
+ .PHONY: ../BUGS ../INSTALL.OCTAVE
+ 
+-$(SUBDIRS):
++$(SUBDIRS): conf.texi
+ 	$(MAKE) -C $@ all
+ .PHONY: $(SUBDIRS)
+ 
