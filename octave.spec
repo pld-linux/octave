@@ -37,12 +37,15 @@ BuildRequires:	COLAMD-devel
 BuildRequires:	CXSparse-devel
 BuildRequires:	GraphicsMagick-c++-devel
 BuildRequires:	UMFPACK-devel
+BuildRequires:	arpack-devel >= 2.1-8
 BuildRequires:	bison >= 1.31
 BuildRequires:	blas-devel
 BuildRequires:	curl-devel
 BuildRequires:	sed >= 4.0
 BuildRequires:	fftw3-devel
+BuildRequires:	fftw3-single-devel
 BuildRequires:	flex >= 2.5.4
+BuildRequires:	ftgl-devel
 BuildRequires:	gcc-fortran
 BuildRequires:	glpk-devel
 BuildRequires:	gperf >= 3.0.1
@@ -50,6 +53,7 @@ BuildRequires:	hdf5-devel >= 1.6.0
 BuildRequires:	lapack-devel >= 3.1.1-3
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel >= 5.0
+BuildRequires:	pcre-devel
 BuildRequires:	qhull-devel
 BuildRequires:	readline-devel
 BuildRequires:	texinfo-texi2dvi
@@ -291,9 +295,7 @@ CPPFLAGS="%{rpmcflags} -I/usr/include/ncurses -DH5_USE_16_API" ; export CPPFLAGS
 	--enable-rpath \
 	--enable-lite-kernel
 
-%{__make}
-%{__make} -C doc/faq Octave-FAQ.info
-%{__make} -C doc/liboctave liboctave.info
+%{__make} -j 4
 
 %install
 rm -rf $RPM_BUILD_ROOT
