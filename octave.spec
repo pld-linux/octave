@@ -283,6 +283,11 @@ Tryb edycji plików Octave dla XEmacsa.
 %patch4 -p1
 
 %build
+RPM_BUILD_NR_THREADS="%(echo "%{__make}" | sed -e 's#.*-j\([[:space:]]*[0-9]\+\)#\1#g')"
+[ "$RPM_BUILD_NR_THREADS" = "%{__make}" ] && RPM_BUILD_NR_THREADS=1
+RPM_BUILD_NR_THREADS=$(echo $RPM_BUILD_NR_THREADS)
+[ "$RPM_BUILD_NR_THREADS" -gt 4 ] && RPM_BUILD_NR_THREADS=4
+
 cp -f /usr/share/automake/config.sub .
 CFLAGS="%{rpmcflags} -I/usr/include/ncurses" ; export CFLAGS
 CPPFLAGS="%{rpmcflags} -I/usr/include/ncurses -DH5_USE_16_API" ; export CPPFLAGS
@@ -295,7 +300,7 @@ CPPFLAGS="%{rpmcflags} -I/usr/include/ncurses -DH5_USE_16_API" ; export CPPFLAGS
 	--enable-rpath \
 	--enable-lite-kernel
 
-%{__make} -j 4
+%{__make} -j $RPM_BUILD_NR_THREADS
 
 %install
 rm -rf $RPM_BUILD_ROOT
