@@ -1,3 +1,4 @@
+# TODO: qrupdate?
 Summary:	GNU Octave - a high-level language for numerical computations
 Summary(cs.UTF-8):	GNU Octave - vyšší programovací jazyk pro numerické výpočty
 Summary(da.UTF-8):	GNU Octave - et højniveausprog for numeriske beregninger
@@ -39,7 +40,7 @@ BuildRequires:	CXSparse-devel
 BuildRequires:	GraphicsMagick-c++-devel
 BuildRequires:	UMFPACK-devel
 BuildRequires:	arpack-devel >= 2.1-8
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
 #BuildRequires:	bison >= 1.31
 BuildRequires:	blas-devel
@@ -47,19 +48,22 @@ BuildRequires:	curl-devel
 BuildRequires:	fftw3-devel
 BuildRequires:	fftw3-single-devel
 BuildRequires:	flex >= 2.5.4
+BuildRequires:	fltk-gl-devel
+BuildRequires:	freetype2-devel >= 2.0
 #BuildRequires:	ftgl-devel
-BuildRequires:	gcc-fortran
-BuildRequires:	glpk-devel
+BuildRequires:	gcc-fortran >= 6:4.0
+BuildRequires:	glpk-devel >= 4.14
 #BuildRequires:	gperf >= 3.0.1
 BuildRequires:	hdf5-devel >= 1.6.0
 BuildRequires:	lapack-devel >= 3.1.1-3
-BuildRequires:	libstdc++-devel
+BuildRequires:	libstdc++-devel >= 6:4.0
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	pcre-devel
 BuildRequires:	qhull-devel
 BuildRequires:	readline-devel
 BuildRequires:	sed >= 4.0
 BuildRequires:	texinfo-texi2dvi
+BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	zlib-devel
 Requires(post,postun):	/sbin/ldconfig
 Requires:	gnuplot
