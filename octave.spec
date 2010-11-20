@@ -17,7 +17,7 @@ Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
 Version:	3.2.4
-Release:	3
+Release:	4
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
@@ -49,7 +49,7 @@ BuildRequires:	fftw3-devel
 BuildRequires:	fftw3-single-devel
 BuildRequires:	flex >= 2.5.4
 BuildRequires:	fltk-gl-devel
-BuildRequires:	freetype2-devel >= 2.0
+BuildRequires:	freetype-devel >= 2.0
 #BuildRequires:	ftgl-devel
 BuildRequires:	gcc-fortran >= 6:4.0
 BuildRequires:	glpk-devel >= 4.14
