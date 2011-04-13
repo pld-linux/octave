@@ -16,20 +16,16 @@ Summary(ru.UTF-8):	GNU Octave - Язык высокого уровня для в
 Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
-Version:	3.2.4
-Release:	4
+Version:	3.4.0
+Release:	0.1
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
-Source0:	ftp://ftp.octave.org/pub/octave/%{name}-%{version}.tar.bz2
-# Source0-md5:	608196657f4fa010420227b77333bb71
+Source0:	ftp://ftp.gnu.org/gnu/octave/%{name}-%{version}.tar.bz2
+# Source0-md5:	c8144cee1d37e645d3368a8e8a5f1856
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
-Patch1:		%{name}-as_needed.patch
-Patch2:		%{name}-ncurses.patch
-Patch3:		%{name}-no-ftgl.patch
-Patch4:		%{name}-parallel-make.patch
-Patch5:		%{name}-InitializeMagick.patch
+Patch1:		%{name}-ncurses.patch
 URL:		http://www.octave.org/
 BuildRequires:	AMD-devel
 BuildRequires:	CAMD-devel
@@ -50,7 +46,6 @@ BuildRequires:	fftw3-single-devel
 BuildRequires:	flex >= 2.5.4
 BuildRequires:	fltk-gl-devel
 BuildRequires:	freetype-devel >= 2.0
-#BuildRequires:	ftgl-devel
 BuildRequires:	gcc-fortran >= 6:4.0
 BuildRequires:	glpk-devel >= 4.14
 #BuildRequires:	gperf >= 3.0.1
@@ -285,11 +280,7 @@ Tryb edycji plików Octave dla XEmacsa.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
+#patch1 -p1
 
 %build
 RPM_BUILD_NR_THREADS="%(echo "%{__make}" | sed -e 's#.*-j\([[:space:]]*[0-9]\+\)#\1#g')"
