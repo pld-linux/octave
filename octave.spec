@@ -311,7 +311,6 @@ touch $RPM_BUILD_ROOT%{_datadir}/%{name}/octave_packages
 
 %{__rm} $RPM_BUILD_ROOT%{_desktopdir}/www.octave.org-octave.desktop
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
-%{__rm} $RPM_BUILD_ROOT%{_infodir}/dir
 
 %clean
 rm -rf $RPM_BUILD_ROOT
