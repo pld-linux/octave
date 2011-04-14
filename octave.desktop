@@ -1,10 +1,11 @@
 [Desktop Entry]
-Name=Octave
-Comment=A high-level language for numerical computations (console)
-Comment[pl]=Język wysokiego poziomu do obliczeń numerycznych (konsola)
-Icon=
+Name=GNU Octave
+Comment=Scientific Computing using GNU Octave
+Comment[pl]=Obliczenia naukowe przy pomocy GNU Octave
+Icon=/usr/share/octave/3.4.0/imagelib/octave-logo.svg
 Exec=octave
 Terminal=true
 Type=Application
 Categories=ConsoleOnly;Education;Science;Math;
+StartupNotify=false
 # vi: encoding=utf-8
