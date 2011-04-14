@@ -25,7 +25,7 @@ Source0:	ftp://ftp.gnu.org/gnu/octave/%{name}-%{version}.tar.bz2
 # Source0-md5:	c8144cee1d37e645d3368a8e8a5f1856
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
-Patch1:		%{name}-ncurses.patch
+Patch1:		%{name}-build.patch
 URL:		http://www.octave.org/
 BuildRequires:	AMD-devel
 BuildRequires:	CAMD-devel
@@ -55,6 +55,7 @@ BuildRequires:	libstdc++-devel >= 6:4.0
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	pcre-devel
 BuildRequires:	qhull-devel
+BuildRequires:	qrupdate-devel
 BuildRequires:	readline-devel
 BuildRequires:	sed >= 4.0
 BuildRequires:	texinfo-texi2dvi
@@ -265,79 +266,52 @@ Header files and devel docs for Octave.
 %description devel -l pl.UTF-8
 Pliki nagłówkowe i dodatkowa dokumentacja Octave.
 
-%package -n xemacs-octave-mode-pkg
-Summary:	XEmacs mode for Octave
-Summary(pl.UTF-8):	Tryb edycji plików Octave dla XEmacsa
-Group:		Applications/Editors/Emacs
-Requires:	xemacs
-
-%description -n xemacs-octave-mode-pkg
-XEmacs mode for Octave.
-
-%description -n xemacs-octave-mode-pkg -l pl.UTF-8
-Tryb edycji plików Octave dla XEmacsa.
-
 %prep
 %setup -q
 %patch0 -p1
-#patch1 -p1
+%patch1 -p1
 
 %build
-RPM_BUILD_NR_THREADS="%(echo "%{__make}" | sed -e 's#.*-j\([[:space:]]*[0-9]\+\)#\1#g')"
-[ "$RPM_BUILD_NR_THREADS" = "%{__make}" ] && RPM_BUILD_NR_THREADS=1
-RPM_BUILD_NR_THREADS=$(echo $RPM_BUILD_NR_THREADS)
-[ "$RPM_BUILD_NR_THREADS" -gt 4 ] && RPM_BUILD_NR_THREADS=4
-
-cp -f /usr/share/automake/config.sub .
-CFLAGS="%{rpmcflags} -I/usr/include/ncurses" ; export CFLAGS
-CPPFLAGS="%{rpmcflags} -I/usr/include/ncurses -DH5_USE_16_API" ; export CPPFLAGS
+%{__libtoolize}
+%{__aclocal} -I m4
 %{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure \
-	--with-f77=gfortran \
+	--with-amd-includedir=%{_includedir}/amd \
+	--with-camd-includedir=%{_includedir}/camd \
+	--with-cholmod-includedir=%{_includedir}/cholmod \
+	--with-colamd-includedir=%{_includedir}/colamd \
+	--with-ccolamd-includedir=%{_includedir}/ccolamd \
+	--with-cxsparse-includedir=%{_includedir}/cxsparse \
+	--with-umfpack-includedir=%{_includedir}/umfpack \
 	--enable-dl \
 	--enable-shared \
 	--enable-static=no \
-	--enable-rpath \
-	--enable-lite-kernel
+	--enable-rpath=no
 
-%{__make} -j $RPM_BUILD_NR_THREADS
+%{__make} \
+	octincludedir=%{_includedir}/octave \
+	octlibdir=%{_libdir}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_infodir},%{_desktopdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	octincludedir=%{_includedir} \
+	octincludedir=%{_includedir}/octave \
 	octlibdir=%{_libdir}
 
-ln -sf %{_includedir}/%{name} $RPM_BUILD_ROOT%{_includedir}/%{name}-%{version}
-
-install doc/liboctave/*.info* $RPM_BUILD_ROOT%{_infodir}
-install doc/faq/*.info* $RPM_BUILD_ROOT%{_infodir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
-
-# site dirs
-install -d $RPM_BUILD_ROOT$(./octave-config --oct-site-dir)
-install -d $RPM_BUILD_ROOT$(./octave-config --m-site-dir)
 
 # Create directory for add-on packages
 install -d $RPM_BUILD_ROOT%{_libdir}/%{name}/packages
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/packages
 touch $RPM_BUILD_ROOT%{_datadir}/%{name}/octave_packages
 
-## xemacs-octave-mode-pkg
-install -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode
-cp -a emacs/*.el $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode
-# add otags script or not (additional Requires: ctags)???
-#cp -a emacs/otags $RPM_BUILD_ROOT%{_bindir}
-cat <<'EOF' >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/octave-mode/auto-autoloads.el
-(autoload 'run-octave "octave-inf" nil t)
-(autoload 'octave-help "octave-hlp" nil t)
-(autoload 'octave-mode "octave-mod" nil t)
-(setq auto-mode-alist
-      (cons '("\\.m$" . octave-mode) auto-mode-alist))
-EOF
+%{__rm} $RPM_BUILD_ROOT%{_desktopdir}/www.octave.org-octave.desktop
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
+%{__rm} $RPM_BUILD_ROOT%{_infodir}/dir
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -359,27 +333,23 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog NEWS PROJECTS
-%doc emacs examples doc/faq/*.html doc/interpreter/HTML
+%doc examples doc/{faq,interpreter}/*.{html,pdf} doc/refcard/refcard-a4.pdf
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/libcruft.so.*.*.*
-%attr(755,root,root) %{_libdir}/liboctave.so.*.*.*
-%attr(755,root,root) %{_libdir}/liboctinterp.so.*.*.*
+%attr(755,root,root) %{_libdir}/libcruft-*.so
+%attr(755,root,root) %{_libdir}/liboctave-*.so
+%attr(755,root,root) %{_libdir}/liboctinterp-*.so
 %{_libdir}/octave
 %{_infodir}/octave.info*
-%{_infodir}/Octave-FAQ.info*
+%{_infodir}/OctaveFAQ.info*
 %{_mandir}/man1/*
 %{_datadir}/octave
-%{_desktopdir}/*.desktop
+%{_desktopdir}/octave.desktop
 
 %files devel
 %defattr(644,root,root,755)
-%doc doc/refcard/refcard{-a4,}.* doc/liboctave/HTML
+%doc doc/liboctave/liboctave.{html,pdf}
 %attr(755,root,root) %{_libdir}/libcruft.so
 %attr(755,root,root) %{_libdir}/liboctave.so
 %attr(755,root,root) %{_libdir}/liboctinterp.so
 %{_includedir}/%{name}*
 %{_infodir}/liboctave.info*
-
-%files -n xemacs-octave-mode-pkg
-%defattr(644,root,root,755)
-%{_datadir}/xemacs-packages/lisp/*
