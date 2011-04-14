@@ -1,0 +1,55 @@
+--- octave-3.4.0/src/DLD-FUNCTIONS/__init_fltk__.cc~	2011-02-08 11:00:52.000000000 +0100
++++ octave-3.4.0/src/DLD-FUNCTIONS/__init_fltk__.cc	2011-04-14 11:05:44.231184598 +0200
+@@ -44,7 +44,7 @@
+ #include <FL/Fl_Box.H>
+ #include <FL/Fl_Button.H>
+ #include <FL/Fl_Choice.H>
+-#include <Fl/Fl_File_Chooser.H>
++#include <FL/Fl_File_Chooser.H>
+ #include <FL/Fl_Gl_Window.H>
+ #include <FL/Fl_Menu_Bar.H>
+ #include <FL/Fl_Menu_Button.H>
+--- octave-3.4.0/src/DLD-FUNCTIONS/__fltk_uigetfile__.cc~	2011-02-08 11:00:52.000000000 +0100
++++ octave-3.4.0/src/DLD-FUNCTIONS/__fltk_uigetfile__.cc	2011-04-14 11:07:32.226155096 +0200
+@@ -27,7 +27,7 @@
+ #if defined (HAVE_FLTK)
+ 
+ #include <FL/Fl.H>
+-#include <Fl/Fl_File_Chooser.H>
++#include <FL/Fl_File_Chooser.H>
+ 
+ // FLTK headers may include X11/X.h which defines Complex, and that
+ // conflicts with Octave's Complex typedef.  We don't need the X11
+--- octave-3.4.0/scripts/Makefile.am~	2011-02-08 11:00:51.000000000 +0100
++++ octave-3.4.0/scripts/Makefile.am	2011-04-14 11:15:55.080456597 +0200
+@@ -316,7 +316,7 @@
+ 
+ gethelp_SOURCES = gethelp.cc
+ 
+-.DOCSTRINGS: $(FCN_FILES) $(GEN_FCN_FILES) mkdoc $(gethelp_SOURCES) Makefile
++.DOCSTRINGS: gethelp $(FCN_FILES) $(GEN_FCN_FILES) mkdoc $(gethelp_SOURCES) Makefile
+ 	@$(MAKE) $(AM_MAKEFLAGS) gethelp$(BUILD_EXEEXT)
+ 	if [ "x$(srcdir)" != "x." ] && [ -f $(srcdir)/DOCSTRINGS ] && [ ! -f DOCSTRINGS ]; then \
+ 		cp $(srcdir)/DOCSTRINGS DOCSTRINGS; \
+--- octave-3.4.0/acinclude.m4~	2011-02-08 11:00:51.000000000 +0100
++++ octave-3.4.0/acinclude.m4	2011-04-14 11:36:35.207497598 +0200
+@@ -952,7 +952,7 @@
+     octave_cv_lib_qhull_ok, [
+       AC_RUN_IFELSE([AC_LANG_PROGRAM([[
+ #include <stdio.h>
+-#include <qhull/qhull.h>
++#include <qhull/qhull_a.h>
+ #ifdef NEED_QHULL_VERSION
+ char *qh_version = "version";
+ #endif
+--- octave-3.4.0/configure.ac~	2011-02-08 11:01:12.000000000 +0100
++++ octave-3.4.0/configure.ac	2011-04-14 11:38:50.030497595 +0200
+@@ -1731,7 +1731,7 @@
+ AC_CHECK_MEMBERS(struct group.gr_passwd)
+ 
+ octave_found_termlib=no
+-for termlib in ncurses curses termcap terminfo termlib; do
++for termlib in tinfo ncurses curses termcap terminfo termlib; do
+   AC_CHECK_LIB(${termlib}, tputs, [
+     TERM_LIBS="-l${termlib}"
+     octave_found_termlib=yes
