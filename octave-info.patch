@@ -1,25 +1,26 @@
---- octave-2.1.70/doc/faq/Octave-FAQ.texi.orig	2005-05-17 23:59:37.897649368 +0200
-+++ octave-2.1.70/doc/faq/Octave-FAQ.texi	2005-05-18 00:00:05.425464504 +0200
+--- octave-2.1.70/doc/faq/OctaveFAQ.texi.orig	2005-05-17 23:59:37.897649368 +0200
++++ octave-2.1.70/doc/faq/OctaveFAQ.texi	2005-05-18 00:00:05.425464504 +0200
 @@ -4,8 +4,9 @@
  @settitle Frequently asked questions about Octave (with answers)
  
  @setchapternewpage off
 +@dircategory Programming Languages:
  @direntry
--* Octave-FAQ: (Octave-FAQ).  Frequently asked questions about Octave
-+* Octave-FAQ: (Octave-FAQ).		Frequently asked questions about Octave
+-* OctaveFAQ: (OctaveFAQ).  Frequently asked questions about Octave
++* OctaveFAQ: (OctaveFAQ).		Frequently asked questions about Octave
  @end direntry
  @titlepage
  @title Octave FAQ
 diff -Nur octave-2.1.36.orig/doc/interpreter/octave.texi octave-2.1.36/doc/interpreter/octave.texi
 --- octave-2.1.36.orig/doc/interpreter/octave.texi	Wed Jan  2 20:35:23 2002
 +++ octave-2.1.36/doc/interpreter/octave.texi	Sat Nov  2 11:49:49 2002
-@@ -15,9 +15,10 @@
+@@ -15,10 +15,10 @@
  
  @ifinfo
  @format
 -START-INFO-DIR-ENTRY
--* Octave: (octave).	Interactive language for numerical computations.
+-* Octave: (octave).           Interactive language for numerical computations.
+-
 -END-INFO-DIR-ENTRY
 +@dircategory Programming Languages:
 +@direntry
@@ -30,14 +31,17 @@ diff -Nur octave-2.1.36.orig/doc/interpreter/octave.texi octave-2.1.36/doc/inter
  
 --- octave-2.1.70/doc/liboctave/liboctave.texi.orig	2005-02-24 05:56:08.000000000 +0100
 +++ octave-2.1.70/doc/liboctave/liboctave.texi	2005-05-18 00:01:02.814740008 +0200
-@@ -4,8 +4,9 @@
+@@ -4,9 +4,10 @@
  
- \input texinfo  @c -*-texinfo-*-
- @setfilename liboctave.info
-+@dircategory Libraries:
- @direntry
+ @ifinfo
+ @format
+-START-INFO-DIR-ENTRY
 -* liboctave: (liboctave). Octave C++ Classes
+-END-INFO-DIR-ENTRY
++@dircategory Libraries:
++@direntry
 +* liboctave: (liboctave).		Octave C++ Classes
- @end direntry
++@end direntry
+ @end format
+ @end ifinfo
  
- @c @smallbook
