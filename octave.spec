@@ -1,4 +1,3 @@
-# TODO: qrupdate?
 Summary:	GNU Octave - a high-level language for numerical computations
 Summary(cs.UTF-8):	GNU Octave - vyšší programovací jazyk pro numerické výpočty
 Summary(da.UTF-8):	GNU Octave - et højniveausprog for numeriske beregninger
