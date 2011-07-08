@@ -1,25 +1,3 @@
---- octave-3.4.0/src/DLD-FUNCTIONS/__init_fltk__.cc~	2011-02-08 11:00:52.000000000 +0100
-+++ octave-3.4.0/src/DLD-FUNCTIONS/__init_fltk__.cc	2011-04-14 11:05:44.231184598 +0200
-@@ -44,7 +44,7 @@
- #include <FL/Fl_Box.H>
- #include <FL/Fl_Button.H>
- #include <FL/Fl_Choice.H>
--#include <Fl/Fl_File_Chooser.H>
-+#include <FL/Fl_File_Chooser.H>
- #include <FL/Fl_Gl_Window.H>
- #include <FL/Fl_Menu_Bar.H>
- #include <FL/Fl_Menu_Button.H>
---- octave-3.4.0/src/DLD-FUNCTIONS/__fltk_uigetfile__.cc~	2011-02-08 11:00:52.000000000 +0100
-+++ octave-3.4.0/src/DLD-FUNCTIONS/__fltk_uigetfile__.cc	2011-04-14 11:07:32.226155096 +0200
-@@ -27,7 +27,7 @@
- #if defined (HAVE_FLTK)
- 
- #include <FL/Fl.H>
--#include <Fl/Fl_File_Chooser.H>
-+#include <FL/Fl_File_Chooser.H>
- 
- // FLTK headers may include X11/X.h which defines Complex, and that
- // conflicts with Octave's Complex typedef.  We don't need the X11
 --- octave-3.4.0/scripts/Makefile.am~	2011-02-08 11:00:51.000000000 +0100
 +++ octave-3.4.0/scripts/Makefile.am	2011-04-14 11:15:55.080456597 +0200
 @@ -316,7 +316,7 @@
@@ -31,19 +9,17 @@
  	@$(MAKE) $(AM_MAKEFLAGS) gethelp$(BUILD_EXEEXT)
  	if [ "x$(srcdir)" != "x." ] && [ -f $(srcdir)/DOCSTRINGS ] && [ ! -f DOCSTRINGS ]; then \
  		cp $(srcdir)/DOCSTRINGS DOCSTRINGS; \
---- octave-3.4.0/acinclude.m4~	2011-02-08 11:00:51.000000000 +0100
-+++ octave-3.4.0/acinclude.m4	2011-04-14 11:36:35.207497598 +0200
-@@ -952,7 +952,7 @@
-     octave_cv_lib_qhull_ok, [
-       AC_RUN_IFELSE([AC_LANG_PROGRAM([[
- #include <stdio.h>
--#include <qhull/qhull.h>
-+#include <qhull/qhull_a.h>
- #ifdef NEED_QHULL_VERSION
- char *qh_version = "version";
- #endif
 --- octave-3.4.0/configure.ac~	2011-02-08 11:01:12.000000000 +0100
 +++ octave-3.4.0/configure.ac	2011-04-14 11:38:50.030497595 +0200
+@@ -631,7 +631,7 @@
+ 
+ OCTAVE_CHECK_LIBRARY(qhull, QHull,
+   [Qhull library not found -- this will result in loss of functionality of some geometry functions.],
+-  [qhull/qhull_a.h], [qh_qhull], [], [],
++  [libqhull/qhull_a.h], [qh_qhull], [], [],
+   [warn_qhull=
+    OCTAVE_CHECK_QHULL_VERSION
+    OCTAVE_CHECK_QHULL_OK([TEXINFO_QHULL="@set HAVE_QHULL"
 @@ -1731,7 +1731,7 @@
  AC_CHECK_MEMBERS(struct group.gr_passwd)
  
@@ -53,3 +29,66 @@
    AC_CHECK_LIB(${termlib}, tputs, [
      TERM_LIBS="-l${termlib}"
      octave_found_termlib=yes
+--- octave-3.4.2/m4/acinclude.m4.orig	2011-06-10 19:48:38.000000000 +0200
++++ octave-3.4.2/m4/acinclude.m4	2011-07-07 18:21:32.660791806 +0200
+@@ -935,7 +935,7 @@
+   [AC_CACHE_CHECK([for qh_version in $QHULL_LIBS],
+     octave_cv_lib_qhull_version,  [
+       AC_LINK_IFELSE([AC_LANG_PROGRAM([[
+-#include <qhull/qhull_a.h>
++#include <libqhull/qhull_a.h>
+ ]], [[
+ const char *tmp = qh_version;
+ ]])], [octave_cv_lib_qhull_version=yes], [octave_cv_lib_qhull_version=no])])
+@@ -952,7 +952,7 @@
+     octave_cv_lib_qhull_ok, [
+       AC_RUN_IFELSE([AC_LANG_PROGRAM([[
+ #include <stdio.h>
+-#include <qhull/qhull.h>
++#include <libqhull/qhull_a.h>
+ #ifdef NEED_QHULL_VERSION
+ char *qh_version = "version";
+ #endif
+--- octave-3.4.2/src/DLD-FUNCTIONS.orig/convhulln.cc	2011-04-11 16:57:08.000000000 +0200
++++ octave-3.4.2/src/DLD-FUNCTIONS/convhulln.cc	2011-07-07 18:23:18.760795361 +0200
+@@ -43,7 +43,7 @@
+ 
+ #ifdef HAVE_QHULL
+ extern "C" {
+-#include <qhull/qhull_a.h>
++#include <libqhull/qhull_a.h>
+ }
+ 
+ # ifdef NEED_QHULL_VERSION
+--- octave-3.4.2/src/DLD-FUNCTIONS.orig/__delaunayn__.cc	2011-04-11 16:57:08.000000000 +0200
++++ octave-3.4.2/src/DLD-FUNCTIONS/__delaunayn__.cc	2011-07-07 18:23:18.774128693 +0200
+@@ -52,7 +52,7 @@
+ 
+ #ifdef HAVE_QHULL
+ extern "C" {
+-#include <qhull/qhull_a.h>
++#include <libqhull/qhull_a.h>
+ }
+ 
+ #ifdef NEED_QHULL_VERSION
+--- octave-3.4.2/src/DLD-FUNCTIONS.orig/__voronoi__.cc	2011-04-11 16:57:08.000000000 +0200
++++ octave-3.4.2/src/DLD-FUNCTIONS/__voronoi__.cc	2011-07-07 18:23:19.144128708 +0200
+@@ -45,7 +45,7 @@
+ 
+ #ifdef HAVE_QHULL
+ extern "C" {
+-#include <qhull/qhull_a.h>
++#include <libqhull/qhull_a.h>
+ }
+ 
+ #ifdef NEED_QHULL_VERSION
+--- octave-3.4.2/m4/ax_pthread.m4.orig	2011-04-11 16:57:08.000000000 +0200
++++ octave-3.4.2/m4/ax_pthread.m4	2011-07-07 21:24:27.544492621 +0200
+@@ -169,6 +169,7 @@
+                 -*)
+                 AC_MSG_CHECKING([whether pthreads work with $flag])
+                 PTHREAD_CFLAGS="$flag"
++                PTHREAD_LIBS="$flag"
+                 ;;
+ 
+ 		pthread-config)

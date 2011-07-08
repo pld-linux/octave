@@ -15,13 +15,13 @@ Summary(ru.UTF-8):	GNU Octave - Язык высокого уровня для в
 Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
-Version:	3.4.0
+Version:	3.4.2
 Release:	1
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
-Source0:	ftp://ftp.gnu.org/gnu/octave/%{name}-%{version}.tar.bz2
-# Source0-md5:	c8144cee1d37e645d3368a8e8a5f1856
+Source0:	http://ftp.gnu.org/gnu/octave/%{name}-%{version}.tar.bz2
+# Source0-md5:	31c744ab4555a2bf04d5e644b93f9b51
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-build.patch
@@ -53,7 +53,7 @@ BuildRequires:	lapack-devel >= 3.1.1-3
 BuildRequires:	libstdc++-devel >= 6:4.0
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	pcre-devel
-BuildRequires:	qhull-devel
+BuildRequires:	qhull-devel >= 2011.1
 BuildRequires:	qrupdate-devel
 BuildRequires:	readline-devel
 BuildRequires:	sed >= 4.0
@@ -330,24 +330,34 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog NEWS PROJECTS
+%doc AUTHORS BUGS ChangeLog NEWS README
 %doc examples doc/{faq,interpreter}/*.{html,pdf} doc/refcard/refcard-a4.pdf
-%attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/libcruft-*.so
-%attr(755,root,root) %{_libdir}/liboctave-*.so
-%attr(755,root,root) %{_libdir}/liboctinterp-*.so
+%attr(755,root,root) %{_bindir}/mkoctfile
+%attr(755,root,root) %{_bindir}/mkoctfile-%{version}
+%attr(755,root,root) %{_bindir}/octave
+%attr(755,root,root) %{_bindir}/octave-%{version}
+%attr(755,root,root) %{_libdir}/libcruft.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libcruft.so.0
+%attr(755,root,root) %{_libdir}/liboctave.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/liboctave.so.0
+%attr(755,root,root) %{_libdir}/liboctinterp.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/liboctinterp.so.0
 %{_libdir}/octave
 %{_infodir}/octave.info*
 %{_infodir}/OctaveFAQ.info*
-%{_mandir}/man1/*
+%{_mandir}/man1/mkoctfile.1*
+%{_mandir}/man1/octave.1*
 %{_datadir}/octave
 %{_desktopdir}/octave.desktop
 
 %files devel
 %defattr(644,root,root,755)
 %doc doc/liboctave/liboctave.{html,pdf}
+%attr(755,root,root) %{_bindir}/octave-config
+%attr(755,root,root) %{_bindir}/octave-config-%{version}
 %attr(755,root,root) %{_libdir}/libcruft.so
 %attr(755,root,root) %{_libdir}/liboctave.so
 %attr(755,root,root) %{_libdir}/liboctinterp.so
 %{_includedir}/%{name}*
+%{_mandir}/man1/octave-config.1*
 %{_infodir}/liboctave.info*
