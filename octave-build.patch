@@ -11,15 +11,6 @@
  		cp $(srcdir)/DOCSTRINGS DOCSTRINGS; \
 --- octave-3.6.0/configure.ac.orig	2012-01-15 19:05:01.000000000 +0100
 +++ octave-3.6.0/configure.ac	2012-02-02 21:02:27.006336076 +0100
-@@ -649,7 +649,7 @@
- 
- OCTAVE_CHECK_LIBRARY(qhull, QHull,
-   [Qhull library not found -- this will result in loss of functionality of some geometry functions.],
--  [qhull/libqhull.h libqhull.h qhull/qhull.h qhull.h], [qh_qhull], [], [],
-+  [libqhull/libqhull.h qhull/libqhull.h libqhull.h qhull/qhull.h qhull.h], [qh_qhull], [], [],
-   [warn_qhull=
-    OCTAVE_CHECK_QHULL_VERSION
-    OCTAVE_CHECK_QHULL_OK([TEXINFO_QHULL="@set HAVE_QHULL"
 @@ -1820,7 +1820,7 @@
  AC_CHECK_MEMBERS(struct group.gr_passwd)
  
@@ -29,55 +20,6 @@
    AC_CHECK_LIB(${termlib}, tputs, [
      TERM_LIBS="-l${termlib}"
      octave_found_termlib=yes
---- octave-3.6.0/m4/acinclude.m4.orig	2012-01-15 19:05:02.000000000 +0100
-+++ octave-3.6.0/m4/acinclude.m4	2012-02-02 21:06:49.699678206 +0100
-@@ -937,7 +937,13 @@
-     octave_cv_lib_qhull_version,  [
-       AC_LINK_IFELSE([AC_LANG_PROGRAM([[
- #include <stdio.h>
--#if defined (HAVE_QHULL_LIBQHULL_H) || defined (HAVE_QHULL_QHULL_H)
-+#if defined (HAVE_LIBQHULL_LIBQHULL_H)
-+# include <libqhull/libqhull.h>
-+# include <libqhull/qset.h>
-+# include <libqhull/geom.h>
-+# include <libqhull/poly.h>
-+# include <libqhull/io.h>
-+#elif defined (HAVE_QHULL_LIBQHULL_H) || defined (HAVE_QHULL_QHULL_H)
- # if defined (HAVE_QHULL_LIBQHULL_H)
- #  include <qhull/libqhull.h>
- # else
-@@ -974,7 +980,13 @@
-     octave_cv_lib_qhull_ok, [
-       AC_RUN_IFELSE([AC_LANG_PROGRAM([[
- #include <stdio.h>
--#if defined (HAVE_QHULL_LIBQHULL_H) || defined (HAVE_QHULL_QHULL_H)
-+#if defined (HAVE_LIBQHULL_LIBQHULL_H)
-+# include <libqhull/libqhull.h>
-+# include <libqhull/qset.h>
-+# include <libqhull/geom.h>
-+# include <libqhull/poly.h>
-+# include <libqhull/io.h>
-+#elif defined (HAVE_QHULL_LIBQHULL_H) || defined (HAVE_QHULL_QHULL_H)
- # if defined (HAVE_QHULL_LIBQHULL_H)
- #  include <qhull/libqhull.h>
- # else
---- octave-3.6.0/src/DLD-FUNCTIONS/oct-qhull.h.orig	2012-01-15 19:05:02.000000000 +0100
-+++ octave-3.6.0/src/DLD-FUNCTIONS/oct-qhull.h	2012-02-02 21:16:01.689696688 +0100
-@@ -27,7 +27,13 @@
- 
- extern "C" {
- 
--#if defined (HAVE_QHULL_LIBQHULL_H) || defined (HAVE_QHULL_QHULL_H)
-+#if defined (HAVE_LIBQHULL_LIBQHULL_H)
-+# include <libqhull/libqhull.h>
-+# include <libqhull/qset.h>
-+# include <libqhull/geom.h>
-+# include <libqhull/poly.h>
-+# include <libqhull/io.h>
-+#elif defined (HAVE_QHULL_LIBQHULL_H) || defined (HAVE_QHULL_QHULL_H)
- # if defined (HAVE_QHULL_LIBQHULL_H)
- #  include <qhull/libqhull.h>
- # else
 --- octave-3.4.2/m4/ax_pthread.m4.orig	2011-04-11 16:57:08.000000000 +0200
 +++ octave-3.4.2/m4/ax_pthread.m4	2011-07-07 21:24:27.544492621 +0200
 @@ -169,6 +169,7 @@
