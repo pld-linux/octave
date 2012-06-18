@@ -303,6 +303,7 @@ rm -rf $RPM_BUILD_ROOT
 	octincludedir=%{_includedir}/octave \
 	octlibdir=%{_libdir}
 
+install -d $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
 # Create directory for add-on packages
@@ -310,7 +311,7 @@ install -d $RPM_BUILD_ROOT%{_libdir}/%{name}/packages
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/packages
 touch $RPM_BUILD_ROOT%{_datadir}/%{name}/octave_packages
 
-%{__rm} $RPM_BUILD_ROOT%{_desktopdir}/www.octave.org-octave.desktop
+%{__rm} -f $RPM_BUILD_ROOT%{_desktopdir}/www.octave.org-octave.desktop
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %clean
