@@ -15,13 +15,13 @@ Summary(ru.UTF-8):	GNU Octave - Язык высокого уровня для в
 Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
-Version:	3.6.1
-Release:	2
+Version:	3.6.2
+Release:	1
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
 Source0:	http://ftp.gnu.org/gnu/octave/%{name}-%{version}.tar.bz2
-# Source0-md5:	b543dd5ca743cba8c1d3474b1b99ae41
+# Source0-md5:	9a0ecca8e40749ef5c884b1a0265f038
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-build.patch
@@ -35,8 +35,8 @@ BuildRequires:	CXSparse-devel
 BuildRequires:	GraphicsMagick-c++-devel
 BuildRequires:	UMFPACK-devel
 BuildRequires:	arpack-devel >= 2.1-8
-BuildRequires:	autoconf >= 2.60
-BuildRequires:	automake
+BuildRequires:	autoconf >= 2.62
+BuildRequires:	automake >= 1:1.11
 #BuildRequires:	bison >= 1.31
 BuildRequires:	blas-devel
 BuildRequires:	curl-devel
@@ -51,6 +51,7 @@ BuildRequires:	glpk-devel >= 4.14
 BuildRequires:	hdf5-devel >= 1.6.0
 BuildRequires:	lapack-devel >= 3.1.1-3
 BuildRequires:	libstdc++-devel >= 6:4.0
+BuildRequires:	libtool >= 2:2.2.2
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	pcre-devel
 BuildRequires:	qhull-devel >= 2011.1
