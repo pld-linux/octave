@@ -1,14 +1,3 @@
---- octave-3.4.0/scripts/Makefile.am~	2011-02-08 11:00:51.000000000 +0100
-+++ octave-3.4.0/scripts/Makefile.am	2011-04-14 11:15:55.080456597 +0200
-@@ -316,7 +316,7 @@
- 
- gethelp_SOURCES = gethelp.cc
- 
--.DOCSTRINGS: $(FCN_FILES) $(GEN_FCN_FILES) mkdoc $(gethelp_SOURCES) Makefile
-+.DOCSTRINGS: gethelp $(FCN_FILES) $(GEN_FCN_FILES) mkdoc $(gethelp_SOURCES) Makefile
- 	@$(MAKE) $(AM_MAKEFLAGS) gethelp$(BUILD_EXEEXT)
- 	if [ "x$(srcdir)" != "x." ] && [ -f $(srcdir)/DOCSTRINGS ] && [ ! -f DOCSTRINGS ]; then \
- 		cp $(srcdir)/DOCSTRINGS DOCSTRINGS; \
 --- octave-3.6.0/configure.ac.orig	2012-01-15 19:05:01.000000000 +0100
 +++ octave-3.6.0/configure.ac	2012-02-02 21:02:27.006336076 +0100
 @@ -1820,7 +1820,7 @@
