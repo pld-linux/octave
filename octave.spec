@@ -16,7 +16,7 @@ Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
 Version:	3.6.4
-Release:	2
+Release:	3
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
@@ -25,6 +25,7 @@ Source0:	http://ftp.gnu.org/gnu/octave/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-build.patch
+Patch2:		%{name}-header.patch
 URL:		http://www.octave.org/
 BuildRequires:	AMD-devel
 BuildRequires:	CAMD-devel
@@ -270,6 +271,7 @@ Pliki nagłówkowe i dodatkowa dokumentacja Octave.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
