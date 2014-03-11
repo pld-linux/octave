@@ -1,6 +1,12 @@
 # TODO:
-# - separate -gui parts, maybe java
-# - update dependencies
+# - separate java parts?
+#
+# Conditional build:
+%bcond_with	gomp	# OpenMP multi-threading (experimental)
+%bcond_with	llvm	# LLVM based JIT compiler
+%bcond_without	gui	# Qt GUI
+%bcond_without	java	# Java interface
+#
 Summary:	GNU Octave - a high-level language for numerical computations
 Summary(cs.UTF-8):	GNU Octave - vyšší programovací jazyk pro numerické výpočty
 Summary(da.UTF-8):	GNU Octave - et højniveausprog for numeriske beregninger
@@ -36,6 +42,9 @@ BuildRequires:	CHOLMOD-devel
 BuildRequires:	COLAMD-devel
 BuildRequires:	CXSparse-devel
 BuildRequires:	GraphicsMagick-c++-devel
+%{?with_gui:BuildRequires:	QtCore-devel >= 4}
+%{?with_gui:BuildRequires:	QtGui-devel >= 4}
+%{?with_gui:BuildRequires:	QtNetwork-devel >= 4}
 BuildRequires:	UMFPACK-devel
 BuildRequires:	arpack-devel >= 2.1-8
 BuildRequires:	autoconf >= 2.62
@@ -45,29 +54,44 @@ BuildRequires:	blas-devel
 BuildRequires:	curl-devel
 BuildRequires:	fftw3-devel
 BuildRequires:	fftw3-single-devel
-BuildRequires:	flex >= 2.5.4
+#BuildRequires:	flex >= 2.5.4
+BuildRequires:	fltk-devel
 BuildRequires:	fltk-gl-devel
+BuildRequires:	fontconfig-devel
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	gcc-fortran >= 6:4.0
+BuildRequires:	gl2ps-devel
 BuildRequires:	glpk-devel >= 4.14
+BuildRequires:	gnuplot
 #BuildRequires:	gperf >= 3.0.1
+%{?with_java:BuildRequires:	jdk >= 1.5}
 BuildRequires:	hdf5-devel >= 1.6.0
 BuildRequires:	lapack-devel >= 3.1.1-3
+%{?with_gomp:BuildRequires:	libgomp-devel}
 BuildRequires:	libstdc++-devel >= 6:4.0
 BuildRequires:	libtool >= 2:2.2.2
+%{?with_llvm:BuildRequires:	llvm-devel}
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	pcre-devel
+BuildRequires:	pkgconfig
 BuildRequires:	qhull-devel >= 2011.1
 BuildRequires:	qrupdate-devel
+%{?with_gui:BuildRequires:	qscintilla2-devel >= 2.6.0}
+%{?with_gui:BuildRequires:	qt4-build >= 4}
+%{?with_gui:BuildRequires:	qt4-linguist >= 4}
 BuildRequires:	readline-devel
 BuildRequires:	sed >= 4.0
+BuildRequires:	texinfo
 BuildRequires:	texinfo-texi2dvi
 BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	zlib-devel
 Requires(post,postun):	/sbin/ldconfig
 Requires:	gnuplot
 Suggests:	GraphicsMagick
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		api_dir		api-v49+
 
 %description
 GNU Octave is a high-level language, primarily intended for numerical
@@ -256,6 +280,18 @@ utvidga och anpassa via användardefinierade funktioner skrivna i
 Octaves eget språk, och via dynamiskt laddade moduler skrivan i C++,
 C, Fortran, eller andra språk.
 
+%package gui
+Summary:	Qt based GUI for Octave
+Summary(pl.UTF-8):	Oparty na Qt graficzny interfejs do Octave
+Group:		Applications/Math
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description gui
+Qt based GUI for Octave.
+
+%description gui -l pl.UTF-8
+Oparty na Qt graficzny interfejs do Octave.
+
 %package devel
 Summary:	Header files and devel docs for Octave
 Summary(pl.UTF-8):	Pliki nagłówkowe i dodatkowa dokumentacja Octave
@@ -298,6 +334,10 @@ export CLASSPATH=.
 	--with-cxsparse-includedir=%{_includedir}/cxsparse \
 	--with-umfpack-includedir=%{_includedir}/umfpack \
 	--enable-dl \
+	%{!?with_gui:--disable-gui} \
+	%{!?with_java:--disable-java} \
+	%{?with_llvm:--enable-jit} \
+	%{?with_gomp:--enable-openmp} \
 	--enable-shared
 
 %{__make} \
@@ -322,6 +362,8 @@ touch $RPM_BUILD_ROOT%{_datadir}/%{name}/octave_packages
 
 %{__rm} -f $RPM_BUILD_ROOT%{_desktopdir}/www.octave.org-octave.desktop
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
+# API not exported
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/liboctgui.so
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -352,17 +394,80 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/octave-cli-%{version}
 %attr(755,root,root) %{_libdir}/liboctave.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/liboctave.so.2
-%attr(755,root,root) %{_libdir}/liboctgui.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctgui.so.0
 %attr(755,root,root) %{_libdir}/liboctinterp.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/liboctinterp.so.2
-%{_libdir}/octave
+%dir %{_libdir}/octave
+%dir %{_libdir}/octave/%{version}
+%dir %{_libdir}/octave/%{version}/exec
+%dir %{_libdir}/octave/%{version}/exec/*-pld-linux-gnu
+%dir %{_libdir}/octave/%{version}/oct
+%dir %{_libdir}/octave/%{version}/oct/*-pld-linux-gnu
+%{_libdir}/octave/%{version}/oct/*-pld-linux-gnu/*.oct
+%{_libdir}/octave/%{version}/oct/*-pld-linux-gnu/PKG_ADD
+%dir %{_libdir}/octave/%{version}/site
+%dir %{_libdir}/octave/%{version}/site/exec
+%dir %{_libdir}/octave/%{version}/site/exec/*-pld-linux-gnu
+%dir %{_libdir}/octave/%{version}/site/oct
+%dir %{_libdir}/octave/%{version}/site/oct/*-pld-linux-gnu
+%dir %{_libdir}/octave/%{api_dir}
+%dir %{_libdir}/octave/%{api_dir}/site
+%dir %{_libdir}/octave/%{api_dir}/site/exec
+%dir %{_libdir}/octave/%{api_dir}/site/exec/*-pld-linux-gnu
+%dir %{_libdir}/octave/packages
+%dir %{_libdir}/octave/site
+%dir %{_libdir}/octave/site/exec
+%dir %{_libdir}/octave/site/exec/*-pld-linux-gnu
+%dir %{_libdir}/octave/site/oct
+%dir %{_libdir}/octave/site/oct/*-pld-linux-gnu
+%dir %{_libdir}/octave/site/oct/%{api_dir}
+%dir %{_libdir}/octave/site/oct/%{api_dir}/*-pld-linux-gnu
 %{_infodir}/octave.info*
 %{_mandir}/man1/mkoctfile.1*
 %{_mandir}/man1/octave.1*
 %{_mandir}/man1/octave-cli.1*
-%{_datadir}/octave
+%dir %{_datadir}/octave
+%dir %{_datadir}/octave/%{version}
+%dir %{_datadir}/octave/%{version}/etc
+%{_datadir}/octave/%{version}/etc/CITATION
+%{_datadir}/octave/%{version}/etc/NEWS
+%{_datadir}/octave/%{version}/etc/built-in-docstrings
+%{_datadir}/octave/%{version}/etc/config.log
+%{_datadir}/octave/%{version}/etc/doc-cache
+%{_datadir}/octave/%{version}/etc/macros.texi
+%{_datadir}/octave/%{version}/etc/tests
+%{_datadir}/octave/%{version}/imagelib
+%{_datadir}/octave/%{version}/m
+%dir %{_datadir}/octave/%{version}/site
+%dir %{_datadir}/octave/%{version}/site/m
+%dir %{_datadir}/octave/octave_packages
+%dir %{_datadir}/octave/packages
+%dir %{_datadir}/octave/site
+%dir %{_datadir}/octave/site/%{api_dir}
+%dir %{_datadir}/octave/site/%{api_dir}/m
+%dir %{_datadir}/octave/site/m
+%dir %{_datadir}/octave/site/m/startup
+%{_datadir}/octave/site/m/startup/octaverc
 %{_desktopdir}/octave.desktop
+
+%if %{with gui}
+%files gui
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/liboctgui.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/liboctgui.so.0
+%attr(755,root,root) %{_libdir}/octave/%{version}/exec/*-pld-linux-gnu/octave-gui
+%{_datadir}/octave/%{version}/etc/default-qt-settings
+%dir %{_datadir}/octave/%{version}/locale
+%lang(be) %{_datadir}/octave/%{version}/locale/be_BY.qm
+%lang(de) %{_datadir}/octave/%{version}/locale/de_DE.qm
+%lang(en) %{_datadir}/octave/%{version}/locale/en_US.qm
+%lang(es) %{_datadir}/octave/%{version}/locale/es_ES.qm
+%lang(fr) %{_datadir}/octave/%{version}/locale/fr_FR.qm
+%lang(nl) %{_datadir}/octave/%{version}/locale/nl_NL.qm
+%lang(pt_BR) %{_datadir}/octave/%{version}/locale/pt_BR.qm
+%lang(pt) %{_datadir}/octave/%{version}/locale/pt_PT.qm
+%lang(ru) %{_datadir}/octave/%{version}/locale/ru_RU.qm
+%lang(uk) %{_datadir}/octave/%{version}/locale/uk_UA.qm
+%endif
 
 %files devel
 %defattr(644,root,root,755)
@@ -370,7 +475,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/octave-config
 %attr(755,root,root) %{_bindir}/octave-config-%{version}
 %attr(755,root,root) %{_libdir}/liboctave.so
-%attr(755,root,root) %{_libdir}/liboctgui.so
 %attr(755,root,root) %{_libdir}/liboctinterp.so
 %{_includedir}/%{name}*
 %{_mandir}/man1/octave-config.1*
