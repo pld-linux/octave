@@ -1,3 +1,6 @@
+# TODO:
+# - separate -gui parts, maybe java
+# - update dependencies
 Summary:	GNU Octave - a high-level language for numerical computations
 Summary(cs.UTF-8):	GNU Octave - vyšší programovací jazyk pro numerické výpočty
 Summary(da.UTF-8):	GNU Octave - et højniveausprog for numeriske beregninger
@@ -15,17 +18,16 @@ Summary(ru.UTF-8):	GNU Octave - Язык высокого уровня для в
 Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
-Version:	3.6.4
-Release:	4
+Version:	3.8.1
+Release:	0.1
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
 Source0:	http://ftp.gnu.org/gnu/octave/%{name}-%{version}.tar.bz2
-# Source0-md5:	e0d3e5e3d38a66d3f8593ba065c6e2fd
+# Source0-md5:	4c5b9bd6b82b7fa3191af9706e7204f8
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-build.patch
-Patch2:		%{name}-header.patch
 URL:		http://www.octave.org/
 BuildRequires:	AMD-devel
 BuildRequires:	CAMD-devel
@@ -271,7 +273,6 @@ Pliki nagłówkowe i dodatkowa dokumentacja Octave.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -279,11 +280,16 @@ Pliki nagłówkowe i dodatkowa dokumentacja Octave.
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-# rebuild fails with "./octave.texi:130: Missing number, treated as zero."
-# so use hacks to avoid it (note: it must be done after configure regeneration)
-touch doc/interpreter/{version.texi,stamp-vti}
-touch doc/interpreter/octave.{dvi,ps,pdf}
+# to find local sources
+export CLASSPATH=.
+# Note: configure defaults to {moc,uic,rcc,lrelease}-qt5 tools,
+# but gets only qt4 (QtCore, QtGui, QtNetwork) libraries;
+# pass qt4 tools for consistency (qt5 tools refer to e.g. Qt5 specific headers)
 %configure \
+	MOC=moc-qt4 \
+	UIC=uic-qt4 \
+	RCC=rcc \
+	LRELEASE=lrelease-qt4 \
 	--with-amd-includedir=%{_includedir}/amd \
 	--with-camd-includedir=%{_includedir}/camd \
 	--with-cholmod-includedir=%{_includedir}/cholmod \
@@ -337,22 +343,24 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS BUGS ChangeLog NEWS README
-%doc examples doc/{faq,interpreter}/*.{html,pdf} doc/refcard/refcard-a4.pdf
+%doc examples doc/interpreter/*.{html,pdf} doc/refcard/refcard-a4.pdf
 %attr(755,root,root) %{_bindir}/mkoctfile
 %attr(755,root,root) %{_bindir}/mkoctfile-%{version}
 %attr(755,root,root) %{_bindir}/octave
 %attr(755,root,root) %{_bindir}/octave-%{version}
-%attr(755,root,root) %{_libdir}/libcruft.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libcruft.so.1
+%attr(755,root,root) %{_bindir}/octave-cli
+%attr(755,root,root) %{_bindir}/octave-cli-%{version}
 %attr(755,root,root) %{_libdir}/liboctave.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctave.so.1
+%attr(755,root,root) %ghost %{_libdir}/liboctave.so.2
+%attr(755,root,root) %{_libdir}/liboctgui.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/liboctgui.so.0
 %attr(755,root,root) %{_libdir}/liboctinterp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctinterp.so.1
+%attr(755,root,root) %ghost %{_libdir}/liboctinterp.so.2
 %{_libdir}/octave
 %{_infodir}/octave.info*
-%{_infodir}/OctaveFAQ.info*
 %{_mandir}/man1/mkoctfile.1*
 %{_mandir}/man1/octave.1*
+%{_mandir}/man1/octave-cli.1*
 %{_datadir}/octave
 %{_desktopdir}/octave.desktop
 
@@ -361,8 +369,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc doc/liboctave/liboctave.{html,pdf}
 %attr(755,root,root) %{_bindir}/octave-config
 %attr(755,root,root) %{_bindir}/octave-config-%{version}
-%attr(755,root,root) %{_libdir}/libcruft.so
 %attr(755,root,root) %{_libdir}/liboctave.so
+%attr(755,root,root) %{_libdir}/liboctgui.so
 %attr(755,root,root) %{_libdir}/liboctinterp.so
 %{_includedir}/%{name}*
 %{_mandir}/man1/octave-config.1*

@@ -1,14 +1,14 @@
---- octave-3.6.0/configure.ac.orig	2012-01-15 19:05:01.000000000 +0100
-+++ octave-3.6.0/configure.ac	2012-02-02 21:02:27.006336076 +0100
-@@ -1820,7 +1820,7 @@
- AC_CHECK_MEMBERS(struct group.gr_passwd)
- 
- octave_found_termlib=no
--for termlib in ncurses curses termcap terminfo termlib; do
-+for termlib in tinfo ncurses curses termcap terminfo termlib; do
-   AC_CHECK_LIB(${termlib}, tputs, [
-     TERM_LIBS="-l${termlib}"
-     octave_found_termlib=yes
+--- octave-3.8.1/m4/acinclude.m4.orig	2014-03-06 20:37:51.000000000 +0100
++++ octave-3.8.1/m4/acinclude.m4	2014-03-10 08:01:49.629358095 +0100
+@@ -972,7 +972,7 @@
+   TERM_LIBS=
+   ac_octave_save_LIBS="$LIBS"
+   AC_SEARCH_LIBS([tputs],
+-                 [ncurses curses termcap terminfo termlib],
++                 [tinfo ncurses curses termcap terminfo termlib],
+                  [], [])
+   LIBS="$ac_octave_save_LIBS"
+   case "$ac_cv_search_tputs" in
 --- octave-3.4.2/m4/ax_pthread.m4.orig	2011-04-11 16:57:08.000000000 +0200
 +++ octave-3.4.2/m4/ax_pthread.m4	2011-07-07 21:24:27.544492621 +0200
 @@ -169,6 +169,7 @@
