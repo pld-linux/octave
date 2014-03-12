@@ -1,5 +1,3 @@
-# TODO:
-# - separate java parts?
 #
 # Conditional build:
 %bcond_with	gomp	# OpenMP multi-threading (experimental)
@@ -25,7 +23,7 @@ Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
 Version:	3.8.1
-Release:	0.1
+Release:	1
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
@@ -292,6 +290,19 @@ Qt based GUI for Octave.
 %description gui -l pl.UTF-8
 Oparty na Qt graficzny interfejs do Octave.
 
+%package java
+Summary:	Java interface for Octave
+Summary(pl.UTF-8):	Interfejs do Javy dla Octave
+Group:		Applications/Math
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	jre
+
+%description java
+Java interface for Octave.
+
+%description java -l pl.UTF-8
+Interfejs do Javy dla Octave.
+
 %package devel
 Summary:	Header files and devel docs for Octave
 Summary(pl.UTF-8):	Pliki nagłówkowe i dodatkowa dokumentacja Octave
@@ -436,7 +447,35 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/octave/%{version}/etc/macros.texi
 %{_datadir}/octave/%{version}/etc/tests
 %{_datadir}/octave/%{version}/imagelib
-%{_datadir}/octave/%{version}/m
+%dir %{_datadir}/octave/%{version}/m
+%{_datadir}/octave/%{version}/m/@ftp
+%{_datadir}/octave/%{version}/m/audio
+%{_datadir}/octave/%{version}/m/deprecated
+%{_datadir}/octave/%{version}/m/elfun
+%{_datadir}/octave/%{version}/m/general
+%{_datadir}/octave/%{version}/m/geometry
+%{_datadir}/octave/%{version}/m/gui
+%{_datadir}/octave/%{version}/m/help
+%{_datadir}/octave/%{version}/m/image
+%{_datadir}/octave/%{version}/m/io
+%{_datadir}/octave/%{version}/m/linear-algebra
+%{_datadir}/octave/%{version}/m/miscellaneous
+%{_datadir}/octave/%{version}/m/optimization
+%{_datadir}/octave/%{version}/m/path
+%{_datadir}/octave/%{version}/m/pkg
+%{_datadir}/octave/%{version}/m/plot
+%{_datadir}/octave/%{version}/m/polynomial
+%{_datadir}/octave/%{version}/m/prefs
+%{_datadir}/octave/%{version}/m/set
+%{_datadir}/octave/%{version}/m/signal
+%{_datadir}/octave/%{version}/m/sparse
+%{_datadir}/octave/%{version}/m/specfun
+%{_datadir}/octave/%{version}/m/special-matrix
+%{_datadir}/octave/%{version}/m/startup
+%{_datadir}/octave/%{version}/m/statistics
+%{_datadir}/octave/%{version}/m/strings
+%{_datadir}/octave/%{version}/m/testfun
+%{_datadir}/octave/%{version}/m/time
 %dir %{_datadir}/octave/%{version}/site
 %dir %{_datadir}/octave/%{version}/site/m
 %dir %{_datadir}/octave/octave_packages
@@ -467,6 +506,12 @@ rm -rf $RPM_BUILD_ROOT
 %lang(pt) %{_datadir}/octave/%{version}/locale/pt_PT.qm
 %lang(ru) %{_datadir}/octave/%{version}/locale/ru_RU.qm
 %lang(uk) %{_datadir}/octave/%{version}/locale/uk_UA.qm
+%endif
+
+%if %{with java}
+%files java
+%defattr(644,root,root,755)
+%{_datadir}/octave/%{version}/m/java
 %endif
 
 %files devel
