@@ -22,21 +22,22 @@ Summary(ru.UTF-8):	GNU Octave - Язык высокого уровня для в
 Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
-Version:	3.8.1
+Version:	3.8.2
 Release:	1
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
 Source0:	http://ftp.gnu.org/gnu/octave/%{name}-%{version}.tar.bz2
-# Source0-md5:	4c5b9bd6b82b7fa3191af9706e7204f8
+# Source0-md5:	188bd97e22054f9c62701ee0e6800dc1
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-build.patch
+Patch2:		%{name}-suitesparse.patch
 URL:		http://www.octave.org/
-BuildRequires:	AMD-devel
+BuildRequires:	AMD-devel >= 2.4.0
 BuildRequires:	CAMD-devel
 BuildRequires:	CCOLAMD-devel
-BuildRequires:	CHOLMOD-devel
+BuildRequires:	CHOLMOD-devel >= 2.2.0
 BuildRequires:	COLAMD-devel
 BuildRequires:	CXSparse-devel
 BuildRequires:	GraphicsMagick-c++-devel
@@ -56,7 +57,7 @@ BuildRequires:	fftw3-single-devel
 BuildRequires:	fltk-devel
 BuildRequires:	fltk-gl-devel
 BuildRequires:	fontconfig-devel
-BuildRequires:	freetype-devel >= 2.0
+BuildRequires:	freetype-devel >= 2.0.9
 BuildRequires:	gcc-fortran >= 6:4.0
 BuildRequires:	gl2ps-devel
 BuildRequires:	glpk-devel >= 4.14
@@ -74,7 +75,7 @@ BuildRequires:	pcre-devel
 BuildRequires:	pkgconfig
 BuildRequires:	qhull-devel >= 2011.1
 BuildRequires:	qrupdate-devel
-%{?with_gui:BuildRequires:	qscintilla2-devel >= 2.6.0}
+%{?with_gui:BuildRequires:	qscintilla2-qt4-devel >= 2.6.0}
 %{?with_gui:BuildRequires:	qt4-build >= 4}
 %{?with_gui:BuildRequires:	qt4-linguist >= 4}
 BuildRequires:	readline-devel
@@ -85,6 +86,9 @@ BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	zlib-devel
 Requires(post,postun):	/sbin/ldconfig
+Requires:	AMD >= 2.4.0
+Requires:	CHOLMOD >= 2.2.0
+Requires:	freetype >= 2.0.9
 Requires:	gnuplot
 Suggests:	GraphicsMagick
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -320,6 +324,7 @@ Pliki nagłówkowe i dodatkowa dokumentacja Octave.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -506,6 +511,7 @@ rm -rf $RPM_BUILD_ROOT
 %lang(pt) %{_datadir}/octave/%{version}/locale/pt_PT.qm
 %lang(ru) %{_datadir}/octave/%{version}/locale/ru_RU.qm
 %lang(uk) %{_datadir}/octave/%{version}/locale/uk_UA.qm
+%lang(zh_CN) %{_datadir}/octave/%{version}/locale/zh_CN.qm
 %endif
 
 %if %{with java}

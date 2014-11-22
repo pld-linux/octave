@@ -1,0 +1,247 @@
+--- octave-3.8.2/liboctave/array/CSparse.cc.orig	2014-08-06 19:57:55.000000000 +0200
++++ octave-3.8.2/liboctave/array/CSparse.cc	2014-11-21 15:47:48.347974219 +0100
+@@ -5664,17 +5664,17 @@ SparseComplexMatrix::fsolve (MatrixType
+           if (spu == 0.)
+             {
+               cm->print = -1;
+-              cm->print_function = 0;
++              SuiteSparse_config.printf_func = 0;
+             }
+           else
+             {
+               cm->print = static_cast<int> (spu) + 2;
+-              cm->print_function =&SparseCholPrint;
++              SuiteSparse_config.printf_func =&SparseCholPrint;
+             }
+ 
+           cm->error_handler = &SparseCholError;
+-          cm->complex_divide = CHOLMOD_NAME(divcomplex);
+-          cm->hypotenuse = CHOLMOD_NAME(hypot);
++          SuiteSparse_config.divcomplex_func = CHOLMOD_NAME(divcomplex);
++          SuiteSparse_config.hypot_func = CHOLMOD_NAME(hypot);
+ 
+           cm->final_ll = true;
+ 
+@@ -5907,17 +5907,17 @@ SparseComplexMatrix::fsolve (MatrixType
+           if (spu == 0.)
+             {
+               cm->print = -1;
+-              cm->print_function = 0;
++              SuiteSparse_config.printf_func = 0;
+             }
+           else
+             {
+               cm->print = static_cast<int> (spu) + 2;
+-              cm->print_function =&SparseCholPrint;
++              SuiteSparse_config.printf_func =&SparseCholPrint;
+             }
+ 
+           cm->error_handler = &SparseCholError;
+-          cm->complex_divide = CHOLMOD_NAME(divcomplex);
+-          cm->hypotenuse = CHOLMOD_NAME(hypot);
++          SuiteSparse_config.divcomplex_func = CHOLMOD_NAME(divcomplex);
++          SuiteSparse_config.hypot_func = CHOLMOD_NAME(hypot);
+ 
+           cm->final_ll = true;
+ 
+@@ -6198,17 +6198,17 @@ SparseComplexMatrix::fsolve (MatrixType
+           if (spu == 0.)
+             {
+               cm->print = -1;
+-              cm->print_function = 0;
++              SuiteSparse_config.printf_func = 0;
+             }
+           else
+             {
+               cm->print = static_cast<int> (spu) + 2;
+-              cm->print_function =&SparseCholPrint;
++              SuiteSparse_config.printf_func =&SparseCholPrint;
+             }
+ 
+           cm->error_handler = &SparseCholError;
+-          cm->complex_divide = CHOLMOD_NAME(divcomplex);
+-          cm->hypotenuse = CHOLMOD_NAME(hypot);
++          SuiteSparse_config.divcomplex_func = CHOLMOD_NAME(divcomplex);
++          SuiteSparse_config.hypot_func = CHOLMOD_NAME(hypot);
+ 
+           cm->final_ll = true;
+ 
+@@ -6420,17 +6420,17 @@ SparseComplexMatrix::fsolve (MatrixType
+           if (spu == 0.)
+             {
+               cm->print = -1;
+-              cm->print_function = 0;
++              SuiteSparse_config.printf_func = 0;
+             }
+           else
+             {
+               cm->print = static_cast<int> (spu) + 2;
+-              cm->print_function =&SparseCholPrint;
++              SuiteSparse_config.printf_func =&SparseCholPrint;
+             }
+ 
+           cm->error_handler = &SparseCholError;
+-          cm->complex_divide = CHOLMOD_NAME(divcomplex);
+-          cm->hypotenuse = CHOLMOD_NAME(hypot);
++          SuiteSparse_config.divcomplex_func = CHOLMOD_NAME(divcomplex);
++          SuiteSparse_config.hypot_func = CHOLMOD_NAME(hypot);
+ 
+           cm->final_ll = true;
+ 
+--- octave-3.8.2/liboctave/array/dSparse.cc.orig	2014-08-06 19:57:55.000000000 +0200
++++ octave-3.8.2/liboctave/array/dSparse.cc	2014-11-21 15:55:05.871289187 +0100
+@@ -5866,17 +5866,17 @@ SparseMatrix::fsolve (MatrixType &mattyp
+           if (spu == 0.)
+             {
+               cm->print = -1;
+-              cm->print_function = 0;
++              SuiteSparse_config.printf_func = 0;
+             }
+           else
+             {
+               cm->print = static_cast<int> (spu) + 2;
+-              cm->print_function =&SparseCholPrint;
++              SuiteSparse_config.printf_func =&SparseCholPrint;
+             }
+ 
+           cm->error_handler = &SparseCholError;
+-          cm->complex_divide = CHOLMOD_NAME(divcomplex);
+-          cm->hypotenuse = CHOLMOD_NAME(hypot);
++          SuiteSparse_config.divcomplex_func = CHOLMOD_NAME(divcomplex);
++          SuiteSparse_config.hypot_func = CHOLMOD_NAME(hypot);
+ 
+           cm->final_ll = true;
+ 
+@@ -6083,17 +6083,17 @@ SparseMatrix::fsolve (MatrixType &mattyp
+           if (spu == 0.)
+             {
+               cm->print = -1;
+-              cm->print_function = 0;
++              SuiteSparse_config.printf_func = 0;
+             }
+           else
+             {
+               cm->print = static_cast<int> (spu) + 2;
+-              cm->print_function =&SparseCholPrint;
++              SuiteSparse_config.printf_func =&SparseCholPrint;
+             }
+ 
+           cm->error_handler = &SparseCholError;
+-          cm->complex_divide = CHOLMOD_NAME(divcomplex);
+-          cm->hypotenuse = CHOLMOD_NAME(hypot);
++          SuiteSparse_config.divcomplex_func = CHOLMOD_NAME(divcomplex);
++          SuiteSparse_config.hypot_func = CHOLMOD_NAME(hypot);
+ 
+           cm->final_ll = true;
+ 
+@@ -6345,17 +6345,17 @@ SparseMatrix::fsolve (MatrixType &mattyp
+           if (spu == 0.)
+             {
+               cm->print = -1;
+-              cm->print_function = 0;
++              SuiteSparse_config.printf_func = 0;
+             }
+           else
+             {
+               cm->print = static_cast<int> (spu) + 2;
+-              cm->print_function =&SparseCholPrint;
++              SuiteSparse_config.printf_func =&SparseCholPrint;
+             }
+ 
+           cm->error_handler = &SparseCholError;
+-          cm->complex_divide = CHOLMOD_NAME(divcomplex);
+-          cm->hypotenuse = CHOLMOD_NAME(hypot);
++          SuiteSparse_config.divcomplex_func = CHOLMOD_NAME(divcomplex);
++          SuiteSparse_config.hypot_func = CHOLMOD_NAME(hypot);
+ 
+           cm->final_ll = true;
+ 
+@@ -6579,17 +6579,17 @@ SparseMatrix::fsolve (MatrixType &mattyp
+           if (spu == 0.)
+             {
+               cm->print = -1;
+-              cm->print_function = 0;
++              SuiteSparse_config.printf_func = 0;
+             }
+           else
+             {
+               cm->print = static_cast<int> (spu) + 2;
+-              cm->print_function =&SparseCholPrint;
++              SuiteSparse_config.printf_func =&SparseCholPrint;
+             }
+ 
+           cm->error_handler = &SparseCholError;
+-          cm->complex_divide = CHOLMOD_NAME(divcomplex);
+-          cm->hypotenuse = CHOLMOD_NAME(hypot);
++          SuiteSparse_config.divcomplex_func = CHOLMOD_NAME(divcomplex);
++          SuiteSparse_config.hypot_func = CHOLMOD_NAME(hypot);
+ 
+           cm->final_ll = true;
+ 
+--- octave-3.8.2/liboctave/numeric/sparse-base-chol.cc.orig	2014-08-06 19:54:14.000000000 +0200
++++ octave-3.8.2/liboctave/numeric/sparse-base-chol.cc	2014-11-21 16:03:57.417933578 +0100
+@@ -105,17 +105,17 @@ sparse_base_chol<chol_type, chol_elt, p_
+   if (spu == 0.)
+     {
+       cm->print = -1;
+-      cm->print_function = 0;
++      SuiteSparse_config.printf_func = 0;
+     }
+   else
+     {
+       cm->print = static_cast<int> (spu) + 2;
+-      cm->print_function =&SparseCholPrint;
++      SuiteSparse_config.printf_func =&SparseCholPrint;
+     }
+ 
+   cm->error_handler = &SparseCholError;
+-  cm->complex_divide = CHOLMOD_NAME(divcomplex);
+-  cm->hypotenuse = CHOLMOD_NAME(hypot);
++  SuiteSparse_config.divcomplex_func = CHOLMOD_NAME(divcomplex);
++  SuiteSparse_config.hypot_func = CHOLMOD_NAME(hypot);
+ 
+   cm->final_asis = false;
+   cm->final_super = false;
+--- octave-3.8.2/libinterp/dldfcn/amd.cc.orig	2014-08-06 19:57:55.000000000 +0200
++++ octave-3.8.2/libinterp/dldfcn/amd.cc	2014-11-21 22:38:29.540273455 +0100
+@@ -164,11 +164,11 @@ The author of the code itself is Timothy
+ 
+               // FIXME: how can we manage the memory allocation of amd
+               //        in a cleaner manner?
+-              amd_malloc = malloc;
+-              amd_free = free;
+-              amd_calloc = calloc;
+-              amd_realloc = realloc;
+-              amd_printf = printf;
++              SuiteSparse_config.malloc_func = malloc;
++              SuiteSparse_config.free_func = free;
++              SuiteSparse_config.calloc_func = calloc;
++              SuiteSparse_config.realloc_func = realloc;
++              SuiteSparse_config.printf_func = printf;
+ 
+               octave_idx_type result = AMD_NAME (_order) (n_col, cidx, ridx, P,
+                                                           Control, Info);
+--- octave-3.8.2/libinterp/dldfcn/symbfact.cc.orig	2014-08-06 19:54:15.000000000 +0200
++++ octave-3.8.2/libinterp/dldfcn/symbfact.cc	2014-11-21 22:46:15.546920474 +0100
+@@ -114,17 +114,17 @@ factorization as determined by @var{typ}
+   if (spu == 0.)
+     {
+       cm->print = -1;
+-      cm->print_function = 0;
++      SuiteSparse_config.printf_func = 0;
+     }
+   else
+     {
+       cm->print = static_cast<int> (spu) + 2;
+-      cm->print_function =&SparseCholPrint;
++      SuiteSparse_config.printf_func =&SparseCholPrint;
+     }
+ 
+   cm->error_handler = &SparseCholError;
+-  cm->complex_divide = CHOLMOD_NAME(divcomplex);
+-  cm->hypotenuse = CHOLMOD_NAME(hypot);
++  SuiteSparse_config.divcomplex_func = CHOLMOD_NAME(divcomplex);
++  SuiteSparse_config.hypot_func = CHOLMOD_NAME(hypot);
+ 
+   double dummy;
+   cholmod_sparse Astore;
