@@ -23,7 +23,7 @@ Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
 Version:	3.8.2
-Release:	2
+Release:	3
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
@@ -415,28 +415,28 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/octave
 %dir %{_libdir}/octave/%{version}
 %dir %{_libdir}/octave/%{version}/exec
-%dir %{_libdir}/octave/%{version}/exec/*-pld-linux-gnu
+%dir %{_libdir}/octave/%{version}/exec/*-pld-linux-gnu*
 %dir %{_libdir}/octave/%{version}/oct
-%dir %{_libdir}/octave/%{version}/oct/*-pld-linux-gnu
-%{_libdir}/octave/%{version}/oct/*-pld-linux-gnu/*.oct
-%{_libdir}/octave/%{version}/oct/*-pld-linux-gnu/PKG_ADD
+%dir %{_libdir}/octave/%{version}/oct/*-pld-linux-gnu*
+%{_libdir}/octave/%{version}/oct/*-pld-linux-gnu*/*.oct
+%{_libdir}/octave/%{version}/oct/*-pld-linux-gnu*/PKG_ADD
 %dir %{_libdir}/octave/%{version}/site
 %dir %{_libdir}/octave/%{version}/site/exec
-%dir %{_libdir}/octave/%{version}/site/exec/*-pld-linux-gnu
+%dir %{_libdir}/octave/%{version}/site/exec/*-pld-linux-gnu*
 %dir %{_libdir}/octave/%{version}/site/oct
-%dir %{_libdir}/octave/%{version}/site/oct/*-pld-linux-gnu
+%dir %{_libdir}/octave/%{version}/site/oct/*-pld-linux-gnu*
 %dir %{_libdir}/octave/%{api_dir}
 %dir %{_libdir}/octave/%{api_dir}/site
 %dir %{_libdir}/octave/%{api_dir}/site/exec
-%dir %{_libdir}/octave/%{api_dir}/site/exec/*-pld-linux-gnu
+%dir %{_libdir}/octave/%{api_dir}/site/exec/*-pld-linux-gnu*
 %dir %{_libdir}/octave/packages
 %dir %{_libdir}/octave/site
 %dir %{_libdir}/octave/site/exec
-%dir %{_libdir}/octave/site/exec/*-pld-linux-gnu
+%dir %{_libdir}/octave/site/exec/*-pld-linux-gnu*
 %dir %{_libdir}/octave/site/oct
-%dir %{_libdir}/octave/site/oct/*-pld-linux-gnu
+%dir %{_libdir}/octave/site/oct/*-pld-linux-gnu*
 %dir %{_libdir}/octave/site/oct/%{api_dir}
-%dir %{_libdir}/octave/site/oct/%{api_dir}/*-pld-linux-gnu
+%dir %{_libdir}/octave/site/oct/%{api_dir}/*-pld-linux-gnu*
 %{_infodir}/octave.info*
 %{_mandir}/man1/mkoctfile.1*
 %{_mandir}/man1/octave.1*
@@ -498,7 +498,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/liboctgui.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/liboctgui.so.0
-%attr(755,root,root) %{_libdir}/octave/%{version}/exec/*-pld-linux-gnu/octave-gui
+%attr(755,root,root) %{_libdir}/octave/%{version}/exec/*-pld-linux-gnu*/octave-gui
 %{_datadir}/octave/%{version}/etc/default-qt-settings
 %dir %{_datadir}/octave/%{version}/locale
 %lang(be) %{_datadir}/octave/%{version}/locale/be_BY.qm
