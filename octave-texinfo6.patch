@@ -1,14 +1,15 @@
-diff -up octave-4.0.0/doc/liboctave/Makefile.in.texinfo6 octave-4.0.0/doc/liboctave/Makefile.in
---- octave-4.0.0/doc/liboctave/Makefile.in.texinfo6	2015-05-26 10:21:42.000000000 -0600
-+++ octave-4.0.0/doc/liboctave/Makefile.in	2015-07-14 10:40:50.131788830 -0600
-@@ -1854,7 +1854,6 @@ localstartupfiledir = ${localfcnfiledir}
- # The separator used for elements of the LD_PRELOAD variable (might be
- # a space, so protect with $(null))
- null = 
+diff -up octave-4.0.0/doc/liboctave/Makefile.am.texinfo6 octave-4.0.0/doc/liboctave/Makefile.am
+--- octave-4.0.0/doc/liboctave/Makefile.am.texinfo6	2015-05-26 10:21:42.000000000 -0600
++++ octave-4.0.0/doc/liboctave/Makefile.am	2015-07-14 10:40:50.131788830 -0600
+@@ -20,8 +20,6 @@
+ 
+ include $(top_srcdir)/build-aux/common.mk
+ 
 -TEXINFO_TEX = ../texinfo.tex
+-
  info_TEXINFOS = liboctave.texi
+ 
  liboctave_TEXINFOS = \
-   array.texi \
 diff -up octave-4.0.0/libinterp/corefcn/utils.cc.texinfo6 octave-4.0.0/libinterp/corefcn/utils.cc
 --- octave-4.0.0/libinterp/corefcn/utils.cc.texinfo6	2015-05-23 08:21:53.000000000 -0600
 +++ octave-4.0.0/libinterp/corefcn/utils.cc	2015-07-14 09:46:17.300468145 -0600
@@ -46,3 +47,14 @@ diff -up octave-4.0.0/scripts/io/beep.m.texinfo6 octave-4.0.0/scripts/io/beep.m
  ## @seealso{puts, fputs, printf, fprintf}
  ## @end deftypefn
  
+--- octave-4.0.0/doc/interpreter/Makefile.am~	2015-05-23 16:21:53.000000000 +0200
++++ octave-4.0.0/doc/interpreter/Makefile.am	2015-11-22 18:16:02.273958880 +0100
+@@ -20,8 +20,6 @@
+ 
+ include $(top_srcdir)/build-aux/common.mk
+ 
+-TEXINFO_TEX = ../texinfo.tex
+-
+ ## Leading PATH_SEPARATOR required due to weak parsing by dvips (12/04/09)
+ TEXINPUTS := "$(PATH_SEPARATOR)$(srcdir)$(PATH_SEPARATOR)$(TEXINPUTS)$(PATH_SEPARATOR)"
+ export TEXINPUTS

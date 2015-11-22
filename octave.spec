@@ -23,7 +23,7 @@ Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
 Version:	4.0.0
-Release:	0.1
+Release:	1
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
@@ -64,8 +64,8 @@ BuildRequires:	gl2ps-devel
 BuildRequires:	glpk-devel >= 4.14
 BuildRequires:	gnuplot
 #BuildRequires:	gperf >= 3.0.1
-%{?with_java:BuildRequires:	jdk >= 1.5}
 BuildRequires:	hdf5-devel >= 1.6.0
+%{?with_java:BuildRequires:	jdk >= 1.5}
 BuildRequires:	lapack-devel >= 3.1.1-3
 %{?with_gomp:BuildRequires:	libgomp-devel}
 BuildRequires:	libstdc++-devel >= 6:4.0
@@ -94,7 +94,7 @@ Requires:	gnuplot
 Suggests:	GraphicsMagick
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		api_dir		api-v49+
+%define		api_dir		api-v50+
 
 %description
 GNU Octave is a high-level language, primarily intended for numerical
@@ -325,7 +325,7 @@ Pliki nagłówkowe i dodatkowa dokumentacja Octave.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-#%patch2 -p1
+%patch2 -p1
 %patch3 -p1
 
 %build
@@ -371,7 +371,7 @@ rm -rf $RPM_BUILD_ROOT
 	octlibdir=%{_libdir}
 
 install -d $RPM_BUILD_ROOT%{_desktopdir}
-install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
+cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
 # Create directory for add-on packages
 install -d $RPM_BUILD_ROOT%{_libdir}/%{name}/packages
@@ -411,9 +411,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/octave-cli
 %attr(755,root,root) %{_bindir}/octave-cli-%{version}
 %attr(755,root,root) %{_libdir}/liboctave.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctave.so.2
+%attr(755,root,root) %ghost %{_libdir}/liboctave.so.3
 %attr(755,root,root) %{_libdir}/liboctinterp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctinterp.so.2
+%attr(755,root,root) %ghost %{_libdir}/liboctinterp.so.3
 %dir %{_libdir}/octave
 %dir %{_libdir}/octave/%{version}
 %dir %{_libdir}/octave/%{version}/exec
@@ -445,11 +445,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/octave-cli.1*
 %dir %{_datadir}/octave
 %dir %{_datadir}/octave/%{version}
+%dir %{_datadir}/octave/%{version}/data
+%{_datadir}/octave/%{version}/data/penny.mat
 %dir %{_datadir}/octave/%{version}/etc
 %{_datadir}/octave/%{version}/etc/CITATION
 %{_datadir}/octave/%{version}/etc/NEWS
 %{_datadir}/octave/%{version}/etc/built-in-docstrings
-%{_datadir}/octave/%{version}/etc/config.log
 %{_datadir}/octave/%{version}/etc/doc-cache
 %{_datadir}/octave/%{version}/etc/macros.texi
 %{_datadir}/octave/%{version}/etc/tests
@@ -499,7 +500,7 @@ rm -rf $RPM_BUILD_ROOT
 %files gui
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/liboctgui.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctgui.so.0
+%attr(755,root,root) %ghost %{_libdir}/liboctgui.so.1
 %attr(755,root,root) %{_libdir}/octave/%{version}/exec/*-pld-linux-gnu*/octave-gui
 %{_datadir}/octave/%{version}/etc/default-qt-settings
 %dir %{_datadir}/octave/%{version}/locale
@@ -508,12 +509,17 @@ rm -rf $RPM_BUILD_ROOT
 %lang(en) %{_datadir}/octave/%{version}/locale/en_US.qm
 %lang(es) %{_datadir}/octave/%{version}/locale/es_ES.qm
 %lang(fr) %{_datadir}/octave/%{version}/locale/fr_FR.qm
+%lang(it) %{_datadir}/octave/%{version}/locale/it_IT.qm
+%lang(ja) %{_datadir}/octave/%{version}/locale/ja_JP.qm
 %lang(nl) %{_datadir}/octave/%{version}/locale/nl_NL.qm
 %lang(pt_BR) %{_datadir}/octave/%{version}/locale/pt_BR.qm
 %lang(pt) %{_datadir}/octave/%{version}/locale/pt_PT.qm
 %lang(ru) %{_datadir}/octave/%{version}/locale/ru_RU.qm
 %lang(uk) %{_datadir}/octave/%{version}/locale/uk_UA.qm
 %lang(zh_CN) %{_datadir}/octave/%{version}/locale/zh_CN.qm
+%{_datadir}/appdata/www.octave.org-octave.appdata.xml
+%{_iconsdir}/hicolor/*x*/apps/octave.png
+%{_iconsdir}/hicolor/scalable/apps/octave.svg
 %endif
 
 %if %{with java}
