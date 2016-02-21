@@ -400,6 +400,12 @@ rm -rf $RPM_BUILD_ROOT
 %postun	devel -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
+%post	gui -p /sbin/postshell
+/sbin/ldconfig
+
+%postun	gui -p /sbin/postshell
+/sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS BUGS ChangeLog NEWS README
