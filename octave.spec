@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_with	gomp	# OpenMP multi-threading (experimental)
+%bcond_with	openmp	# OpenMP multi-threading (experimental)
 %bcond_with	llvm	# LLVM based JIT compiler
 %bcond_without	gui	# Qt GUI
 %bcond_without	java	# Java interface
@@ -67,7 +67,7 @@ BuildRequires:	gnuplot
 BuildRequires:	hdf5-devel >= 1.6.0
 %{?with_java:BuildRequires:	jdk >= 1.5}
 BuildRequires:	lapack-devel >= 3.1.1-3
-%{?with_gomp:BuildRequires:	libgomp-devel}
+%{?with_openmp:BuildRequires:	libgomp-devel}
 BuildRequires:	libstdc++-devel >= 6:4.0
 BuildRequires:	libtool >= 2:2.2.2
 %{?with_llvm:BuildRequires:	llvm-devel}
@@ -355,7 +355,7 @@ export CLASSPATH=.
 	%{!?with_gui:--disable-gui} \
 	%{!?with_java:--disable-java} \
 	%{?with_llvm:--enable-jit} \
-	%{?with_gomp:--enable-openmp} \
+	%{?with_openmp:--enable-openmp} \
 	--enable-shared
 
 %{__make} \
