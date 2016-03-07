@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_with	openmp	# OpenMP multi-threading (experimental)
+%bcond_without	openmp	# OpenMP multi-threading
 %bcond_with	llvm	# LLVM based JIT compiler
 %bcond_without	gui	# Qt GUI
 %bcond_without	java	# Java interface
@@ -42,16 +42,20 @@ BuildRequires:	CHOLMOD-devel >= 2.2.0
 BuildRequires:	COLAMD-devel
 BuildRequires:	CXSparse-devel
 BuildRequires:	GraphicsMagick-c++-devel
+BuildRequires:	Mesa-libOSMesa-devel >= 9.0.0
+BuildRequires:	OpenGL-devel
+BuildRequires:	OpenGL-GLU-devel
 %{?with_gui:BuildRequires:	QtCore-devel >= 4}
 %{?with_gui:BuildRequires:	QtGui-devel >= 4}
 %{?with_gui:BuildRequires:	QtNetwork-devel >= 4}
 BuildRequires:	UMFPACK-devel
 BuildRequires:	arpack-devel >= 2.1-8
-BuildRequires:	autoconf >= 2.62
+BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
 #BuildRequires:	bison >= 1.31
 BuildRequires:	blas-devel
 BuildRequires:	curl-devel
+BuildRequires:	desktop-file-utils
 BuildRequires:	fftw3-devel
 BuildRequires:	fftw3-single-devel
 #BuildRequires:	flex >= 2.5.4
@@ -68,12 +72,15 @@ BuildRequires:	hdf5-devel >= 1.6.0
 %{?with_java:BuildRequires:	jdk >= 1.5}
 BuildRequires:	lapack-devel >= 3.1.1-3
 %{?with_openmp:BuildRequires:	libgomp-devel}
-BuildRequires:	libstdc++-devel >= 6:4.0
+BuildRequires:	libsndfile-devel
+BuildRequires:	libstdc++-devel >= 6:4.1
 BuildRequires:	libtool >= 2:2.2.2
 %{?with_llvm:BuildRequires:	llvm-devel}
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	pcre-devel
+BuildRequires:	perl-base
 BuildRequires:	pkgconfig
+BuildRequires:	portaudio-devel
 BuildRequires:	qhull-devel >= 2011.1
 BuildRequires:	qrupdate-devel
 %{?with_gui:BuildRequires:	qscintilla2-qt4-devel >= 2.6.0}
@@ -355,8 +362,9 @@ export CLASSPATH=.
 	%{!?with_gui:--disable-gui} \
 	%{!?with_java:--disable-java} \
 	%{?with_llvm:--enable-jit} \
-	%{?with_openmp:--enable-openmp} \
-	--enable-shared
+	%{!?with_openmp:--disable-openmp} \
+	--enable-shared \
+	--disable-silent-rules
 
 %{__make} \
 	octincludedir=%{_includedir}/octave \
