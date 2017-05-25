@@ -22,18 +22,17 @@ Summary(ru.UTF-8):	GNU Octave - Язык высокого уровня для в
 Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
-Version:	4.0.0
-Release:	5
+Version:	4.2.1
+Release:	1
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
-Source0:	http://ftp.gnu.org/gnu/octave/%{name}-%{version}.tar.xz
-# Source0-md5:	f3de0a0d9758e112f13ce1f5eaf791bf
+Source0:	http://ftp.gnu.org/gnu/octave/%{name}-%{version}.tar.gz
+# Source0-md5:	b7b95cc595c706b77fca544f6682b596
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-build.patch
 Patch2:		%{name}-suitesparse.patch
-Patch3:		%{name}-texinfo6.patch
 URL:		http://www.octave.org/
 BuildRequires:	AMD-devel >= 2.4.0
 BuildRequires:	CAMD-devel
@@ -101,7 +100,7 @@ Requires:	gnuplot
 Suggests:	GraphicsMagick
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		api_dir		api-v50+
+%define		api_dir		api-v51
 
 %description
 GNU Octave is a high-level language, primarily intended for numerical
@@ -333,7 +332,6 @@ Pliki nagłówkowe i dodatkowa dokumentacja Octave.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 %{__libtoolize}
@@ -359,6 +357,7 @@ export CLASSPATH=.
 	--with-cxsparse-includedir=%{_includedir}/cxsparse \
 	--with-umfpack-includedir=%{_includedir}/umfpack \
 	--enable-dl \
+	%{?with_gui:--with-qt=4} \
 	%{!?with_gui:--disable-gui} \
 	%{!?with_java:--disable-java} \
 	%{?with_llvm:--enable-jit} \
@@ -425,9 +424,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/octave-cli
 %attr(755,root,root) %{_bindir}/octave-cli-%{version}
 %attr(755,root,root) %{_libdir}/liboctave.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctave.so.3
+%attr(755,root,root) %ghost %{_libdir}/liboctave.so.4
 %attr(755,root,root) %{_libdir}/liboctinterp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctinterp.so.3
+%attr(755,root,root) %ghost %{_libdir}/liboctinterp.so.4
 %dir %{_libdir}/octave
 %dir %{_libdir}/octave/%{version}
 %dir %{_libdir}/octave/%{version}/exec
@@ -467,6 +466,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/octave/%{version}/etc/built-in-docstrings
 %{_datadir}/octave/%{version}/etc/doc-cache
 %{_datadir}/octave/%{version}/etc/macros.texi
+%{_datadir}/octave/%{version}/etc/profiler
 %{_datadir}/octave/%{version}/etc/tests
 %{_datadir}/octave/%{version}/imagelib
 %dir %{_datadir}/octave/%{version}/m
@@ -482,12 +482,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/octave/%{version}/m/io
 %{_datadir}/octave/%{version}/m/linear-algebra
 %{_datadir}/octave/%{version}/m/miscellaneous
+%{_datadir}/octave/%{version}/m/ode
 %{_datadir}/octave/%{version}/m/optimization
 %{_datadir}/octave/%{version}/m/path
 %{_datadir}/octave/%{version}/m/pkg
 %{_datadir}/octave/%{version}/m/plot
 %{_datadir}/octave/%{version}/m/polynomial
 %{_datadir}/octave/%{version}/m/prefs
+%{_datadir}/octave/%{version}/m/profiler
 %{_datadir}/octave/%{version}/m/set
 %{_datadir}/octave/%{version}/m/signal
 %{_datadir}/octave/%{version}/m/sparse
@@ -514,7 +516,7 @@ rm -rf $RPM_BUILD_ROOT
 %files gui
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/liboctgui.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctgui.so.1
+%attr(755,root,root) %ghost %{_libdir}/liboctgui.so.2
 %attr(755,root,root) %{_libdir}/octave/%{version}/exec/*-pld-linux-gnu*/octave-gui
 %{_datadir}/octave/%{version}/etc/default-qt-settings
 %dir %{_datadir}/octave/%{version}/locale

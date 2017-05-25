@@ -3,20 +3,20 @@ diff -ur octave-4.0.0/libinterp/dldfcn/amd.cc octave-4.0.0.ssparse/libinterp/dld
 +++ octave-4.0.0.ssparse/libinterp/dldfcn/amd.cc	2015-11-22 14:31:27.695828112 +0100
 @@ -165,11 +165,11 @@
  
-               // FIXME: how can we manage the memory allocation of amd
-               //        in a cleaner manner?
--              SUITESPARSE_ASSIGN_FPTR (malloc_func, amd_malloc, malloc);
--              SUITESPARSE_ASSIGN_FPTR (free_func, amd_free, free);
--              SUITESPARSE_ASSIGN_FPTR (calloc_func, amd_calloc, calloc);
--              SUITESPARSE_ASSIGN_FPTR (realloc_func, amd_realloc, realloc);
--              SUITESPARSE_ASSIGN_FPTR (printf_func, amd_printf, printf);
-+              SUITESPARSE_ASSIGN_FPTR (malloc_func, SuiteSparse_config.malloc_func, malloc);
-+              SUITESPARSE_ASSIGN_FPTR (free_func, SuiteSparse_config.free_func, free);
-+              SUITESPARSE_ASSIGN_FPTR (calloc_func, SuiteSparse_config.calloc_func, calloc);
-+              SUITESPARSE_ASSIGN_FPTR (realloc_func, SuiteSparse_config.realloc_func, realloc);
-+              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, printf);
+   // FIXME: how can we manage the memory allocation of amd
+   //        in a cleaner manner?
+-  SUITESPARSE_ASSIGN_FPTR (malloc_func, amd_malloc, malloc);
+-  SUITESPARSE_ASSIGN_FPTR (free_func, amd_free, free);
+-  SUITESPARSE_ASSIGN_FPTR (calloc_func, amd_calloc, calloc);
+-  SUITESPARSE_ASSIGN_FPTR (realloc_func, amd_realloc, realloc);
+-  SUITESPARSE_ASSIGN_FPTR (printf_func, amd_printf, printf);
++  SUITESPARSE_ASSIGN_FPTR (malloc_func, SuiteSparse_config.malloc_func, malloc);
++  SUITESPARSE_ASSIGN_FPTR (free_func, SuiteSparse_config.free_func, free);
++  SUITESPARSE_ASSIGN_FPTR (calloc_func, SuiteSparse_config.calloc_func, calloc);
++  SUITESPARSE_ASSIGN_FPTR (realloc_func, SuiteSparse_config.realloc_func, realloc);
++  SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, printf);
  
-               octave_idx_type result = AMD_NAME (_order) (n_col, cidx, ridx, P,
+   octave_idx_type result = AMD_NAME (_order) (n_col, cidx, ridx, P,
                                                            Control, Info);
 diff -ur octave-4.0.0/libinterp/dldfcn/symbfact.cc octave-4.0.0.ssparse/libinterp/dldfcn/symbfact.cc
 --- octave-4.0.0/libinterp/dldfcn/symbfact.cc	2015-05-23 16:21:53.000000000 +0200
@@ -225,28 +225,29 @@ diff -ur octave-4.0.0/liboctave/array/dSparse.cc octave-4.0.0.ssparse/liboctave/
  
            cm->final_ll = true;
  
-diff -ur octave-4.0.0/liboctave/numeric/sparse-base-chol.cc octave-4.0.0.ssparse/liboctave/numeric/sparse-base-chol.cc
---- octave-4.0.0/liboctave/numeric/sparse-base-chol.cc	2015-05-23 16:21:53.000000000 +0200
-+++ octave-4.0.0.ssparse/liboctave/numeric/sparse-base-chol.cc	2015-11-22 14:30:33.539620409 +0100
-@@ -105,17 +105,17 @@
-   if (spu == 0.)
-     {
-       cm->print = -1;
--      SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, 0);
-+      SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, 0);
-     }
-   else
-     {
-       cm->print = static_cast<int> (spu) + 2;
--      SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, &SparseCholPrint);
-+      SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, &SparseCholPrint);
-     }
+diff -ur octave-4.0.0/liboctave/numeric/sparse-chol.cc octave-4.0.0.ssparse/liboctave/numeric/sparse-chol.cc
+--- octave-4.0.0/liboctave/numeric/sparse-chol.cc	2015-05-23 16:21:53.000000000 +0200
++++ octave-4.0.0.ssparse/liboctave/numeric/sparse-chol.cc	2015-11-22 14:30:33.539620409 +0100
+@@ -105,18 +105,18 @@
+       if (spu == 0.)
+         {
+           cm->print = -1;
+-          SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, 0);
++          SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, 0);
+         }
+       else
+         {
+           cm->print = static_cast<int> (spu) + 2;
+-          SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, &SparseCholPrint);
++          SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, &SparseCholPrint);
+         }
  
-   cm->error_handler = &SparseCholError;
--  SUITESPARSE_ASSIGN_FPTR2 (divcomplex_func, cm->complex_divide, divcomplex);
--  SUITESPARSE_ASSIGN_FPTR2 (hypot_func, cm->hypotenuse, hypot);
-+  SUITESPARSE_ASSIGN_FPTR2 (divcomplex_func, SuiteSparse_config.divcomplex_func, divcomplex);
-+  SUITESPARSE_ASSIGN_FPTR2 (hypot_func, SuiteSparse_config.hypot_func, hypot);
+       cm->error_handler = &SparseCholError;
  
-   cm->final_asis = false;
-   cm->final_super = false;
+-      SUITESPARSE_ASSIGN_FPTR2 (divcomplex_func, cm->complex_divide, divcomplex);
+-      SUITESPARSE_ASSIGN_FPTR2 (hypot_func, cm->hypotenuse, hypot);
++      SUITESPARSE_ASSIGN_FPTR2 (divcomplex_func, SuiteSparse_config.divcomplex_func, divcomplex);
++      SUITESPARSE_ASSIGN_FPTR2 (hypot_func, SuiteSparse_config.hypot_func, hypot);
+ 
+       cm->final_asis = false;
+       cm->final_super = false;
