@@ -23,7 +23,7 @@ Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
 Version:	4.2.1
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
@@ -33,6 +33,7 @@ Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-build.patch
 Patch2:		%{name}-suitesparse.patch
+Patch3:		octdirs.patch
 URL:		http://www.octave.org/
 BuildRequires:	AMD-devel >= 2.4.0
 BuildRequires:	CAMD-devel
@@ -332,6 +333,7 @@ Pliki nagłówkowe i dodatkowa dokumentacja Octave.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__libtoolize}
@@ -365,17 +367,13 @@ export CLASSPATH=.
 	--enable-shared \
 	--disable-silent-rules
 
-%{__make} \
-	octincludedir=%{_includedir}/octave \
-	octlibdir=%{_libdir}
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	octincludedir=%{_includedir}/octave \
-	octlibdir=%{_libdir}
+	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_desktopdir}
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}

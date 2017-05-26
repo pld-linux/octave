@@ -1,0 +1,20 @@
+--- octave-4.2.1/configure.ac.orig	2017-02-22 19:03:04.000000000 +0100
++++ octave-4.2.1/configure.ac	2017-05-26 20:32:53.218210980 +0200
+@@ -87,7 +87,7 @@
+ 
+ ## Where to install and expect libraries like liboctave.a, liboctinterp.a,
+ ## and other architecture-dependent data.
+-OCTAVE_SET_DEFAULT([octlibdir], '${libdir}/octave/${version}')
++OCTAVE_SET_DEFAULT([octlibdir], '${libdir}')
+ 
+ ## Where to put executables to be run by Octave rather than
+ ## the user.  This path usually includes the Octave version
+@@ -128,7 +128,7 @@
+   '${libdir}/octave/${version}/site/oct/${canonical_host_type}')
+ 
+ ## Where to install Octave's include files.
+-OCTAVE_SET_DEFAULT([octincludedir], '${includedir}/octave-${version}/octave')
++OCTAVE_SET_DEFAULT([octincludedir], '${includedir}/octave')
+ 
+ ## Where to install the function file distributed with
+ ## Octave.  This includes the Octave version, so that the
