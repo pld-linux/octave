@@ -22,13 +22,13 @@ Summary(ru.UTF-8):	GNU Octave - Язык высокого уровня для в
 Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
-Version:	4.2.1
-Release:	8
+Version:	4.4.1
+Release:	1
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
-Source0:	http://ftp.gnu.org/gnu/octave/%{name}-%{version}.tar.gz
-# Source0-md5:	b7b95cc595c706b77fca544f6682b596
+Source0:	https://ftp.gnu.org/gnu/octave/%{name}-%{version}.tar.lz
+# Source0-md5:	e0d9556caafd83e4276af49b06c5c994
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-build.patch
@@ -76,6 +76,7 @@ BuildRequires:	libsndfile-devel
 BuildRequires:	libstdc++-devel >= 6:4.1
 BuildRequires:	libtool >= 2:2.2.2
 %{?with_llvm:BuildRequires:	llvm-devel}
+BuildRequires:	lzip
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	pcre-devel
 BuildRequires:	perl-base
@@ -88,6 +89,7 @@ BuildRequires:	qrupdate-devel
 %{?with_gui:BuildRequires:	qt4-linguist >= 4}
 BuildRequires:	readline-devel
 BuildRequires:	sed >= 4.0
+BuildRequires:	tar >= 1:1.22
 BuildRequires:	texinfo
 BuildRequires:	texinfo-texi2dvi
 BuildRequires:	xorg-lib-libX11-devel

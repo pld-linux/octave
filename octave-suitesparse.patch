@@ -1,7 +1,6 @@
-diff -ur octave-4.0.0/libinterp/dldfcn/amd.cc octave-4.0.0.ssparse/libinterp/dldfcn/amd.cc
---- octave-4.0.0/libinterp/dldfcn/amd.cc	2015-05-23 16:21:53.000000000 +0200
-+++ octave-4.0.0.ssparse/libinterp/dldfcn/amd.cc	2015-11-22 14:31:27.695828112 +0100
-@@ -165,11 +165,11 @@
+--- octave-4.4.1/libinterp/dldfcn/amd.cc.orig	2022-12-13 17:04:01.004166646 +0100
++++ octave-4.4.1/libinterp/dldfcn/amd.cc	2022-12-13 17:08:34.869349658 +0100
+@@ -145,11 +145,11 @@ The author of the code itself is Timothy
  
    // FIXME: how can we manage the memory allocation of amd
    //        in a cleaner manner?
@@ -16,17 +15,16 @@ diff -ur octave-4.0.0/libinterp/dldfcn/amd.cc octave-4.0.0.ssparse/libinterp/dld
 +  SUITESPARSE_ASSIGN_FPTR (realloc_func, SuiteSparse_config.realloc_func, realloc);
 +  SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, printf);
  
-   octave_idx_type result = AMD_NAME (_order) (n_col, cidx, ridx, P,
-                                                           Control, Info);
-diff -ur octave-4.0.0/libinterp/dldfcn/symbfact.cc octave-4.0.0.ssparse/libinterp/dldfcn/symbfact.cc
---- octave-4.0.0/libinterp/dldfcn/symbfact.cc	2015-05-23 16:21:53.000000000 +0200
-+++ octave-4.0.0.ssparse/libinterp/dldfcn/symbfact.cc	2015-11-22 14:32:06.492220138 +0100
-@@ -115,17 +115,17 @@
+   octave_idx_type result = AMD_NAME (_order) (n_col, cidx, ridx, P, Control,
+                                               Info);
+--- octave-4.4.1/libinterp/dldfcn/symbfact.cc.orig	2022-12-13 17:04:01.004166646 +0100
++++ octave-4.4.1/libinterp/dldfcn/symbfact.cc	2022-12-13 18:01:57.182001243 +0100
+@@ -213,17 +213,17 @@ Cholesky@tie{}factorization as determine
    if (spu == 0.)
      {
        cm->print = -1;
--      SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, 0);
-+      SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, 0);
+-      SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, nullptr);
++      SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, nullptr);
      }
    else
      {
@@ -41,17 +39,16 @@ diff -ur octave-4.0.0/libinterp/dldfcn/symbfact.cc octave-4.0.0.ssparse/libinter
 +  SUITESPARSE_ASSIGN_FPTR2 (divcomplex_func, SuiteSparse_config.divcomplex_func, divcomplex);
 +  SUITESPARSE_ASSIGN_FPTR2 (hypot_func, SuiteSparse_config.hypot_func, hypot);
  
-   double dummy;
-   cholmod_sparse Astore;
-diff -ur octave-4.0.0/liboctave/array/CSparse.cc octave-4.0.0.ssparse/liboctave/array/CSparse.cc
---- octave-4.0.0/liboctave/array/CSparse.cc	2015-05-23 16:21:53.000000000 +0200
-+++ octave-4.0.0.ssparse/liboctave/array/CSparse.cc	2015-11-22 14:27:35.072036034 +0100
-@@ -5597,17 +5597,17 @@
+   cholmod_sparse *F = CHOLMOD_NAME(transpose) (A, 0, cm);
+   cholmod_sparse *Aup, *Alo;
+--- octave-4.4.1/liboctave/array/CSparse.cc.orig	2022-12-13 17:04:01.057499691 +0100
++++ octave-4.4.1/liboctave/array/CSparse.cc	2022-12-13 18:36:30.070771441 +0100
+@@ -5690,17 +5690,17 @@ SparseComplexMatrix::fsolve (MatrixType&
            if (spu == 0.)
              {
                cm->print = -1;
--              SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, 0);
-+              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, 0);
+-              SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, nullptr);
++              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, nullptr);
              }
            else
              {
@@ -68,12 +65,12 @@ diff -ur octave-4.0.0/liboctave/array/CSparse.cc octave-4.0.0.ssparse/liboctave/
  
            cm->final_ll = true;
  
-@@ -5838,17 +5838,17 @@
+@@ -5942,17 +5942,17 @@ SparseComplexMatrix::fsolve (MatrixType&
            if (spu == 0.)
              {
                cm->print = -1;
--              SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, 0);
-+              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, 0);
+-              SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, nullptr);
++              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, nullptr);
              }
            else
              {
@@ -90,12 +87,12 @@ diff -ur octave-4.0.0/liboctave/array/CSparse.cc octave-4.0.0.ssparse/liboctave/
  
            cm->final_ll = true;
  
-@@ -6127,17 +6127,17 @@
+@@ -6245,17 +6245,17 @@ SparseComplexMatrix::fsolve (MatrixType&
            if (spu == 0.)
              {
                cm->print = -1;
--              SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, 0);
-+              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, 0);
+-              SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, nullptr);
++              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, nullptr);
              }
            else
              {
@@ -112,12 +109,12 @@ diff -ur octave-4.0.0/liboctave/array/CSparse.cc octave-4.0.0.ssparse/liboctave/
  
            cm->final_ll = true;
  
-@@ -6347,17 +6347,17 @@
+@@ -6476,17 +6476,17 @@ SparseComplexMatrix::fsolve (MatrixType&
            if (spu == 0.)
              {
                cm->print = -1;
--              SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, 0);
-+              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, 0);
+-              SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, nullptr);
++              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, nullptr);
              }
            else
              {
@@ -134,15 +131,14 @@ diff -ur octave-4.0.0/liboctave/array/CSparse.cc octave-4.0.0.ssparse/liboctave/
  
            cm->final_ll = true;
  
-diff -ur octave-4.0.0/liboctave/array/dSparse.cc octave-4.0.0.ssparse/liboctave/array/dSparse.cc
---- octave-4.0.0/liboctave/array/dSparse.cc	2015-05-23 16:21:53.000000000 +0200
-+++ octave-4.0.0.ssparse/liboctave/array/dSparse.cc	2015-11-22 14:29:20.700410560 +0100
-@@ -5791,17 +5791,17 @@
+--- octave-4.4.1/liboctave/array/dSparse.cc.orig	2022-12-13 17:04:01.147499203 +0100
++++ octave-4.4.1/liboctave/array/dSparse.cc	2022-12-13 19:11:04.622865962 +0100
+@@ -5731,17 +5731,17 @@ SparseMatrix::fsolve (MatrixType& mattyp
            if (spu == 0.)
              {
                cm->print = -1;
--              SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, 0);
-+              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, 0);
+-              SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, nullptr);
++              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, nullptr);
              }
            else
              {
@@ -159,12 +155,12 @@ diff -ur octave-4.0.0/liboctave/array/dSparse.cc octave-4.0.0.ssparse/liboctave/
  
            cm->final_ll = true;
  
-@@ -6006,17 +6006,17 @@
+@@ -5956,17 +5956,17 @@ SparseMatrix::fsolve (MatrixType& mattyp
            if (spu == 0.)
              {
                cm->print = -1;
--              SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, 0);
-+              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, 0);
+-              SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, nullptr);
++              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, nullptr);
              }
            else
              {
@@ -181,12 +177,12 @@ diff -ur octave-4.0.0/liboctave/array/dSparse.cc octave-4.0.0.ssparse/liboctave/
  
            cm->final_ll = true;
  
-@@ -6266,17 +6266,17 @@
+@@ -6229,17 +6229,17 @@ SparseMatrix::fsolve (MatrixType& mattyp
            if (spu == 0.)
              {
                cm->print = -1;
--              SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, 0);
-+              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, 0);
+-              SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, nullptr);
++              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, nullptr);
              }
            else
              {
@@ -203,12 +199,12 @@ diff -ur octave-4.0.0/liboctave/array/dSparse.cc octave-4.0.0.ssparse/liboctave/
  
            cm->final_ll = true;
  
-@@ -6498,17 +6498,17 @@
+@@ -6474,17 +6474,17 @@ SparseMatrix::fsolve (MatrixType& mattyp
            if (spu == 0.)
              {
                cm->print = -1;
--              SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, 0);
-+              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, 0);
+-              SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, nullptr);
++              SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, nullptr);
              }
            else
              {
@@ -225,28 +221,30 @@ diff -ur octave-4.0.0/liboctave/array/dSparse.cc octave-4.0.0.ssparse/liboctave/
  
            cm->final_ll = true;
  
-diff -ur octave-4.0.0/liboctave/numeric/sparse-chol.cc octave-4.0.0.ssparse/liboctave/numeric/sparse-chol.cc
---- octave-4.0.0/liboctave/numeric/sparse-chol.cc	2015-05-23 16:21:53.000000000 +0200
-+++ octave-4.0.0.ssparse/liboctave/numeric/sparse-chol.cc	2015-11-22 14:30:33.539620409 +0100
-@@ -105,18 +105,18 @@
+--- octave-4.4.1/liboctave/numeric/sparse-chol.cc.orig	2022-12-13 17:04:01.190832302 +0100
++++ octave-4.4.1/liboctave/numeric/sparse-chol.cc	2022-12-13 19:12:31.662394428 +0100
+@@ -234,21 +234,21 @@ namespace octave
        if (spu == 0.)
          {
            cm->print = -1;
--          SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, 0);
-+          SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, 0);
+-          SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, nullptr);
++          SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, nullptr);
          }
        else
          {
            cm->print = static_cast<int> (spu) + 2;
--          SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function, &SparseCholPrint);
-+          SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func, &SparseCholPrint);
+-          SUITESPARSE_ASSIGN_FPTR (printf_func, cm->print_function,
++          SUITESPARSE_ASSIGN_FPTR (printf_func, SuiteSparse_config.printf_func,
+                                    &SparseCholPrint);
          }
  
        cm->error_handler = &SparseCholError;
  
--      SUITESPARSE_ASSIGN_FPTR2 (divcomplex_func, cm->complex_divide, divcomplex);
+-      SUITESPARSE_ASSIGN_FPTR2 (divcomplex_func, cm->complex_divide,
++      SUITESPARSE_ASSIGN_FPTR2 (divcomplex_func, SuiteSparse_config.divcomplex_func,
+                                 divcomplex);
+ 
 -      SUITESPARSE_ASSIGN_FPTR2 (hypot_func, cm->hypotenuse, hypot);
-+      SUITESPARSE_ASSIGN_FPTR2 (divcomplex_func, SuiteSparse_config.divcomplex_func, divcomplex);
 +      SUITESPARSE_ASSIGN_FPTR2 (hypot_func, SuiteSparse_config.hypot_func, hypot);
  
        cm->final_asis = false;

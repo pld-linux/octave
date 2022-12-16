@@ -9,13 +9,13 @@
                   [], [])
    LIBS="$ac_octave_save_LIBS"
    case "$ac_cv_search_tputs" in
---- octave-3.4.2/m4/ax_pthread.m4.orig	2011-04-11 16:57:08.000000000 +0200
-+++ octave-3.4.2/m4/ax_pthread.m4	2011-07-07 21:24:27.544492621 +0200
-@@ -169,6 +169,7 @@
+--- octave-4.4.1/m4/ax_pthread.m4.orig	2022-12-13 16:59:28.522309474 +0100
++++ octave-4.4.1/m4/ax_pthread.m4	2022-12-13 17:03:38.324289514 +0100
+@@ -189,6 +189,7 @@ for flag in $ax_pthread_flags; do
                  -*)
                  AC_MSG_CHECKING([whether pthreads work with $flag])
                  PTHREAD_CFLAGS="$flag"
 +                PTHREAD_LIBS="$flag"
                  ;;
  
- 		pthread-config)
+                 pthread-config)

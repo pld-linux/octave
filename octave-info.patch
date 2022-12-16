@@ -1,34 +1,28 @@
-diff -Nur octave-2.1.36.orig/doc/interpreter/octave.texi octave-2.1.36/doc/interpreter/octave.texi
---- octave-2.1.36.orig/doc/interpreter/octave.texi	Wed Jan  2 20:35:23 2002
-+++ octave-2.1.36/doc/interpreter/octave.texi	Sat Nov  2 11:49:49 2002
-@@ -15,10 +15,10 @@
+--- octave-4.4.1/doc/interpreter/octave.texi.orig	2022-12-13 16:54:33.093909947 +0100
++++ octave-4.4.1/doc/interpreter/octave.texi	2022-12-13 16:58:12.622720658 +0100
+@@ -24,9 +24,9 @@
  
- @ifinfo
- @format
--START-INFO-DIR-ENTRY
--* Octave: (octave).           Interactive language for numerical computations.
--
--END-INFO-DIR-ENTRY
+ @include macros.texi
+ 
+-@dircategory Math
 +@dircategory Programming Languages:
-+@direntry
+ @direntry
+-* Octave: (octave).             Interactive language for numerical computations.
 +* Octave: (octave).			Interactive language for numerical computations
-+@end direntry
- @end format
- @end ifinfo
+ @end direntry
  
---- octave-2.1.70/doc/liboctave/liboctave.texi.orig	2005-02-24 05:56:08.000000000 +0100
-+++ octave-2.1.70/doc/liboctave/liboctave.texi	2005-05-18 00:01:02.814740008 +0200
-@@ -4,9 +4,10 @@
+ @c Settings for printing on 8-1/2 by 11 inch paper (default):
+--- octave-4.4.1/doc/liboctave/liboctave.texi.orig	2022-12-13 16:54:33.097243262 +0100
++++ octave-4.4.1/doc/liboctave/liboctave.texi	2022-12-13 16:58:39.255909706 +0100
+@@ -20,9 +20,9 @@
+ \input texinfo
+ @setfilename liboctave.info
  
- @ifinfo
- @format
--START-INFO-DIR-ENTRY
--* liboctave: (liboctave). Octave C++ Classes
--END-INFO-DIR-ENTRY
+-@dircategory Math
 +@dircategory Libraries:
-+@direntry
+ @direntry
+-* liboctave: (liboctave).       Octave C++ Classes
 +* liboctave: (liboctave).		Octave C++ Classes
-+@end direntry
- @end format
- @end ifinfo
+ @end direntry
  
+ @c @smallbook
