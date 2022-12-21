@@ -1,0 +1,50 @@
+--- octave-4.4.1/doc/interpreter/module.mk.orig	2022-12-17 16:52:56.480904895 +0100
++++ octave-4.4.1/doc/interpreter/module.mk	2022-12-19 20:27:29.924079565 +0100
+@@ -311,8 +311,6 @@ $(HTMLDIR_IMAGES) $(HTMLDIR_CSS) : %reld
+ DOC_TARGETS += \
+   $(srcdir)/%reldir%/octave.info \
+   %reldir%/doc-cache \
+-  %reldir%/octave.ps \
+-  %reldir%/octave.pdf \
+   $(OCTAVE_HTML_STAMP) \
+   $(HTMLDIR_IMAGES) \
+   $(HTMLDIR_CSS)
+--- octave-4.4.1/doc/liboctave/module.mk.orig	2022-12-17 16:52:56.480904895 +0100
++++ octave-4.4.1/doc/liboctave/module.mk	2022-12-19 20:28:01.644243224 +0100
+@@ -51,16 +51,11 @@ HTMLS += %reldir%/liboctave.html
+ 
+ DOC_TARGETS += \
+   $(srcdir)/%reldir%/liboctave.info \
+-  %reldir%/liboctave.ps \
+-  %reldir%/liboctave.pdf \
+   %reldir%/liboctave.html
+ 
+ doc_EXTRA_DIST += \
+   $(liboctave_TEXINFOS) \
+   $(srcdir)/%reldir%/liboctave.info \
+-  %reldir%/liboctave.dvi \
+-  %reldir%/liboctave.ps \
+-  %reldir%/liboctave.pdf \
+   %reldir%/liboctave.html
+ 
+ ## The TeX software suite is used to create both PDF and PS output formats.
+--- octave-4.4.1/doc/refcard/module.mk.orig	2022-12-17 16:52:56.480904895 +0100
++++ octave-4.4.1/doc/refcard/module.mk	2022-12-19 20:28:46.114472668 +0100
+@@ -26,8 +26,7 @@ refcard_FORMATTED = \
+   $(refcard_PDF) \
+   $(refcard_PS)
+ 
+-DOC_TARGETS += \
+-  $(refcard_FORMATTED)
++DOC_TARGETS +=
+ 
+ %reldir%/refcard-a4.pdf: %reldir%/refcard.tex
+ %reldir%/refcard-a4.dvi: %reldir%/refcard.tex
+@@ -58,7 +57,6 @@ $(refcard_PDF) : %.pdf : %.tex | %reldir
+ 	$(PDFTEX) $(<F) $(AM_V_texidevnull)
+ 
+ doc_EXTRA_DIST += \
+-  $(refcard_FORMATTED) \
+   $(refcard_TEX_SRC)
+ 
+ doc_CLEANFILES += \

@@ -34,6 +34,8 @@ Patch0:		%{name}-info.patch
 Patch1:		%{name}-build.patch
 Patch2:		%{name}-suitesparse.patch
 Patch3:		octdirs.patch
+Patch4:		%{name}-c++.patch
+Patch5:		%{name}-no-tex-docs.patch
 URL:		http://www.octave.org/
 BuildRequires:	AMD-devel >= 2.4.0
 BuildRequires:	CAMD-devel
@@ -336,6 +338,8 @@ Pliki nagłówkowe i dodatkowa dokumentacja Octave.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build
 %{__libtoolize}

@@ -1,0 +1,11 @@
+--- octave-4.4.1/liboctave/util/lo-utils.cc.orig	2018-08-09 20:20:32.000000000 +0200
++++ octave-4.4.1/liboctave/util/lo-utils.cc	2022-12-16 19:29:49.495296270 +0100
+@@ -261,7 +261,7 @@ octave_read_fp_value (std::istream& is)
+ 
+   // FIXME: resetting stream position is likely to fail unless we are
+   // reading from a file.
+-  std::ios::streampos pos = is.tellg ();
++  std::streampos pos = is.tellg ();
+ 
+   char c1 = ' ';
+ 
