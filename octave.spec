@@ -36,14 +36,18 @@ Patch2:		%{name}-suitesparse.patch
 Patch3:		octdirs.patch
 Patch4:		%{name}-c++.patch
 Patch5:		%{name}-no-tex-docs.patch
+Patch6:		%{name}-qthelp-texinfo7.patch
 URL:		http://www.octave.org/
+# TODO: SUNDIALS NVECTOR, IDA libraries
 BuildRequires:	AMD-devel >= 2.4.0
 BuildRequires:	CAMD-devel
 BuildRequires:	CCOLAMD-devel
 BuildRequires:	CHOLMOD-devel >= 2.2.0
 BuildRequires:	COLAMD-devel
+# CXSparse >= 2.2, but package has version 0
 BuildRequires:	CXSparse-devel
 BuildRequires:	GraphicsMagick-c++-devel
+BuildRequires:	KLU-devel
 BuildRequires:	Mesa-libOSMesa-devel >= 9.0.0
 BuildRequires:	OpenGL-devel
 BuildRequires:	OpenGL-GLU-devel
@@ -51,11 +55,13 @@ BuildRequires:	OpenGL-GLU-devel
 %{?with_gui:BuildRequires:	QtGui-devel >= 4}
 %{?with_gui:BuildRequires:	QtNetwork-devel >= 4}
 BuildRequires:	UMFPACK-devel
+# arpack-ng >= 3.3.0
 BuildRequires:	arpack-devel >= 2.1-8
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
 #BuildRequires:	bison >= 1.31
 BuildRequires:	blas-devel
+BuildRequires:	bzip2-devel
 BuildRequires:	curl-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	fftw3-devel
@@ -64,6 +70,7 @@ BuildRequires:	fftw3-single-devel
 BuildRequires:	fltk-devel
 BuildRequires:	fltk-gl-devel
 BuildRequires:	fontconfig-devel
+# pkgconfig(freetype2) >= 9.03
 BuildRequires:	freetype-devel >= 2.0.9
 BuildRequires:	gcc-fortran >= 6:4.0
 BuildRequires:	gl2ps-devel
@@ -75,7 +82,7 @@ BuildRequires:	hdf5-devel >= 1.6.0
 BuildRequires:	lapack-devel >= 3.1.1-3
 %{?with_openmp:BuildRequires:	libgomp-devel}
 BuildRequires:	libsndfile-devel
-BuildRequires:	libstdc++-devel >= 6:4.1
+BuildRequires:	libstdc++-devel >= 6:4.7
 BuildRequires:	libtool >= 2:2.2.2
 %{?with_llvm:BuildRequires:	llvm-devel}
 BuildRequires:	lzip
@@ -85,8 +92,11 @@ BuildRequires:	perl-base
 BuildRequires:	pkgconfig
 BuildRequires:	portaudio-devel
 BuildRequires:	qhull-devel >= 2011.1
+# this octave version doesn't check for libqhull_r instead of libqhull
+BuildRequires:	qhull-devel < 2020
 BuildRequires:	qrupdate-devel
 %{?with_gui:BuildRequires:	qscintilla2-qt4-devel >= 2.6.0}
+%{?with_gui:BuildRequires:	qt4-assistant >= 4}
 %{?with_gui:BuildRequires:	qt4-build >= 4}
 %{?with_gui:BuildRequires:	qt4-linguist >= 4}
 BuildRequires:	readline-devel
@@ -105,7 +115,7 @@ Requires:	gnuplot
 Suggests:	GraphicsMagick
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		api_dir		api-v51
+%define		api_dir		api-v52
 
 %description
 GNU Octave is a high-level language, primarily intended for numerical
@@ -340,6 +350,7 @@ Pliki nagłówkowe i dodatkowa dokumentacja Octave.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 %{__libtoolize}
@@ -419,8 +430,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS BUGS ChangeLog NEWS README
-%doc examples doc/interpreter/*.{html,pdf} doc/refcard/refcard-a4.pdf
+%doc AUTHORS BUGS ChangeLog NEWS README examples doc/interpreter/*.{html,pdf} doc/refcard/refcard-a4.pdf
 %attr(755,root,root) %{_bindir}/mkoctfile
 %attr(755,root,root) %{_bindir}/mkoctfile-%{version}
 %attr(755,root,root) %{_bindir}/octave
@@ -428,21 +438,23 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/octave-cli
 %attr(755,root,root) %{_bindir}/octave-cli-%{version}
 %attr(755,root,root) %{_libdir}/liboctave.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctave.so.4
+%attr(755,root,root) %ghost %{_libdir}/liboctave.so.6
 %attr(755,root,root) %{_libdir}/liboctinterp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctinterp.so.4
+%attr(755,root,root) %ghost %{_libdir}/liboctinterp.so.6
+%if "%{_libexecdir}" != "%{_libdir}"
 %dir %{_libexecdir}/octave
 %dir %{_libexecdir}/octave/%{version}
+%dir %{_libexecdir}/octave/%{version}/site
+%dir %{_libexecdir}/octave/site
+%endif
 %dir %{_libexecdir}/octave/%{version}/exec
 %dir %{_libexecdir}/octave/%{version}/exec/*-pld-linux-gnu*
-%dir %{_libexecdir}/octave/%{version}/site
 %dir %{_libexecdir}/octave/%{version}/site/exec
 %dir %{_libexecdir}/octave/%{version}/site/exec/*-pld-linux-gnu*
 %dir %{_libexecdir}/octave/%{api_dir}
 %dir %{_libexecdir}/octave/%{api_dir}/site
 %dir %{_libexecdir}/octave/%{api_dir}/site/exec
 %dir %{_libexecdir}/octave/%{api_dir}/site/exec/*-pld-linux-gnu*
-%dir %{_libexecdir}/octave/site
 %dir %{_libexecdir}/octave/site/exec
 %dir %{_libexecdir}/octave/site/exec/*-pld-linux-gnu*
 %dir %{_libdir}/octave
@@ -478,6 +490,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/octave/%{version}/etc/tests
 %{_datadir}/octave/%{version}/imagelib
 %dir %{_datadir}/octave/%{version}/m
+%{_datadir}/octave/%{version}/m/+containers
 %{_datadir}/octave/%{version}/m/@ftp
 %{_datadir}/octave/%{version}/m/audio
 %{_datadir}/octave/%{version}/m/deprecated
@@ -508,9 +521,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/octave/%{version}/m/strings
 %{_datadir}/octave/%{version}/m/testfun
 %{_datadir}/octave/%{version}/m/time
+%ghost %{_datadir}/octave/octave_packages
 %dir %{_datadir}/octave/%{version}/site
 %dir %{_datadir}/octave/%{version}/site/m
-%dir %{_datadir}/octave/octave_packages
 %dir %{_datadir}/octave/packages
 %dir %{_datadir}/octave/site
 %dir %{_datadir}/octave/site/%{api_dir}
@@ -524,14 +537,21 @@ rm -rf $RPM_BUILD_ROOT
 %files gui
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/liboctgui.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctgui.so.2
+%attr(755,root,root) %ghost %{_libdir}/liboctgui.so.4
 %attr(755,root,root) %{_libexecdir}/octave/%{version}/exec/*-pld-linux-gnu*/octave-gui
+%dir %{_datadir}/octave/%{version}/doc
+%{_datadir}/octave/%{version}/doc/octave_interpreter.qch
+%{_datadir}/octave/%{version}/doc/octave_interpreter.qhc
 %{_datadir}/octave/%{version}/etc/default-qt-settings
+# TODO: FreeSans*.otf - use system?
+%{_datadir}/octave/%{version}/fonts
 %dir %{_datadir}/octave/%{version}/locale
 %lang(be) %{_datadir}/octave/%{version}/locale/be_BY.qm
+%lang(ca) %{_datadir}/octave/%{version}/locale/ca_ES.qm
 %lang(de) %{_datadir}/octave/%{version}/locale/de_DE.qm
 %lang(en) %{_datadir}/octave/%{version}/locale/en_US.qm
 %lang(es) %{_datadir}/octave/%{version}/locale/es_ES.qm
+%lang(eu) %{_datadir}/octave/%{version}/locale/eu_ES.qm
 %lang(fr) %{_datadir}/octave/%{version}/locale/fr_FR.qm
 %lang(it) %{_datadir}/octave/%{version}/locale/it_IT.qm
 %lang(ja) %{_datadir}/octave/%{version}/locale/ja_JP.qm
@@ -541,7 +561,8 @@ rm -rf $RPM_BUILD_ROOT
 %lang(ru) %{_datadir}/octave/%{version}/locale/ru_RU.qm
 %lang(uk) %{_datadir}/octave/%{version}/locale/uk_UA.qm
 %lang(zh_CN) %{_datadir}/octave/%{version}/locale/zh_CN.qm
-%{_datadir}/appdata/www.octave.org-octave.appdata.xml
+%{_datadir}/metainfo/org.octave.Octave.appdata.xml
+%{_desktopdir}/org.octave.Octave.desktop
 %{_iconsdir}/hicolor/*x*/apps/octave.png
 %{_iconsdir}/hicolor/scalable/apps/octave.svg
 %endif
@@ -559,6 +580,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/octave-config-%{version}
 %attr(755,root,root) %{_libdir}/liboctave.so
 %attr(755,root,root) %{_libdir}/liboctinterp.so
-%{_includedir}/%{name}*
+%{_includedir}/%{name}
 %{_mandir}/man1/octave-config.1*
 %{_infodir}/liboctave.info*

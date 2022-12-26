@@ -1,0 +1,20 @@
+--- octave-4.4.1/doc/interpreter/mk-qthelp.pl.orig	2018-08-09 20:20:32.000000000 +0200
++++ octave-4.4.1/doc/interpreter/mk-qthelp.pl	2022-12-25 16:48:08.895830547 +0100
+@@ -27,7 +27,7 @@ open (my $HTML, "<", $htmlfname) or die
+ 
+ # Skip through preamble of file to find start of list
+ while (($_ = <$HTML>) !~ /^<div class="contents">/ ) {;}
+-while (($_ = <$HTML>) !~ /^<ul class="no-bullet">/ ) {;}
++while (($_ = <$HTML>) !~ /^<ul class="(no-bullet|toc-numbered-mark)">/ ) {;}
+ 
+ $level = 0;
+ while (<$HTML>)
+@@ -68,7 +68,7 @@ $htmlfname = File::Spec->catfile ($based
+ open ($HTML, "<", $htmlfname) or die "Unable to open $htmlfname";
+ 
+ # Skip through preamble of file to find start of list
+-while (($_ = <$HTML>) !~ /^<table class="index-fn/ ) {;}
++while (($_ = <$HTML>) !~ /^<table class="(index-fn|fn-entries-printindex)/ ) {;}
+ 
+ while (<$HTML>)
+ {
