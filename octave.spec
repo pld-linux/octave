@@ -3,6 +3,7 @@
 %bcond_without	openmp	# OpenMP multi-threading
 %bcond_with	llvm	# LLVM based JIT compiler
 %bcond_without	gui	# Qt GUI
+%bcond_with	qt4	# Qt4 instead of Qt5
 %bcond_without	java	# Java interface
 #
 Summary:	GNU Octave - a high-level language for numerical computations
@@ -51,9 +52,6 @@ BuildRequires:	KLU-devel
 BuildRequires:	Mesa-libOSMesa-devel >= 9.0.0
 BuildRequires:	OpenGL-devel
 BuildRequires:	OpenGL-GLU-devel
-%{?with_gui:BuildRequires:	QtCore-devel >= 4}
-%{?with_gui:BuildRequires:	QtGui-devel >= 4}
-%{?with_gui:BuildRequires:	QtNetwork-devel >= 4}
 BuildRequires:	UMFPACK-devel
 # arpack-ng >= 3.3.0
 BuildRequires:	arpack-devel >= 2.1-8
@@ -95,10 +93,6 @@ BuildRequires:	qhull-devel >= 2011.1
 # this octave version doesn't check for libqhull_r instead of libqhull
 BuildRequires:	qhull-devel < 2020
 BuildRequires:	qrupdate-devel
-%{?with_gui:BuildRequires:	qscintilla2-qt4-devel >= 2.6.0}
-%{?with_gui:BuildRequires:	qt4-assistant >= 4}
-%{?with_gui:BuildRequires:	qt4-build >= 4}
-%{?with_gui:BuildRequires:	qt4-linguist >= 4}
 BuildRequires:	readline-devel
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
@@ -107,6 +101,28 @@ BuildRequires:	texinfo-texi2dvi
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	zlib-devel
+%if %{with gui}
+%if %{with qt4}
+BuildRequires:	QtCore-devel >= 4
+BuildRequires:	QtGui-devel >= 4
+BuildRequires:	QtNetwork-devel >= 4
+BuildRequires:	qscintilla2-qt4-devel >= 2.6.0
+BuildRequires:	qt4-assistant >= 4
+BuildRequires:	qt4-build >= 4
+BuildRequires:	qt4-linguist >= 4
+%else
+BuildRequires:	Qt5Core-devel >= 5
+BuildRequires:	Qt5Gui-devel >= 5
+BuildRequires:	Qt5Help-devel >= 5
+BuildRequires:	Qt5Network-devel >= 5
+BuildRequires:	Qt5PrintSupport-devel >= 5
+BuildRequires:	Qt5Widgets-devel >= 5
+BuildRequires:	qscintilla2-qt5-devel >= 2.6.0
+BuildRequires:	qt5-assistant >= 5
+BuildRequires:	qt5-build >= 5
+BuildRequires:	qt5-linguist >= 5
+%endif
+%endif
 Requires(post,postun):	/sbin/ldconfig
 Requires:	AMD >= 2.4.0
 Requires:	CHOLMOD >= 2.2.0
@@ -376,7 +392,7 @@ export CLASSPATH=.
 	--with-cxsparse-includedir=%{_includedir}/cxsparse \
 	--with-umfpack-includedir=%{_includedir}/umfpack \
 	--enable-dl \
-	%{?with_gui:--with-qt=4} \
+	%{?with_gui:--with-qt=%{?with_qt4:4}%{!?with_qt4:5}} \
 	%{!?with_gui:--disable-gui} \
 	%{!?with_java:--disable-java} \
 	%{?with_llvm:--enable-jit} \
