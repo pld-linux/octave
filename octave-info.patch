@@ -1,5 +1,5 @@
---- octave-4.4.1/doc/interpreter/octave.texi.orig	2022-12-13 16:54:33.093909947 +0100
-+++ octave-4.4.1/doc/interpreter/octave.texi	2022-12-13 16:58:12.622720658 +0100
+--- octave-5.2.0/doc/interpreter/octave.texi.orig	2023-01-13 16:12:46.594017567 +0100
++++ octave-5.2.0/doc/interpreter/octave.texi	2023-01-13 16:18:36.975452722 +0100
 @@ -24,9 +24,9 @@
  
  @include macros.texi
@@ -11,7 +11,7 @@
 +* Octave: (octave).			Interactive language for numerical computations
  @end direntry
  
- @c Settings for printing on 8-1/2 by 11 inch paper (default):
+ @c Settings for appearance of example blocks
 --- octave-4.4.1/doc/liboctave/liboctave.texi.orig	2022-12-13 16:54:33.097243262 +0100
 +++ octave-4.4.1/doc/liboctave/liboctave.texi	2022-12-13 16:58:39.255909706 +0100
 @@ -20,9 +20,9 @@

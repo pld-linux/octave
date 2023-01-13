@@ -23,36 +23,34 @@ Summary(ru.UTF-8):	GNU Octave - Язык высокого уровня для в
 Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
-Version:	4.4.1
+Version:	5.2.0
 Release:	1
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
 Source0:	https://ftp.gnu.org/gnu/octave/%{name}-%{version}.tar.lz
-# Source0-md5:	e0d9556caafd83e4276af49b06c5c994
+# Source0-md5:	3c621e85026d4a807f5639901a41ae71
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-build.patch
-Patch2:		%{name}-suitesparse.patch
 Patch3:		octdirs.patch
-Patch4:		%{name}-c++.patch
 Patch5:		%{name}-no-tex-docs.patch
 Patch6:		%{name}-qthelp-texinfo7.patch
 URL:		http://www.octave.org/
 # TODO: SUNDIALS NVECTOR, IDA libraries
-BuildRequires:	AMD-devel >= 2.4.0
-BuildRequires:	CAMD-devel
-BuildRequires:	CCOLAMD-devel
-BuildRequires:	CHOLMOD-devel >= 2.2.0
-BuildRequires:	COLAMD-devel
-# CXSparse >= 2.2, but package has version 0
-BuildRequires:	CXSparse-devel
 BuildRequires:	GraphicsMagick-c++-devel
-BuildRequires:	KLU-devel
 BuildRequires:	Mesa-libOSMesa-devel >= 9.0.0
 BuildRequires:	OpenGL-devel
 BuildRequires:	OpenGL-GLU-devel
-BuildRequires:	UMFPACK-devel
+BuildRequires:	SuiteSparse-AMD-devel >= 2.4.0
+BuildRequires:	SuiteSparse-CAMD-devel
+BuildRequires:	SuiteSparse-CCOLAMD-devel
+BuildRequires:	SuiteSparse-CHOLMOD-devel >= 2.2.0
+BuildRequires:	SuiteSparse-COLAMD-devel
+BuildRequires:	SuiteSparse-CXSparse-devel >= 2.2.0
+BuildRequires:	SuiteSparse-KLU-devel
+BuildRequires:	SuiteSparse-UMFPACK-devel
+BuildRequires:	SuiteSparse-config-devel
 # arpack-ng >= 3.3.0
 BuildRequires:	arpack-devel >= 2.1-8
 BuildRequires:	autoconf >= 2.63
@@ -103,13 +101,13 @@ BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	zlib-devel
 %if %{with gui}
 %if %{with qt4}
-BuildRequires:	QtCore-devel >= 4
-BuildRequires:	QtGui-devel >= 4
-BuildRequires:	QtNetwork-devel >= 4
+BuildRequires:	QtCore-devel >= 4.8
+BuildRequires:	QtGui-devel >= 4.8
+BuildRequires:	QtNetwork-devel >= 4.8
 BuildRequires:	qscintilla2-qt4-devel >= 2.6.0
-BuildRequires:	qt4-assistant >= 4
-BuildRequires:	qt4-build >= 4
-BuildRequires:	qt4-linguist >= 4
+BuildRequires:	qt4-assistant >= 4.8
+BuildRequires:	qt4-build >= 4.8
+BuildRequires:	qt4-linguist >= 4.8
 %else
 BuildRequires:	Qt5Core-devel >= 5
 BuildRequires:	Qt5Gui-devel >= 5
@@ -124,14 +122,15 @@ BuildRequires:	qt5-linguist >= 5
 %endif
 %endif
 Requires(post,postun):	/sbin/ldconfig
-Requires:	AMD >= 2.4.0
-Requires:	CHOLMOD >= 2.2.0
+Requires:	SuiteSparse-AMD >= 2.4.0
+Requires:	SuiteSparse-CHOLMOD >= 2.2.0
+Requires:	SuiteSparse-CXSparse >= 2.2.0
 Requires:	freetype >= 2.0.9
 Requires:	gnuplot
 Suggests:	GraphicsMagick
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		api_dir		api-v52
+%define		api_dir		api-v53
 
 %description
 GNU Octave is a high-level language, primarily intended for numerical
@@ -350,7 +349,27 @@ Summary:	Header files and devel docs for Octave
 Summary(pl.UTF-8):	Pliki nagłówkowe i dodatkowa dokumentacja Octave
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	SuiteSparse-AMD-devel >= 2.4.0
+Requires:	SuiteSparse-CAMD-devel
+Requires:	SuiteSparse-CCOLAMD-devel
+Requires:	SuiteSparse-CHOLMOD-devel >= 2.2.0
+Requires:	SuiteSparse-COLAMD-devel
+Requires:	SuiteSparse-CXSparse-devel >= 2.2.0
+Requires:	SuiteSparse-KLU-devel
+Requires:	SuiteSparse-UMFPACK-devel
+Requires:	SuiteSparse-config-devel
+Requires:	arpack-devel >= 2.1-8
+Requires:	blas-devel
+Requires:	curl-devel
+Requires:	fftw3-devel
+Requires:	fftw3-single-devel
+Requires:	gcc-fortran >= 6:4.0
 Requires:	hdf5-devel >= 1.6.0
+Requires:	lapack-devel >= 3.1.1-3
+Requires:	ncurses-devel >= 5.0
+Requires:	pcre-devel
+Requires:	qrupdate-devel
+Requires:	readline-devel
 
 %description devel
 Header files and devel docs for Octave.
@@ -362,9 +381,7 @@ Pliki nagłówkowe i dodatkowa dokumentacja Octave.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 %patch3 -p1
-%patch4 -p1
 %patch5 -p1
 %patch6 -p1
 
@@ -380,18 +397,12 @@ export CLASSPATH=.
 # but gets only qt4 (QtCore, QtGui, QtNetwork) libraries;
 # pass qt4 tools for consistency (qt5 tools refer to e.g. Qt5 specific headers)
 %configure \
+%if %{with qt4}
 	MOC=moc-qt4 \
 	UIC=uic-qt4 \
 	RCC=rcc \
 	LRELEASE=lrelease-qt4 \
-	--with-amd-includedir=%{_includedir}/amd \
-	--with-camd-includedir=%{_includedir}/camd \
-	--with-cholmod-includedir=%{_includedir}/cholmod \
-	--with-colamd-includedir=%{_includedir}/colamd \
-	--with-ccolamd-includedir=%{_includedir}/ccolamd \
-	--with-cxsparse-includedir=%{_includedir}/cxsparse \
-	--with-umfpack-includedir=%{_includedir}/umfpack \
-	--enable-dl \
+%endif
 	%{?with_gui:--with-qt=%{?with_qt4:4}%{!?with_qt4:5}} \
 	%{!?with_gui:--disable-gui} \
 	%{!?with_java:--disable-java} \
@@ -454,9 +465,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/octave-cli
 %attr(755,root,root) %{_bindir}/octave-cli-%{version}
 %attr(755,root,root) %{_libdir}/liboctave.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctave.so.6
+%attr(755,root,root) %ghost %{_libdir}/liboctave.so.7
 %attr(755,root,root) %{_libdir}/liboctinterp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctinterp.so.6
+%attr(755,root,root) %ghost %{_libdir}/liboctinterp.so.7
 %if "%{_libexecdir}" != "%{_libdir}"
 %dir %{_libexecdir}/octave
 %dir %{_libexecdir}/octave/%{version}
@@ -507,6 +518,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/octave/%{version}/imagelib
 %dir %{_datadir}/octave/%{version}/m
 %{_datadir}/octave/%{version}/m/+containers
+%{_datadir}/octave/%{version}/m/+matlab
 %{_datadir}/octave/%{version}/m/@ftp
 %{_datadir}/octave/%{version}/m/audio
 %{_datadir}/octave/%{version}/m/deprecated
@@ -517,6 +529,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/octave/%{version}/m/help
 %{_datadir}/octave/%{version}/m/image
 %{_datadir}/octave/%{version}/m/io
+%{_datadir}/octave/%{version}/m/legacy
 %{_datadir}/octave/%{version}/m/linear-algebra
 %{_datadir}/octave/%{version}/m/miscellaneous
 %{_datadir}/octave/%{version}/m/ode
@@ -553,8 +566,9 @@ rm -rf $RPM_BUILD_ROOT
 %files gui
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/liboctgui.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctgui.so.4
+%attr(755,root,root) %ghost %{_libdir}/liboctgui.so.5
 %attr(755,root,root) %{_libexecdir}/octave/%{version}/exec/*-pld-linux-gnu*/octave-gui
+%attr(755,root,root) %{_libexecdir}/octave/%{version}/exec/*-pld-linux-gnu*/octave-svgconvert
 %dir %{_datadir}/octave/%{version}/doc
 %{_datadir}/octave/%{version}/doc/octave_interpreter.qch
 %{_datadir}/octave/%{version}/doc/octave_interpreter.qhc
@@ -571,6 +585,7 @@ rm -rf $RPM_BUILD_ROOT
 %lang(fr) %{_datadir}/octave/%{version}/locale/fr_FR.qm
 %lang(it) %{_datadir}/octave/%{version}/locale/it_IT.qm
 %lang(ja) %{_datadir}/octave/%{version}/locale/ja_JP.qm
+%lang(lt) %{_datadir}/octave/%{version}/locale/lt_LT.qm
 %lang(nl) %{_datadir}/octave/%{version}/locale/nl_NL.qm
 %lang(pt_BR) %{_datadir}/octave/%{version}/locale/pt_BR.qm
 %lang(pt) %{_datadir}/octave/%{version}/locale/pt_PT.qm
@@ -596,6 +611,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/octave-config-%{version}
 %attr(755,root,root) %{_libdir}/liboctave.so
 %attr(755,root,root) %{_libdir}/liboctinterp.so
-%{_includedir}/%{name}
+%{_includedir}/octave
+%{_pkgconfigdir}/octave.pc
+%{_pkgconfigdir}/octinterp.pc
 %{_mandir}/man1/octave-config.1*
 %{_infodir}/liboctave.info*
