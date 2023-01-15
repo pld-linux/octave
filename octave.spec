@@ -23,20 +23,20 @@ Summary(ru.UTF-8):	GNU Octave - Язык высокого уровня для в
 Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
-Version:	5.2.0
+Version:	6.4.0
 Release:	1
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
 Source0:	https://ftp.gnu.org/gnu/octave/%{name}-%{version}.tar.lz
-# Source0-md5:	3c621e85026d4a807f5639901a41ae71
+# Source0-md5:	10ff993735afadcf0fcf1bd68e9e1fb3
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-build.patch
 Patch3:		octdirs.patch
 Patch5:		%{name}-no-tex-docs.patch
 Patch6:		%{name}-qthelp-texinfo7.patch
-URL:		http://www.octave.org/
+URL:		https://www.octave.org/
 # TODO: SUNDIALS NVECTOR, IDA libraries
 BuildRequires:	GraphicsMagick-c++-devel
 BuildRequires:	Mesa-libOSMesa-devel >= 9.0.0
@@ -51,10 +51,9 @@ BuildRequires:	SuiteSparse-CXSparse-devel >= 2.2.0
 BuildRequires:	SuiteSparse-KLU-devel
 BuildRequires:	SuiteSparse-UMFPACK-devel
 BuildRequires:	SuiteSparse-config-devel
-# arpack-ng >= 3.3.0
-BuildRequires:	arpack-devel >= 2.1-8
-BuildRequires:	autoconf >= 2.63
-BuildRequires:	automake >= 1:1.11
+BuildRequires:	arpack-ng-devel >= 3.3.0
+BuildRequires:	autoconf >= 2.65
+BuildRequires:	automake >= 1:1.14
 #BuildRequires:	bison >= 1.31
 BuildRequires:	blas-devel
 BuildRequires:	bzip2-devel
@@ -130,7 +129,7 @@ Requires:	gnuplot
 Suggests:	GraphicsMagick
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		api_dir		api-v53
+%define		api_dir		api-v56
 
 %description
 GNU Octave is a high-level language, primarily intended for numerical
@@ -358,7 +357,7 @@ Requires:	SuiteSparse-CXSparse-devel >= 2.2.0
 Requires:	SuiteSparse-KLU-devel
 Requires:	SuiteSparse-UMFPACK-devel
 Requires:	SuiteSparse-config-devel
-Requires:	arpack-devel >= 2.1-8
+Requires:	arpack-ng-devel >= 3.3.0
 Requires:	blas-devel
 Requires:	curl-devel
 Requires:	fftw3-devel
@@ -465,9 +464,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/octave-cli
 %attr(755,root,root) %{_bindir}/octave-cli-%{version}
 %attr(755,root,root) %{_libdir}/liboctave.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctave.so.7
+%attr(755,root,root) %ghost %{_libdir}/liboctave.so.8
 %attr(755,root,root) %{_libdir}/liboctinterp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctinterp.so.7
+%attr(755,root,root) %ghost %{_libdir}/liboctinterp.so.9
 %if "%{_libexecdir}" != "%{_libdir}"
 %dir %{_libexecdir}/octave
 %dir %{_libexecdir}/octave/%{version}
@@ -550,6 +549,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/octave/%{version}/m/strings
 %{_datadir}/octave/%{version}/m/testfun
 %{_datadir}/octave/%{version}/m/time
+%{_datadir}/octave/%{version}/m/web
 %ghost %{_datadir}/octave/octave_packages
 %dir %{_datadir}/octave/%{version}/site
 %dir %{_datadir}/octave/%{version}/site/m
@@ -566,7 +566,7 @@ rm -rf $RPM_BUILD_ROOT
 %files gui
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/liboctgui.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctgui.so.5
+%attr(755,root,root) %ghost %{_libdir}/liboctgui.so.6
 %attr(755,root,root) %{_libexecdir}/octave/%{version}/exec/*-pld-linux-gnu*/octave-gui
 %attr(755,root,root) %{_libexecdir}/octave/%{version}/exec/*-pld-linux-gnu*/octave-svgconvert
 %dir %{_datadir}/octave/%{version}/doc
