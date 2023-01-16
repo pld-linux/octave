@@ -124,6 +124,7 @@ Requires(post,postun):	/sbin/ldconfig
 Requires:	SuiteSparse-AMD >= 2.4.0
 Requires:	SuiteSparse-CHOLMOD >= 2.2.0
 Requires:	SuiteSparse-CXSparse >= 2.2.0
+Requires:	arpack-ng >= 3.3.0
 Requires:	freetype >= 2.0.9
 Requires:	gnuplot
 Suggests:	GraphicsMagick
