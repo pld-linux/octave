@@ -37,7 +37,7 @@ Patch3:		octdirs.patch
 Patch5:		%{name}-no-tex-docs.patch
 Patch6:		%{name}-qthelp-texinfo7.patch
 URL:		https://www.octave.org/
-# TODO: SUNDIALS NVECTOR, IDA libraries
+# TODO: SUNDIALS NVECTOR, IDA libraries (sundials < 6 as of octave 6.4.0)
 BuildRequires:	GraphicsMagick-c++-devel
 BuildRequires:	Mesa-libOSMesa-devel >= 9.0.0
 BuildRequires:	OpenGL-devel
