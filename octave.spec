@@ -23,21 +23,21 @@ Summary(ru.UTF-8):	GNU Octave - Язык высокого уровня для в
 Summary(sv.UTF-8):	GNU Octave - ett högninvåspråk för numeriska beräkningar
 Summary(zh_CN.UTF-8):	GNU Octave - 用于数字计算的高级语言。
 Name:		octave
-Version:	6.4.0
-Release:	2
+Version:	7.3.0
+Release:	1
 Epoch:		2
 License:	GPL v3+
 Group:		Applications/Math
 Source0:	https://ftp.gnu.org/gnu/octave/%{name}-%{version}.tar.lz
-# Source0-md5:	10ff993735afadcf0fcf1bd68e9e1fb3
+# Source0-md5:	20c51e5945625aef00659193c6434f39
 Source1:	%{name}.desktop
 Patch0:		%{name}-info.patch
-Patch1:		%{name}-build.patch
 Patch3:		octdirs.patch
 Patch5:		%{name}-no-tex-docs.patch
 Patch6:		%{name}-qthelp-texinfo7.patch
 URL:		https://www.octave.org/
 # TODO: SUNDIALS NVECTOR, IDA libraries (sundials < 6 as of octave 6.4.0)
+# or ImageMagick-c++-devel with --with-magick=Magick++
 BuildRequires:	GraphicsMagick-c++-devel
 BuildRequires:	Mesa-libOSMesa-devel >= 9.0.0
 BuildRequires:	OpenGL-devel
@@ -49,12 +49,13 @@ BuildRequires:	SuiteSparse-CHOLMOD-devel >= 2.2.0
 BuildRequires:	SuiteSparse-COLAMD-devel
 BuildRequires:	SuiteSparse-CXSparse-devel >= 2.2.0
 BuildRequires:	SuiteSparse-KLU-devel
+BuildRequires:	SuiteSparse-SPQR-devel
 BuildRequires:	SuiteSparse-UMFPACK-devel
 BuildRequires:	SuiteSparse-config-devel
 BuildRequires:	arpack-ng-devel >= 3.3.0
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake >= 1:1.14
-#BuildRequires:	bison >= 1.31
+#BuildRequires:	bison >= 3.0
 BuildRequires:	blas-devel
 BuildRequires:	bzip2-devel
 BuildRequires:	curl-devel
@@ -72,7 +73,7 @@ BuildRequires:	gl2ps-devel
 BuildRequires:	glpk-devel >= 4.14
 BuildRequires:	gnuplot
 #BuildRequires:	gperf >= 3.0.1
-BuildRequires:	hdf5-devel >= 1.6.0
+BuildRequires:	hdf5-devel >= 1.8.0
 %{?with_java:BuildRequires:	jdk >= 1.5}
 BuildRequires:	lapack-devel >= 3.1.1-3
 %{?with_openmp:BuildRequires:	libgomp-devel}
@@ -85,11 +86,10 @@ BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	pcre-devel
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
-BuildRequires:	portaudio-devel
+BuildRequires:	portaudio-devel >= 19
 BuildRequires:	qhull-devel >= 2011.1
-# this octave version doesn't check for libqhull_r instead of libqhull
-BuildRequires:	qhull-devel < 2020
 BuildRequires:	qrupdate-devel
+BuildRequires:	rapidjson-devel >= 1.1.1
 BuildRequires:	readline-devel
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
@@ -130,7 +130,7 @@ Requires:	gnuplot
 Suggests:	GraphicsMagick
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		api_dir		api-v56
+%define		api_dir		api-v57
 
 %description
 GNU Octave is a high-level language, primarily intended for numerical
@@ -364,7 +364,7 @@ Requires:	curl-devel
 Requires:	fftw3-devel
 Requires:	fftw3-single-devel
 Requires:	gcc-fortran >= 6:4.0
-Requires:	hdf5-devel >= 1.6.0
+Requires:	hdf5-devel >= 1.8.0
 Requires:	lapack-devel >= 3.1.1-3
 Requires:	ncurses-devel >= 5.0
 Requires:	pcre-devel
@@ -380,7 +380,6 @@ Pliki nagłówkowe i dodatkowa dokumentacja Octave.
 %prep
 %setup -q
 %patch -P0 -p1
-%patch -P1 -p1
 %patch -P3 -p1
 %patch -P5 -p1
 %patch -P6 -p1
@@ -403,6 +402,7 @@ export CLASSPATH=.
 	RCC=rcc \
 	LRELEASE=lrelease-qt4 \
 %endif
+	PYTHON=%{__python3} \
 	%{?with_gui:--with-qt=%{?with_qt4:4}%{!?with_qt4:5}} \
 	%{!?with_gui:--disable-gui} \
 	%{!?with_java:--disable-java} \
@@ -465,9 +465,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/octave-cli
 %attr(755,root,root) %{_bindir}/octave-cli-%{version}
 %attr(755,root,root) %{_libdir}/liboctave.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctave.so.8
+%attr(755,root,root) %ghost %{_libdir}/liboctave.so.9
 %attr(755,root,root) %{_libdir}/liboctinterp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctinterp.so.9
+%attr(755,root,root) %ghost %{_libdir}/liboctinterp.so.10
 %if "%{_libexecdir}" != "%{_libdir}"
 %dir %{_libexecdir}/octave
 %dir %{_libexecdir}/octave/%{version}
@@ -507,6 +507,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/octave/%{version}
 %dir %{_datadir}/octave/%{version}/data
 %{_datadir}/octave/%{version}/data/penny.mat
+%{_datadir}/octave/%{version}/data/west0479.mat
 %dir %{_datadir}/octave/%{version}/etc
 %{_datadir}/octave/%{version}/etc/CITATION
 %{_datadir}/octave/%{version}/etc/NEWS
@@ -567,13 +568,12 @@ rm -rf $RPM_BUILD_ROOT
 %files gui
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/liboctgui.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liboctgui.so.6
+%attr(755,root,root) %ghost %{_libdir}/liboctgui.so.8
 %attr(755,root,root) %{_libexecdir}/octave/%{version}/exec/*-pld-linux-gnu*/octave-gui
 %attr(755,root,root) %{_libexecdir}/octave/%{version}/exec/*-pld-linux-gnu*/octave-svgconvert
 %dir %{_datadir}/octave/%{version}/doc
 %{_datadir}/octave/%{version}/doc/octave_interpreter.qch
 %{_datadir}/octave/%{version}/doc/octave_interpreter.qhc
-%{_datadir}/octave/%{version}/etc/default-qt-settings
 # TODO: FreeSans*.otf - use system?
 %{_datadir}/octave/%{version}/fonts
 %dir %{_datadir}/octave/%{version}/locale
@@ -584,6 +584,7 @@ rm -rf $RPM_BUILD_ROOT
 %lang(es) %{_datadir}/octave/%{version}/locale/es_ES.qm
 %lang(eu) %{_datadir}/octave/%{version}/locale/eu_ES.qm
 %lang(fr) %{_datadir}/octave/%{version}/locale/fr_FR.qm
+%lang(hu) %{_datadir}/octave/%{version}/locale/hu_HU.qm
 %lang(it) %{_datadir}/octave/%{version}/locale/it_IT.qm
 %lang(ja) %{_datadir}/octave/%{version}/locale/ja_JP.qm
 %lang(lt) %{_datadir}/octave/%{version}/locale/lt_LT.qm
@@ -591,6 +592,7 @@ rm -rf $RPM_BUILD_ROOT
 %lang(pt_BR) %{_datadir}/octave/%{version}/locale/pt_BR.qm
 %lang(pt) %{_datadir}/octave/%{version}/locale/pt_PT.qm
 %lang(ru) %{_datadir}/octave/%{version}/locale/ru_RU.qm
+%lang(tr) %{_datadir}/octave/%{version}/locale/tr_TR.qm
 %lang(uk) %{_datadir}/octave/%{version}/locale/uk_UA.qm
 %lang(zh_CN) %{_datadir}/octave/%{version}/locale/zh_CN.qm
 %{_datadir}/metainfo/org.octave.Octave.appdata.xml
