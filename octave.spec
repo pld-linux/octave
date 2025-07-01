@@ -39,7 +39,6 @@ URL:		https://www.octave.org/
 # TODO: SUNDIALS NVECTOR, IDA libraries (sundials < 6 as of octave 6.4.0)
 # or ImageMagick-c++-devel with --with-magick=Magick++
 BuildRequires:	GraphicsMagick-c++-devel
-BuildRequires:	Mesa-libOSMesa-devel >= 9.0.0
 BuildRequires:	OpenGL-devel
 BuildRequires:	OpenGL-GLU-devel
 BuildRequires:	SuiteSparse-AMD-devel >= 2.4.0
