@@ -36,7 +36,6 @@ Patch3:		octdirs.patch
 Patch5:		%{name}-no-tex-docs.patch
 Patch6:		%{name}-qthelp-texinfo7.patch
 URL:		https://www.octave.org/
-# TODO: SUNDIALS NVECTOR, IDA libraries (sundials < 6 as of octave 6.4.0)
 # or ImageMagick-c++-devel with --with-magick=Magick++
 BuildRequires:	GraphicsMagick-c++-devel
 BuildRequires:	OpenGL-devel
@@ -91,6 +90,8 @@ BuildRequires:	qrupdate-devel
 BuildRequires:	rapidjson-devel >= 1.1.1
 BuildRequires:	readline-devel
 BuildRequires:	sed >= 4.0
+# SUNDIALS NVECTOR, IDA libraries 6.x for octave 7.x
+BuildRequires:	sundials-devel >= 6
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	texinfo
 BuildRequires:	texinfo-texi2dvi
